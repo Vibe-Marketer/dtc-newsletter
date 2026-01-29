@@ -1,78 +1,163 @@
-# Project State
+# Project State: DTC Newsletter Automation System
 
-## Current Position
-
-Phase: 4 of 4 (Polish)
-Plan: 0 of ? (not yet planned)
-Status: Phase 3 complete, ready for Phase 4
-Last activity: 2026-01-23 — Completed Phase 3 (Example Workflows)
-
-Progress: ████████████████████░ 75% (3/4 phases complete)
+**Last Updated:** 2026-01-29
+**Current Phase:** Not started
+**Status:** Planning complete, ready for Phase 1
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2025-01-23)
+See: `.planning/PROJECT.md` (updated 2026-01-29)
 
-**Core value:** Someone clones this, opens it in Claude Code, and can immediately start building workflows that persist.
-**Current focus:** Fix bugs, restructure docs, add examples, polish for release.
+**Core value:** Every week, a complete newsletter draft appears with real trending data, proven format, and a high-value digital product — requiring zero manual research or writing.
 
-## Accumulated Context
+**Current focus:** Phase 1 - Foundation
 
-### Decisions Made
+---
 
-| ID | Phase-Plan | Decision | Date |
-|----|------------|----------|------|
-| D1 | 01-research | CLAUDE.md is canonical source of truth (not AGENTS.md) | 2026-01-23 |
-| D2 | 01-research | Python 3.10+ required (modern syntax) | 2026-01-23 |
-| D3 | 01-research | Aggressive doc consolidation: README + CLAUDE.md + REFERENCE.md only | 2026-01-23 |
-| D4 | 01-research | Two example workflows: one simple (no API), one simple API pattern | 2026-01-23 |
-| D5 | 01-02 | CLAUDE.md established as canonical source in all documentation | 2026-01-23 |
-| D6 | 01-02 | Python 3.10+ minimum version documented to match code | 2026-01-23 |
-| D7 | 02-01 | REFERENCE.md organized by topic, not by source file | 2026-01-23 |
-| D8 | 02-01 | Setup content reserved for README, not REFERENCE.md | 2026-01-23 |
-| D9 | 02-02 | Getting Started presents template/fork/clone options, template first | 2026-01-23 |
-| D10 | 02-02 | FRAMEWORK.md changelog ref moved to directive's own Changelog | 2026-01-23 |
-| D11 | 03-01 | File utility example uses standard library only (no external deps) | 2026-01-23 |
-| D12 | 03-01 | Output to stdout by default, file via --output flag | 2026-01-23 |
-| D13 | 03-02 | Validate API key at startup before making request (cleaner UX) | 2026-01-23 |
-| D14 | 03-02 | Import requests after validation to show pattern clearly | 2026-01-23 |
-| D15 | 03-03 | Example links placed after REFERENCE.md, before templates in Learn More | 2026-01-23 |
+## Phase Status
 
-### Phase 1 Completed
+| Phase | Name | Status | Progress | Notes |
+|-------|------|--------|----------|-------|
+| 1 | Foundation | Pending | 0% | Storage + Reddit + outlier scoring |
+| 2 | Core Sources | Pending | 0% | TubeLab + YouTube + Perplexity |
+| 3 | Stretch Sources | Pending | 0% | TikTok/Twitter/Amazon (best effort) |
+| 4 | Newsletter Engine | Pending | 0% | 5-section generator + voice |
+| 5 | Affiliate System | Pending | 0% | Top 3 affiliates + top 3 products |
+| 6 | Product Factory | Pending | 0% | Pain points → products |
+| 7 | Pipeline Integration | Pending | 0% | Orchestration + ops |
+| 8 | Manual Execution | Pending | 0% | 8 newsletters + 8 products |
+| 9 | Automation | Pending | 0% | GitHub Actions |
 
-All Phase 1 issues fixed:
-1. `--add-learning` works (Remember section added + sync script parsing fixed)
-2. Canonical source = CLAUDE.md in all docs
-3. Python version = 3.10+ in all docs
-4. requirements.txt created with python-dotenv
+**Overall Progress:** 0/9 phases complete
 
-### Phase 2 Completed
+---
 
-Documentation restructure complete:
-1. REFERENCE.md created (610 lines) consolidating FRAMEWORK.md, ARCHITECTURE.md, SETUP.md, QUICKSTART.md
-2. README.md simplified to 89 lines with Getting Started section
-3. 5 redundant docs deleted: SETUP.md, QUICKSTART.md, ARCHITECTURE.md, FRAMEWORK.md, MIGRATION.md
-4. Only 5 markdown files in root: AGENTS.md, CLAUDE.md, GEMINI.md, README.md, REFERENCE.md
+## Requirements Progress
 
-### Phase 3 Completed
+### Content Aggregation (13 total)
+- Completed: 0
+- In Progress: 0
+- Pending: 13
 
-Example workflows complete and verified:
-1. Plan 01: CSV to JSON converter (file utility, no API, demonstrates directive + script pattern)
-2. Plan 02: Weather lookup (API example, demonstrates dotenv + environment variable pattern)
-3. Plan 03: README references (gap closure — added example links to Learn More section)
+### Newsletter Generation (9 total)
+- Completed: 0
+- In Progress: 0
+- Pending: 9
 
-All 8/8 must-haves verified. Both examples functional with matching version tags.
+### Monetization (4 total)
+- Completed: 0
+- In Progress: 0
+- Pending: 4
 
-### Remaining Issues (Phase 4)
-- `.gitignore` doesn't preserve `.tmp/.gitkeep`
-- Cost tracking env vars defined but unused
-- Import path wrong in template comments
+### Product Factory (12 total)
+- Completed: 0
+- In Progress: 0
+- Pending: 12
 
-### Blockers
+### Output & Delivery (4 total)
+- Completed: 0
+- In Progress: 0
+- Pending: 4
+
+### Operations (5 total)
+- Completed: 0
+- In Progress: 0
+- Pending: 5
+
+### Initial Execution (4 total)
+- Completed: 0
+- In Progress: 0
+- Pending: 4
+
+**Total:** 0/49 requirements complete
+
+---
+
+## Active Decisions
+
+| Decision | Options | Chosen | Date |
+|----------|---------|--------|------|
+| Beehiiv integration | API vs Copy/paste | Copy/paste | 2026-01-29 |
+| Voice profile | Hormozi vs Suby vs Hybrid | Hybrid | 2026-01-29 |
+| Twitter/X approach | Paid API vs Apify | Apify (stretch) | 2026-01-29 |
+| Product focus | Easy first vs Hard first | Hard first | 2026-01-29 |
+| Affiliate list | Provided vs Discovered | Discovered | 2026-01-29 |
+
+---
+
+## Blockers
+
 None currently.
 
-## Session Continuity
+---
 
-Last session: 2026-01-23
-Stopped at: Completed Phase 3 verification
-Resume file: None
+## API Keys Required
+
+| Service | Status | Required For |
+|---------|--------|--------------|
+| Reddit (PRAW) | Not configured | Phase 1 |
+| TubeLab | Not configured | Phase 2 |
+| Perplexity | Not configured | Phase 2 |
+| Anthropic (Claude) | Not configured | Phase 4 |
+| Google Sheets | Not configured | Phase 6 |
+| Apify | Not configured | Phase 3 (stretch) |
+
+---
+
+## Content Buffer
+
+| Week | Topic | Newsletter | Product | Status |
+|------|-------|------------|---------|--------|
+| 1 | TBD | - | - | Not started |
+| 2 | TBD | - | - | Not started |
+| 3 | TBD | - | - | Not started |
+| 4 | TBD | - | - | Not started |
+| 5 | TBD | - | - | Not started |
+| 6 | TBD | - | - | Not started |
+| 7 | TBD | - | - | Not started |
+| 8 | TBD | - | - | Not started |
+
+---
+
+## Cost Tracking
+
+| Phase | Estimated | Actual | Notes |
+|-------|-----------|--------|-------|
+| 1 | $0 | - | Reddit API is free |
+| 2 | $5-10 | - | TubeLab + Perplexity |
+| 3 | $0-5 | - | Apify if used |
+| 4 | $5-10 | - | Claude for generation |
+| 5 | $2-5 | - | Research calls |
+| 6 | $10-20 | - | Product generation |
+| 7 | $0 | - | Integration only |
+| 8 | $20-40 | - | 8x full pipeline runs |
+| 9 | $0 | - | GitHub Actions free tier |
+
+**Total Estimated:** $42-90 for initial build + 8 executions
+
+---
+
+## Session Log
+
+### 2026-01-29: Project Initialization
+- Completed deep questioning phase
+- Defined voice profile (Hormozi/Suby hybrid)
+- Confirmed no Beehiiv API (copy/paste workflow)
+- Set stretch goals for TikTok/Twitter/Amazon
+- Product Factory to prioritize hard stuff (HTML tools, automations)
+- Affiliate discovery weekly (no starting list)
+- Created PROJECT.md, REQUIREMENTS.md, ROADMAP.md, STATE.md
+- Research completed: STACK.md, FEATURES.md, ARCHITECTURE.md, PITFALLS.md
+- Ready for Phase 1 execution
+
+---
+
+## Next Actions
+
+1. Run `/gsd-plan-phase 1` to create detailed plan for Foundation phase
+2. Configure Reddit API credentials in `.env`
+3. Begin Phase 1 implementation
+
+---
+*State initialized: 2026-01-29*
+*Last updated: 2026-01-29*
