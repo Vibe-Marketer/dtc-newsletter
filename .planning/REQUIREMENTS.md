@@ -118,11 +118,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | AGGR-01 | Phase 2 | Pending |
-| AGGR-02 | Phase 1 | Pending |
+| AGGR-02 | Phase 1 | Complete* |
 | AGGR-03 | Phase 2 | Pending |
-| AGGR-04 | Phase 1 | Pending |
-| AGGR-05 | Phase 1 | Pending |
-| AGGR-06 | Phase 1 | Pending |
+| AGGR-04 | Phase 1 | Complete |
+| AGGR-05 | Phase 1 | Complete |
+| AGGR-06 | Phase 1 | Complete |
 | AGGR-07 | Phase 2 | Pending |
 | AGGR-08 | Phase 2 | Pending |
 | AGGR-09 | Phase 2 | Pending |
@@ -174,6 +174,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 - Mapped to phases: 49
 - Unmapped: 0
 
+**Notes:**
+- *Complete** = Code complete, live API testing deferred pending credentials
+
 ---
 *Requirements defined: 2026-01-29*
-*Last updated: 2026-01-29 after initial definition*
+*Last updated: 2026-01-29 - Phase 1 requirements complete*
