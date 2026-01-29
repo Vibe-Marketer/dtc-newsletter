@@ -2,7 +2,7 @@
 
 **Last Updated:** 2026-01-29
 **Current Phase:** 1 of 9 (Foundation)
-**Status:** In progress - 1/3 plans complete
+**Status:** In progress - 2/3 plans complete
 
 ## Project Reference
 
@@ -18,7 +18,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 
 | Phase | Name | Status | Progress | Notes |
 |-------|------|--------|----------|-------|
-| 1 | Foundation | In progress | 33% | Storage + Reddit + outlier scoring |
+| 1 | Foundation | In progress | 66% | Storage + Reddit complete (live API deferred) |
 | 2 | Core Sources | Pending | 0% | TubeLab + YouTube + Perplexity |
 | 3 | Stretch Sources | Pending | 0% | TikTok/Twitter/Amazon (best effort) |
 | 4 | Newsletter Engine | Pending | 0% | 5-section generator + voice |
@@ -84,12 +84,15 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 | Affiliate list | Provided vs Discovered | Discovered | 2026-01-29 |
 | Recency boost | Exponential vs Linear decay | Linear (7 days) | 2026-01-29 |
 | Engagement modifiers | Multiplicative vs Additive | Additive then multiply | 2026-01-29 |
+| Reddit live testing | Now vs Deferred | Deferred (code ready) | 2026-01-29 |
 
 ---
 
 ## Blockers
 
-None currently.
+| Blocker | Impact | Resolution |
+|---------|--------|------------|
+| Reddit API credentials | Live testing deferred | Code ready, integrate when credentials available |
 
 ---
 
@@ -158,14 +161,22 @@ None currently.
 - 29 tests passing
 - Commits: c4dd42b (setup), b66c205 (scoring)
 
+### 2026-01-29: Phase 1 Plan 02 Complete
+- Completed 01-02-PLAN.md (Reddit fetcher + storage)
+- Created reddit_fetcher.py with PRAW integration and scoring
+- Created storage.py for JSON caching with metadata
+- All tests passing with mocks (80+ total)
+- Live API verification deferred pending credentials
+- Commits: ab9b65a (fetcher), 02f9adf (storage)
+
 ---
 
 ## Next Actions
 
-1. Execute 01-02-PLAN.md (Reddit fetcher + storage modules)
-2. Configure Reddit API credentials in `.env`
-3. Continue Phase 1 implementation
+1. Execute 01-03-PLAN.md (if exists) or proceed to Phase 2
+2. Configure Reddit API credentials in `.env` when ready
+3. Consider starting Phase 2 (TubeLab + YouTube + Perplexity)
 
 ---
 *State initialized: 2026-01-29*
-*Last updated: 2026-01-29T19:50:33Z*
+*Last updated: 2026-01-29T21:15:00Z*
