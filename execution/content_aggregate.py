@@ -11,8 +11,12 @@ Orchestrates the full Reddit content aggregation workflow:
 """
 
 import argparse
+import os
 import sys
 from datetime import datetime, timezone
+
+# Add parent directory to path for direct script execution
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from execution.reddit_fetcher import fetch_all_subreddits, TARGET_SUBREDDITS
 from execution.storage import save_reddit_posts, get_cache_stats
