@@ -2,7 +2,7 @@
 
 **Last Updated:** 2026-01-31
 **Current Phase:** 3 of 9 (Stretch Sources)
-**Status:** Phase 3 In Progress - 1/3 plans complete (Plan 01 just completed)
+**Status:** Phase 3 In Progress - 2/3 plans complete (Plan 02 just completed)
 
 ## Project Reference
 
@@ -10,7 +10,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 
 **Core value:** Every week, a complete newsletter draft appears with real trending data, proven format, and a high-value digital product — requiring zero manual research or writing.
 
-**Current focus:** Phase 3 - Stretch Sources (Twitter/X aggregator complete)
+**Current focus:** Phase 3 - Stretch Sources (Twitter + TikTok + Amazon complete)
 
 ---
 
@@ -20,7 +20,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 |-------|------|--------|----------|-------|
 | 1 | Foundation | Complete | 100% | DOE pipeline crystallized (live API deferred) |
 | 2 | Core Sources | In progress | 25% | Plan 02 complete (Perplexity + Deduplication) |
-| 3 | Stretch Sources | In progress | 33% | Twitter complete, TikTok/Amazon pending |
+| 3 | Stretch Sources | In progress | 67% | Twitter + TikTok + Amazon complete |
 | 4 | Newsletter Engine | Pending | 0% | 5-section generator + voice |
 | 5 | Affiliate System | Pending | 0% | Top 3 affiliates + top 3 products |
 | 6 | Product Factory | Pending | 0% | Pain points → products |
@@ -89,6 +89,8 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 | Dedup hash algorithm | SHA vs MD5 | MD5 (fast, sufficient) | 2026-01-31 |
 | Twitter scoring boost | Static vs Quote-based | Quote boost 1.3x | 2026-01-31 |
 | Stretch source caching | No cache vs TTL cache | 24-hour TTL cache | 2026-01-31 |
+| TikTok commerce boost | Static vs Commerce-weighted | 1.5x for commerce videos | 2026-01-31 |
+| Amazon scoring weights | Equal vs Velocity-weighted | 30% position + 70% velocity | 2026-01-31 |
 
 ---
 
@@ -196,14 +198,22 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 - 18 tests passing for Twitter module
 - Commits: ae9c76f (apify foundation), 30a9729 (twitter aggregator)
 
+### 2026-01-31: Phase 3 Plan 02 Complete
+- Completed 03-02-PLAN.md (TikTok + Amazon aggregators)
+- Created tiktok_aggregate.py with commerce detection and 1.5x boost
+- Created amazon_aggregate.py with velocity-weighted scoring (30%/70%)
+- DOE directives for both with matching version 2026.01.31
+- 34 tests passing (18 TikTok + 16 Amazon)
+- Commits: a46f5f4 (TikTok), f195166 (Amazon)
+
 ---
 
 ## Next Actions
 
-1. Continue Phase 3 - Plan 02 (TikTok aggregator)
-2. Configure APIFY_TOKEN in `.env` for live Twitter testing
+1. Continue Phase 3 - Plan 03 (Stretch source integration + graceful degradation)
+2. Configure APIFY_TOKEN in `.env` for live testing
 3. Configure PERPLEXITY_API_KEY in `.env` for Perplexity live testing
 
 ---
 *State initialized: 2026-01-29*
-*Last updated: 2026-01-31T12:44:40Z*
+*Last updated: 2026-01-31T12:46:15Z*
