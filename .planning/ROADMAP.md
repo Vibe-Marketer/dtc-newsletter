@@ -193,6 +193,12 @@ Plans:
 - `execution/affiliate_finder.py`
 - Sample output showing top 3 + top 3 format
 
+**Plans:** 2 plans in 2 waves
+
+Plans:
+- [ ] 05-01-PLAN.md — Affiliate discovery + pitch generator
+- [ ] 05-02-PLAN.md — Product alternatives + output formatter + DOE
+
 ---
 
 ## Phase 6: Product Factory
