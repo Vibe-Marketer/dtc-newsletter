@@ -2,7 +2,7 @@
 
 **Last Updated:** 2026-01-31
 **Current Phase:** 2 of 9 (Core Sources)
-**Status:** Phase 2 In Progress - 3/4 plans complete
+**Status:** Phase 2 Complete - 4/4 plans complete
 
 ## Project Reference
 
@@ -10,7 +10,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 
 **Core value:** Every week, a complete newsletter draft appears with real trending data, proven format, and a high-value digital product — requiring zero manual research or writing.
 
-**Current focus:** Phase 2 in progress - Plan 03 complete (YouTube + transcript fetchers), Plan 04 (integration) ready
+**Current focus:** Phase 2 complete - All 4 plans executed. Ready for Phase 4 (Newsletter Engine).
 
 ---
 
@@ -19,7 +19,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 | Phase | Name | Status | Progress | Notes |
 |-------|------|--------|----------|-------|
 | 1 | Foundation | Complete | 100% | DOE pipeline crystallized (live API deferred) |
-| 2 | Core Sources | In progress | 75% | Plan 01+02+03 complete (TubeLab decision + Perplexity + YouTube/Transcript) |
+| 2 | Core Sources | Complete | 100% | All 4 plans complete (TubeLab + Perplexity + YouTube + Integration) |
 | 3 | Stretch Sources | Complete | 100% | Orchestrator + integration complete |
 | 4 | Newsletter Engine | Pending | 0% | 5-section generator + voice |
 | 5 | Affiliate System | Pending | 0% | Top 3 affiliates + top 3 products |
@@ -28,16 +28,16 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 | 8 | Manual Execution | Pending | 0% | 8 newsletters + 8 products |
 | 9 | Automation | Pending | 0% | GitHub Actions |
 
-**Overall Progress:** 2/9 phases complete (Foundation + Stretch Sources)
+**Overall Progress:** 3/9 phases complete (Foundation + Core Sources + Stretch Sources)
 
 ---
 
 ## Requirements Progress
 
 ### Content Aggregation (13 total)
-- Completed: 6 (AGGR-04 outlier score, AGGR-05 engagement modifiers, AGGR-09 deduplication, AGGR-S01 TikTok, AGGR-S02 Twitter, AGGR-S03 Amazon)
+- Completed: 10 (AGGR-01 Reddit, AGGR-03 YouTube, AGGR-04 outlier score, AGGR-05 engagement modifiers, AGGR-07 Perplexity, AGGR-08 transcripts, AGGR-09 deduplication, AGGR-S01 TikTok, AGGR-S02 Twitter, AGGR-S03 Amazon)
 - In Progress: 0
-- Pending: 7
+- Pending: 3
 
 ### Newsletter Generation (9 total)
 - Completed: 0
@@ -55,9 +55,9 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 - Pending: 12
 
 ### Output & Delivery (4 total)
-- Completed: 0
+- Completed: 1 (OUTP-04 content sheet)
 - In Progress: 0
-- Pending: 4
+- Pending: 3
 
 ### Operations (5 total)
 - Completed: 0
@@ -69,7 +69,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 - In Progress: 0
 - Pending: 4
 
-**Total:** 6/49 requirements complete
+**Total:** 11/49 requirements complete
 
 ---
 
@@ -95,6 +95,9 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 | Stretch success criteria | All sources vs Any source | Any source (graceful degradation) | 2026-01-31 |
 | Stretch weight in merge | 1.0x vs Reduced | 0.8x (stretch less reliable) | 2026-01-31 |
 | TubeLab vs YouTube API | TubeLab only vs YouTube only vs Hybrid | Hybrid (TubeLab primary, YouTube fallback) | 2026-01-31 |
+| Virality output format | Prose vs Structured | Structured dict (AI-parseable) | 2026-01-31 |
+| Content sheet format | CSV vs JSON vs Both | Both (CSV + JSON default) | 2026-01-31 |
+| Hook type detection | Keyword-based priority | question > number > controversy > story > statement | 2026-01-31 |
 
 ---
 
@@ -235,15 +238,26 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 - 47 new tests (21 YouTube + 26 transcript), 238 total tests passing
 - Commits: aedc587 (YouTube fetcher), 09ebb24 (transcript fetcher)
 
+### 2026-01-31: Phase 2 Plan 04 Complete - PHASE 2 COMPLETE
+- Completed 02-04-PLAN.md (Core sources integration)
+- Created virality_analyzer.py with VIRALITY_SCHEMA for AI-parseable output
+- Created content_sheet.py for CSV + JSON content sheet generation
+- Updated content_aggregate.py to integrate all sources (Reddit, YouTube, Perplexity)
+- Added deduplication to main pipeline, new CLI options (--sources, --output-format, etc.)
+- Updated DOE directive to version 2026.01.31
+- 70 new tests (40 virality + 30 content sheet), 308 total tests passing
+- Commits: e54d1eb (virality), 23b1dc2 (content sheet), aa836b6 (integration)
+- Phase 2 Core Sources complete
+
 ---
 
 ## Next Actions
 
-1. Continue Phase 2 - Plan 04 (Core sources integration)
-2. Configure APIFY_TOKEN in `.env` for stretch source live testing
-3. Configure PERPLEXITY_API_KEY in `.env` for Perplexity live testing
-4. Phase 2 nearly complete - 1 plan remaining
+1. Begin Phase 4 (Newsletter Engine) - 5-section generator with voice profile
+2. Configure PERPLEXITY_API_KEY in `.env` for live Perplexity testing
+3. Configure APIFY_TOKEN in `.env` for stretch source live testing
+4. Configure REDDIT credentials for live Reddit testing
 
 ---
 *State initialized: 2026-01-29*
-*Last updated: 2026-01-31T13:17:00Z*
+*Last updated: 2026-01-31T13:25:00Z*
