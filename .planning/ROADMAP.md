@@ -284,10 +284,19 @@ Plans:
 7. All DOE patterns followed (version matching, directive linking)
 
 **Deliverables:**
-- Updated `execution/newsletter_generate.py` (full orchestrator)
+- `execution/cost_tracker.py` (cost calculation and logging)
+- `execution/pipeline_runner.py` (full orchestrator)
+- `execution/output_manager.py` (newsletter output organization)
+- `directives/pipeline_runner.md` (DOE directive)
 - Cost logging integrated throughout
 - Error handling tested for each failure mode
-- Documentation of recovery procedures
+
+**Plans:** 3 plans in 3 waves
+
+Plans:
+- [ ] 07-01-PLAN.md — Cost tracking module + persistent logging
+- [ ] 07-02-PLAN.md — Pipeline orchestrator with graceful degradation
+- [ ] 07-03-PLAN.md — Output organization + notifications + DOE
 
 ---
 
