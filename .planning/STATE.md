@@ -2,7 +2,7 @@
 
 **Last Updated:** 2026-01-31
 **Current Phase:** 5 of 9 (Affiliate System)
-**Status:** Phase 5 In Progress - Plan 01 Complete
+**Status:** Phase 5 Complete
 
 ## Project Reference
 
@@ -10,7 +10,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 
 **Core value:** Every week, a complete newsletter draft appears with real trending data, proven format, and a high-value digital product — requiring zero manual research or writing.
 
-**Current focus:** Phase 5 in progress - Affiliate discovery and pitch generation complete. Ready for product alternatives module.
+**Current focus:** Phase 5 complete - Affiliate discovery, pitch generation, product alternatives, and DOE crystallization done. Ready for Phase 6 Product Factory.
 
 ---
 
@@ -22,13 +22,13 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 | 2 | Core Sources | Complete | 100% | All 4 plans complete (TubeLab + Perplexity + YouTube + Integration) |
 | 3 | Stretch Sources | Complete | 100% | Orchestrator + integration complete |
 | 4 | Newsletter Engine | Complete | 100% | All 4 plans complete (orchestrator + DOE) |
-| 5 | Affiliate System | In Progress | 50% | Plan 01 complete (discovery + pitches) |
+| 5 | Affiliate System | Complete | 100% | Discovery + pitches + products + DOE |
 | 6 | Product Factory | Pending | 0% | Pain points → products |
 | 7 | Pipeline Integration | Pending | 0% | Orchestration + ops |
 | 8 | Manual Execution | Pending | 0% | 8 newsletters + 8 products |
 | 9 | Automation | Pending | 0% | GitHub Actions |
 
-**Overall Progress:** 4/9 phases complete (Foundation + Core Sources + Stretch Sources + Newsletter Engine)
+**Overall Progress:** 5/9 phases complete (Foundation + Core Sources + Stretch Sources + Newsletter Engine + Affiliate System)
 
 ---
 
@@ -45,9 +45,9 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 - Pending: 3
 
 ### Monetization (4 total)
-- Completed: 2 (MON-01 affiliate discovery, MON-02 pitch generation)
+- Completed: 4 (MON-01 affiliate discovery, MON-02 pitch generation, MON-03 product alternatives, MON-04 output formatter)
 - In Progress: 0
-- Pending: 2
+- Pending: 0
 
 ### Product Factory (12 total)
 - Completed: 0
@@ -69,7 +69,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 - In Progress: 0
 - Pending: 4
 
-**Total:** 19/49 requirements complete
+**Total:** 21/49 requirements complete
 
 ---
 
@@ -103,6 +103,9 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 | Subject line style | Single vs Rotation | 70/20/10 rotation (curiosity/benefit/question) | 2026-01-31 |
 | Subject line format | Flexible vs Strict | "DTC Money Minute #X: hook" <50 chars, lowercase | 2026-01-31 |
 | Preview text | Generic vs Hook | Must be hook (40-90 chars), never "View in browser" | 2026-01-31 |
+| Product ranking | Equal vs Weighted | Value/complexity ratio (high value + low complexity = best) | 2026-01-31 |
+| Perplexity fallback | Fail vs Retry | Retry once, then generic pain points | 2026-01-31 |
+| DOE version matching | Optional vs Required | Required with --verify-version flag | 2026-01-31 |
 
 ---
 
@@ -306,15 +309,27 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 - 61 new tests (36 affiliate + 25 pitch), 623 total tests passing
 - Commits: dfc6edd (affiliate discovery), 34ae781 (pitch generator)
 
+### 2026-01-31: Phase 5 Plan 02 Complete - PHASE 5 COMPLETE
+- Completed 05-02-PLAN.md (Product alternatives + Output formatter + DOE)
+- Created product_alternatives.py with two-stage generation (Perplexity + Claude)
+- ProductIdea model with value/complexity ranking
+- Created monetization_output.py with unified affiliate/product formatting
+- Tables + expanded details matching CONTEXT.md spec
+- Created affiliate_finder.py CLI orchestrator
+- DOE directive directives/affiliate_finder.md with version 2026.01.31
+- 53 new tests (28 product + 25 output), 676 total tests passing
+- Commits: 740b587 (product alternatives), 56c16bb (output formatter), 0aa4944 (CLI + DOE)
+- Phase 5 Affiliate System complete
+
 ---
 
 ## Next Actions
 
-1. Continue Phase 5 - Execute 05-02-PLAN.md (Product alternatives module)
+1. Start Phase 6 - Execute 06-01-PLAN.md (Product Factory)
 2. Configure PERPLEXITY_API_KEY in `.env` for live Perplexity testing
 3. Configure APIFY_TOKEN in `.env` for stretch source live testing
 4. Configure REDDIT credentials for live Reddit testing
 
 ---
 *State initialized: 2026-01-29*
-*Last updated: 2026-01-31T14:00:00Z*
+*Last updated: 2026-01-31T15:07:01Z*
