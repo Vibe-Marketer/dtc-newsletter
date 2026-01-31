@@ -248,6 +248,16 @@ Plans:
 - `data/product_templates/` with base templates
 - Sample product in `output/products/`
 
+**Plans:** 6 plans in 4 waves
+
+Plans:
+- [ ] 06-01-PLAN.md — Pain point miner + base generator class
+- [ ] 06-02-PLAN.md — HTML tool + automation generators
+- [ ] 06-03-PLAN.md — GPT config + prompt pack generators
+- [ ] 06-04-PLAN.md — PDF + Google Sheets generators
+- [ ] 06-05-PLAN.md — Sales copy + pricing + product packager
+- [ ] 06-06-PLAN.md — Product factory orchestrator + DOE
+
 ---
 
 ## Phase 7: Pipeline Integration
