@@ -1,8 +1,8 @@
 # Project State: DTC Newsletter Automation System
 
 **Last Updated:** 2026-01-31
-**Current Phase:** 2 of 9 (Core Sources)
-**Status:** Phase 2 In Progress - 1/4 plans complete (Plan 02 just completed)
+**Current Phase:** 3 of 9 (Stretch Sources)
+**Status:** Phase 3 In Progress - 1/3 plans complete (Plan 01 just completed)
 
 ## Project Reference
 
@@ -10,7 +10,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 
 **Core value:** Every week, a complete newsletter draft appears with real trending data, proven format, and a high-value digital product — requiring zero manual research or writing.
 
-**Current focus:** Phase 2 - Core Sources (Perplexity + Deduplication complete)
+**Current focus:** Phase 3 - Stretch Sources (Twitter/X aggregator complete)
 
 ---
 
@@ -20,7 +20,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 |-------|------|--------|----------|-------|
 | 1 | Foundation | Complete | 100% | DOE pipeline crystallized (live API deferred) |
 | 2 | Core Sources | In progress | 25% | Plan 02 complete (Perplexity + Deduplication) |
-| 3 | Stretch Sources | Pending | 0% | TikTok/Twitter/Amazon (best effort) |
+| 3 | Stretch Sources | In progress | 33% | Twitter complete, TikTok/Amazon pending |
 | 4 | Newsletter Engine | Pending | 0% | 5-section generator + voice |
 | 5 | Affiliate System | Pending | 0% | Top 3 affiliates + top 3 products |
 | 6 | Product Factory | Pending | 0% | Pain points → products |
@@ -87,6 +87,8 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 | Reddit live testing | Now vs Deferred | Deferred (code ready) | 2026-01-29 |
 | Perplexity SDK | Native vs OpenAI-compat | OpenAI-compatible | 2026-01-31 |
 | Dedup hash algorithm | SHA vs MD5 | MD5 (fast, sufficient) | 2026-01-31 |
+| Twitter scoring boost | Static vs Quote-based | Quote boost 1.3x | 2026-01-31 |
+| Stretch source caching | No cache vs TTL cache | 24-hour TTL cache | 2026-01-31 |
 
 ---
 
@@ -186,14 +188,22 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 - 41 tests passing (17 perplexity + 24 deduplication)
 - Commits: 89df773 (perplexity client), d47edae (deduplication)
 
+### 2026-01-31: Phase 3 Plan 01 Complete
+- Completed 03-01-PLAN.md (Apify Foundation + Twitter)
+- Created apify_base.py with retry, caching, graceful degradation
+- Created twitter_aggregate.py with composite scoring (engagement + quote boost)
+- Created DOE directive directives/twitter_aggregate.md
+- 18 tests passing for Twitter module
+- Commits: ae9c76f (apify foundation), 30a9729 (twitter aggregator)
+
 ---
 
 ## Next Actions
 
-1. Configure PERPLEXITY_API_KEY in `.env` to enable live testing
-2. Continue Phase 2 - Plan 01 (TubeLab research) or Plan 03 (YouTube integration)
-3. Configure Reddit API credentials in `.env` for Phase 1 live testing
+1. Continue Phase 3 - Plan 02 (TikTok aggregator)
+2. Configure APIFY_TOKEN in `.env` for live Twitter testing
+3. Configure PERPLEXITY_API_KEY in `.env` for Perplexity live testing
 
 ---
 *State initialized: 2026-01-29*
-*Last updated: 2026-01-31T11:23:42Z*
+*Last updated: 2026-01-31T12:44:40Z*
