@@ -1,94 +1,96 @@
 # TubeLab API Research
 
 **Researched:** 2026-01-31
+**Updated:** 2026-01-31 (API discovered)
 **Status:** Complete
 
 ## Summary
 
-TubeLab is a YouTube analytics tool that provides outlier detection for creators. After research, **no public API was found**. The tool appears to be a web-only SaaS product without developer/programmatic access.
+TubeLab is a YouTube analytics tool that provides outlier detection for creators. **A public API IS available** at `https://public-api.tubelab.net/v1`.
 
 ## API Availability
 
-**Status: No public API available**
+**Status: Public API available**
 
-### Research Findings
+### API Details
 
-| Aspect | Finding |
+| Aspect | Details |
 |--------|---------|
-| Website | https://www.tubelab.app (JavaScript-required SPA) |
-| API Documentation | None found |
-| Developer Portal | None found |
-| API Endpoints | Not available |
-| Authentication | N/A (web login only) |
+| Base URL | `https://public-api.tubelab.net/v1` |
+| Documentation | https://tubelab.net/docs/api |
+| Authentication | `Authorization: Api-Key <key>` header |
+| Rate Limit | 10 requests/minute |
+| Billing | Credits-based (subscription required) |
 
-### Verification Attempts
+### Key Endpoints
 
-1. **Direct website access** - Returns "This site requires JavaScript" - no static content or API docs exposed
-2. **Common API paths** - /api, /docs, /developer - all redirect to main SPA
-3. **Prior research (02-RESEARCH.md)** - Noted as LOW confidence, website requires JavaScript
-4. **Search for "TubeLab API"** - No developer documentation or integration guides found
+| Endpoint | Cost | Description |
+|----------|------|-------------|
+| `GET /search/outliers?query=ecommerce` | 5 credits | Search for outlier videos by topic |
+| `GET /search/outliers/related` | 5 credits | Find related outlier content |
+| `GET /video/transcript/{id}` | TBD | Get video transcript |
+| `GET /channel/videos/{id}` | TBD | Get channel videos |
+
+### Authentication
+
+```bash
+curl -H "Authorization: Api-Key YOUR_KEY" \
+  "https://public-api.tubelab.net/v1/search/outliers?query=ecommerce"
+```
 
 ## Pricing Information
 
-**Status: No public pricing found via web fetch**
+**Status: Credits-based subscription**
 
-TubeLab pricing cannot be retrieved programmatically. Based on tool category (YouTube analytics), typical SaaS pricing would be:
-- Free tier: Limited features/channels
-- Paid tiers: $15-50/month for creator tools
+- Requires TubeLab subscription with API credits
+- Each outlier search costs 5 credits
+- Exact pricing tiers available at https://tubelab.net/pricing
 
-**User action required:** Visit https://www.tubelab.app/pricing directly to view current pricing.
+## Correction from Initial Research
 
-## What TubeLab Offers (Based on Product Description)
-
-- YouTube analytics for creators
-- "Outlier detection" - identifies videos performing above channel average
-- Competitor tracking
-- Video performance insights
+Initial research (web fetch) incorrectly concluded no API existed because:
+1. TubeLab.app (the web app) is a JavaScript SPA that doesn't expose API docs
+2. The API lives on a different domain (`tubelab.net` vs `tubelab.app`)
+3. API documentation is at `tubelab.net/docs/api`, not on the main app
 
 ## Recommendation
 
-**Use YouTube Data API fallback**
+**Use TubeLab API as primary source with YouTube Data API as fallback**
 
 ### Rationale
 
-1. **No public API** - TubeLab does not expose a developer API for programmatic access
-2. **Web-only tool** - Designed for manual use via browser, not automation
-3. **YouTube Data API alternative** - Google's official API provides video statistics and channel data needed to calculate outlier scores manually
+1. **TubeLab provides pre-built outlier detection** - No need to calculate scores manually
+2. **Rate limit manageable** - 10 requests/minute is sufficient for weekly newsletter
+3. **YouTube Data API as fallback** - If TubeLab credits exhausted or API unavailable, fall back to manual scoring
+4. **Hybrid approach** - Best of both worlds: convenience of TubeLab + reliability of YouTube fallback
 
 ### Implementation Path
 
-1. Use YouTube Data API v3 for video/channel data
-2. Calculate outlier scores using existing `execution/scoring.py` pattern:
-   - Fetch last 50 videos per channel to calculate channel average views
-   - For new videos: `outlier_score = views / channel_avg * recency * modifiers`
-3. Same formula already implemented in Phase 1 for Reddit
+**Primary: TubeLab API**
+1. Use `/search/outliers?query=<topic>` to find trending videos
+2. Outlier scores provided directly by API
+3. 10 requests/minute rate limit - add delays between calls
 
-### YouTube Data API Details
+**Fallback: YouTube Data API**
+1. If TubeLab fails (rate limit, credits exhausted, API error)
+2. Use YouTube Data API v3 for video/channel data
+3. Calculate outlier scores using existing `execution/scoring.py` pattern
+
+### YouTube Data API Details (Fallback)
 
 | Aspect | Details |
 |--------|---------|
 | API | YouTube Data API v3 |
-| Auth | API key (simple) or OAuth (for user data) |
+| Auth | API key |
 | Free Tier | 10,000 units/day |
 | Search Cost | 100 units per request |
-| Video List Cost | 1 unit per video (up to 50 per request) |
 | Documentation | https://developers.google.com/youtube/v3 |
-
-### Quota Calculation for Our Use Case
-
-| Operation | Units | Frequency | Daily Cost |
-|-----------|-------|-----------|------------|
-| Search for recent videos | 100 | 10 channels | 1,000 |
-| Get video details | 1 | 100 videos | 100 |
-| Get channel stats | 1 | 10 channels | 10 |
-| **Total** | - | - | ~1,110 units/day |
-
-Fits comfortably within 10,000 unit free tier.
 
 ## Conclusion
 
-TubeLab is a valuable tool for manual YouTube research, but lacks API access for automation. The YouTube Data API provides all necessary data to replicate TubeLab's outlier detection functionality programmatically, using the same scoring pattern already implemented for Reddit in Phase 1.
+TubeLab's public API provides exactly what we need: outlier detection for YouTube videos. Using it as the primary source with YouTube Data API as fallback provides both convenience (pre-built scores) and reliability (Google's infrastructure as backup).
 
 ---
 *Research completed: 2026-01-31*
-*Recommendation: YouTube Data API fallback*
+*Research corrected: 2026-01-31*
+*Recommendation: TubeLab primary, YouTube Data API fallback*
