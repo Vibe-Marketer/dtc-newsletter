@@ -1,8 +1,8 @@
 # Project State: DTC Newsletter Automation System
 
-**Last Updated:** 2026-01-31T19:41:52Z
+**Last Updated:** 2026-01-31T20:03:10Z
 **Current Phase:** 7 of 9 (Pipeline Integration)
-**Status:** In Progress (1/3 plans complete)
+**Status:** In Progress (2/3 plans complete)
 
 ## Project Reference
 
@@ -10,7 +10,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 
 **Core value:** Every week, a complete newsletter draft appears with real trending data, proven format, and a high-value digital product — requiring zero manual research or writing.
 
-**Current focus:** Phase 7 in progress - Cost tracker module complete. Ready for 07-02 Pipeline Orchestrator.
+**Current focus:** Phase 7 in progress - Pipeline orchestrator complete. Ready for 07-03 Output Organization.
 
 ---
 
@@ -24,7 +24,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 | 4 | Newsletter Engine | Complete | 100% | All 4 plans complete (orchestrator + DOE) |
 | 5 | Affiliate System | Complete | 100% | Discovery + pitches + products + DOE |
 | 6 | Product Factory | Complete | 100% | Factory orchestrator + DOE directive |
-| 7 | Pipeline Integration | In Progress | 33% | 1/3 plans complete (cost tracker) |
+| 7 | Pipeline Integration | In Progress | 67% | 2/3 plans complete (cost tracker + orchestrator) |
 | 8 | Manual Execution | Pending | 0% | 8 newsletters + 8 products |
 | 9 | Automation | Pending | 0% | GitHub Actions |
 
@@ -403,11 +403,21 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 - 29 new tests covering all cost tracker functionality
 - Commits: a57eeaa (cost_tracker module), ec29ab9 (tests)
 
+### 2026-01-31: Phase 7 Plan 02 Complete
+- Completed 07-02-PLAN.md (Pipeline orchestrator)
+- Created pipeline_runner.py with full orchestration of content, newsletter, affiliates
+- Graceful degradation: pipeline continues if sources fail (warnings logged)
+- Tenacity retry for Claude API calls (3x with exponential backoff 1s/2s/4s)
+- PipelineResult dataclass with success, costs, warnings, errors
+- CLI with -q, -v, --topic, --skip-affiliates, --include-stretch, --dry-run
+- 30 new tests covering all stages and edge cases, 1043 total tests passing
+- Commits: 68031d7 (pipeline_runner), e3e93ed (tests)
+
 ---
 
 ## Next Actions
 
-1. Continue Phase 7 - Execute 07-02-PLAN.md (Pipeline orchestrator)
+1. Continue Phase 7 - Execute 07-03-PLAN.md (Output organization + DOE)
 2. Configure GOOGLE_SERVICE_ACCOUNT_JSON for online Sheets creation
 3. Configure PERPLEXITY_API_KEY in `.env` for live Perplexity testing
 4. Configure APIFY_TOKEN in `.env` for stretch source live testing
@@ -415,4 +425,4 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 
 ---
 *State initialized: 2026-01-29*
-*Last updated: 2026-01-31T19:41:52Z*
+*Last updated: 2026-01-31T20:03:10Z*
