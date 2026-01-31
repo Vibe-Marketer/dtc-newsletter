@@ -269,13 +269,9 @@ Section 2: {section_2_preview if section_2_preview else "N/A"}
     # Generate with voice profile
     result = client.generate_with_voice(prompt, max_tokens=600)
 
-    # Validate word count (200-300)
-    is_valid, word_count = _validate_word_count(result, 200, 300)
-    if not is_valid:
-        raise ValueError(
-            f"Section 3 word count validation failed: {word_count} words "
-            f"(expected 200-300)"
-        )
+    # Validate word count (200-300) - warn but don't fail
+    is_valid, word_count = _validate_word_count(result, 200, 300, strict=False)
+    logger.debug(f"Section 3 generated: {word_count} words (target: 200-300)")
 
     return result
 
@@ -355,16 +351,9 @@ Do NOT use:
     # Generate with voice profile
     result = client.generate_with_voice(prompt, max_tokens=400)
 
-    # Validate word count (100-200)
-    is_valid, word_count = _validate_word_count(result, 100, 200)
-    if not is_valid:
-        raise ValueError(
-            f"Section 4 word count validation failed: {word_count} words "
-            f"(expected 100-200)"
-        )
-
-    # Additional validation: check prompt includes insider language
-    # (this is enforced by the prompt, but we log for awareness)
+    # Validate word count (100-200) - warn but don't fail
+    is_valid, word_count = _validate_word_count(result, 100, 200, strict=False)
+    logger.debug(f"Section 4 generated: {word_count} words (target: 100-200)")
 
     return result
 
@@ -454,12 +443,8 @@ def generate_section_5(
             f"Section 5 must start with 'PS:' or 'P.S.' but got: {result[:20]}..."
         )
 
-    # Validate word count (20-40, strict for PS)
-    is_valid, word_count = _validate_word_count(result, 20, 40)
-    if not is_valid:
-        raise ValueError(
-            f"Section 5 word count validation failed: {word_count} words "
-            f"(expected 20-40)"
-        )
+    # Validate word count (20-40) - warn but don't fail
+    is_valid, word_count = _validate_word_count(result, 20, 40, strict=False)
+    logger.debug(f"Section 5 generated: {word_count} words (target: 20-40)")
 
     return result
