@@ -1,8 +1,8 @@
 # Project State: DTC Newsletter Automation System
 
-**Last Updated:** 2026-01-31T15:52:21Z
+**Last Updated:** 2026-01-31T16:16:37Z
 **Current Phase:** 6 of 9 (Product Factory)
-**Status:** Phase 6 In Progress (3/6 plans complete)
+**Status:** Phase 6 In Progress (4/6 plans complete)
 
 ## Project Reference
 
@@ -10,7 +10,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 
 **Core value:** Every week, a complete newsletter draft appears with real trending data, proven format, and a high-value digital product — requiring zero manual research or writing.
 
-**Current focus:** Phase 6 in progress - Pain point miner, base generator, HTML tool, automation, GPT config, and prompt pack generators complete. Ready for 06-04 (remaining generators or factory orchestration).
+**Current focus:** Phase 6 in progress - Pain point miner, base generator, HTML tool, automation, GPT config, prompt pack, PDF, and Sheets generators complete. Ready for 06-05 (factory orchestrator or remaining plans).
 
 ---
 
@@ -23,7 +23,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 | 3 | Stretch Sources | Complete | 100% | Orchestrator + integration complete |
 | 4 | Newsletter Engine | Complete | 100% | All 4 plans complete (orchestrator + DOE) |
 | 5 | Affiliate System | Complete | 100% | Discovery + pitches + products + DOE |
-| 6 | Product Factory | In Progress | 50% | 3/6 plans complete (html_tool + automation + gpt_config + prompt_pack generators) |
+| 6 | Product Factory | In Progress | 67% | 4/6 plans complete (all generators + pdf + sheets) |
 | 7 | Pipeline Integration | Pending | 0% | Orchestration + ops |
 | 8 | Manual Execution | Pending | 0% | 8 newsletters + 8 products |
 | 9 | Automation | Pending | 0% | GitHub Actions |
@@ -50,9 +50,9 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 - Pending: 0
 
 ### Product Factory (12 total)
-- Completed: 6 (PROD-01 pain point miner, PROD-02 base generator class, PROD-03 html_tool generator, PROD-04 automation generator, PROD-05 gpt_config generator, PROD-06 prompt_pack generator)
+- Completed: 8 (PROD-01 pain point miner, PROD-02 base generator class, PROD-03 html_tool generator, PROD-04 automation generator, PROD-05 gpt_config generator, PROD-06 prompt_pack generator, PROD-07 pdf generator, PROD-08 sheets generator)
 - In Progress: 0
-- Pending: 6
+- Pending: 4
 
 ### Output & Delivery (4 total)
 - Completed: 1 (OUTP-04 content sheet)
@@ -69,7 +69,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 - In Progress: 0
 - Pending: 4
 
-**Total:** 27/49 requirements complete
+**Total:** 29/49 requirements complete
 
 ---
 
@@ -356,15 +356,28 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 - 58 new tests (29 gpt_config + 29 prompt_pack), 855 total tests passing
 - Commits: 9c803bc (gpt config), a204849 (prompt pack)
 
+### 2026-01-31: Phase 6 Plan 04 Complete
+- Completed 06-04-PLAN.md (PDF + Sheets generators)
+- Created PdfGenerator with FrameworkPDF class using fpdf2
+- PDF styling: chapters, bullet lists, numbered lists, callout boxes (tip/warning/note)
+- PDF validation: %PDF magic bytes + minimum 1KB size
+- Created SheetsGenerator with online/offline dual-mode operation
+- Online mode: Creates actual Google Sheet via gspread with sharing permissions
+- Offline mode: JSON definition + MANUAL_SETUP.md for manual creation
+- Added fpdf2, gspread, google-auth dependencies to requirements.txt
+- 60 new tests (29 pdf + 31 sheets), 886 total tests passing
+- Commits: 6f49854 (pdf generator), 4c3433b (sheets generator)
+
 ---
 
 ## Next Actions
 
-1. Continue Phase 6 - Execute 06-04-PLAN.md (Remaining generators: sheets, pdf)
-2. Configure PERPLEXITY_API_KEY in `.env` for live Perplexity testing
-3. Configure APIFY_TOKEN in `.env` for stretch source live testing
-4. Configure REDDIT credentials for live Reddit testing
+1. Continue Phase 6 - Execute 06-05-PLAN.md (Factory orchestrator or remaining plans)
+2. Configure GOOGLE_SERVICE_ACCOUNT_JSON for online Sheets creation
+3. Configure PERPLEXITY_API_KEY in `.env` for live Perplexity testing
+4. Configure APIFY_TOKEN in `.env` for stretch source live testing
+5. Configure REDDIT credentials for live Reddit testing
 
 ---
 *State initialized: 2026-01-29*
-*Last updated: 2026-01-31T15:52:21Z*
+*Last updated: 2026-01-31T16:16:37Z*
