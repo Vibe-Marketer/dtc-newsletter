@@ -1,8 +1,8 @@
 # Project State: DTC Newsletter Automation System
 
 **Last Updated:** 2026-01-31
-**Current Phase:** 3 of 9 (Stretch Sources)
-**Status:** Phase 3 Complete - 3/3 plans complete
+**Current Phase:** 2 of 9 (Core Sources)
+**Status:** Phase 2 In Progress - 2/4 plans complete
 
 ## Project Reference
 
@@ -10,7 +10,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 
 **Core value:** Every week, a complete newsletter draft appears with real trending data, proven format, and a high-value digital product — requiring zero manual research or writing.
 
-**Current focus:** Phase 3 complete - Stretch Sources (orchestrator + integration done)
+**Current focus:** Phase 2 in progress - TubeLab API decision complete, Plan 03 (YouTube fetcher) ready
 
 ---
 
@@ -19,7 +19,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 | Phase | Name | Status | Progress | Notes |
 |-------|------|--------|----------|-------|
 | 1 | Foundation | Complete | 100% | DOE pipeline crystallized (live API deferred) |
-| 2 | Core Sources | In progress | 25% | Plan 02 complete (Perplexity + Deduplication) |
+| 2 | Core Sources | In progress | 50% | Plan 01+02 complete (TubeLab decision + Perplexity) |
 | 3 | Stretch Sources | Complete | 100% | Orchestrator + integration complete |
 | 4 | Newsletter Engine | Pending | 0% | 5-section generator + voice |
 | 5 | Affiliate System | Pending | 0% | Top 3 affiliates + top 3 products |
@@ -94,6 +94,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 | Stretch execution | Sequential vs Parallel | Parallel (ThreadPoolExecutor) | 2026-01-31 |
 | Stretch success criteria | All sources vs Any source | Any source (graceful degradation) | 2026-01-31 |
 | Stretch weight in merge | 1.0x vs Reduced | 0.8x (stretch less reliable) | 2026-01-31 |
+| TubeLab vs YouTube API | TubeLab only vs YouTube only vs Hybrid | Hybrid (TubeLab primary, YouTube fallback) | 2026-01-31 |
 
 ---
 
@@ -110,7 +111,8 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 | Service | Status | Required For |
 |---------|--------|--------------|
 | Reddit (PRAW) | Not configured | Phase 1 |
-| TubeLab | Not configured | Phase 2 |
+| TubeLab | Configured | Phase 2 |
+| YouTube Data API | Configured | Phase 2 (fallback) |
 | Perplexity | Not configured | Phase 2 |
 | Anthropic (Claude) | Not configured | Phase 4 |
 | Google Sheets | Not configured | Phase 6 |
@@ -218,15 +220,22 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 - Commits: cf69ae7 (orchestrator), 795ffc5 (integration)
 - Phase 3 Stretch Sources complete
 
+### 2026-01-31: Phase 2 Plan 01 Complete
+- Completed 02-01-PLAN.md (TubeLab research + API decision)
+- Corrected initial research: TubeLab DOES have public API at public-api.tubelab.net/v1
+- User configured BOTH TUBELAB_API_KEY and YOUTUBE_API_KEY
+- Decision: TubeLab primary, YouTube Data API fallback (hybrid approach)
+- Commits: c78126c (initial research), dfe996c (corrected research + decision)
+
 ---
 
 ## Next Actions
 
-1. Continue Phase 2 - Plan 01 (TubeLab research + API key)
+1. Continue Phase 2 - Plan 03 (YouTube fetcher with hybrid TubeLab/YouTube approach)
 2. Configure APIFY_TOKEN in `.env` for stretch source live testing
 3. Configure PERPLEXITY_API_KEY in `.env` for Perplexity live testing
-4. Or start Phase 4 (Newsletter Engine)
+4. Or continue to Plan 04 (integration)
 
 ---
 *State initialized: 2026-01-29*
-*Last updated: 2026-01-31T12:52:20Z*
+*Last updated: 2026-01-31T13:15:00Z*
