@@ -1,8 +1,8 @@
 # Project State: DTC Newsletter Automation System
 
 **Last Updated:** 2026-01-31
-**Current Phase:** 4 of 9 (Newsletter Engine)
-**Status:** Phase 4 In Progress - 3/4 plans complete
+**Current Phase:** 5 of 9 (Affiliate System)
+**Status:** Phase 4 Complete - Ready for Phase 5
 
 ## Project Reference
 
@@ -10,7 +10,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 
 **Core value:** Every week, a complete newsletter draft appears with real trending data, proven format, and a high-value digital product — requiring zero manual research or writing.
 
-**Current focus:** Phase 4 in progress - Plans 01-03 complete (Voice profile + Claude client + Content selector + Section generators). Ready for Plan 04.
+**Current focus:** Phase 4 complete - Full newsletter engine operational. Ready for Phase 5 (Affiliate System).
 
 ---
 
@@ -21,14 +21,14 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 | 1 | Foundation | Complete | 100% | DOE pipeline crystallized (live API deferred) |
 | 2 | Core Sources | Complete | 100% | All 4 plans complete (TubeLab + Perplexity + YouTube + Integration) |
 | 3 | Stretch Sources | Complete | 100% | Orchestrator + integration complete |
-| 4 | Newsletter Engine | In progress | 75% | Plans 01-03 complete (02 and 03 ran in parallel) |
+| 4 | Newsletter Engine | Complete | 100% | All 4 plans complete (orchestrator + DOE) |
 | 5 | Affiliate System | Pending | 0% | Top 3 affiliates + top 3 products |
 | 6 | Product Factory | Pending | 0% | Pain points → products |
 | 7 | Pipeline Integration | Pending | 0% | Orchestration + ops |
 | 8 | Manual Execution | Pending | 0% | 8 newsletters + 8 products |
 | 9 | Automation | Pending | 0% | GitHub Actions |
 
-**Overall Progress:** 3/9 phases complete (Foundation + Core Sources + Stretch Sources)
+**Overall Progress:** 4/9 phases complete (Foundation + Core Sources + Stretch Sources + Newsletter Engine)
 
 ---
 
@@ -40,9 +40,9 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 - Pending: 3
 
 ### Newsletter Generation (9 total)
-- Completed: 1 (NEWS-06 voice profile)
+- Completed: 6 (NEWS-01 5-section format, NEWS-02 subject lines, NEWS-03 preview text, NEWS-04 content selection, NEWS-05 orchestrator, NEWS-06 voice profile)
 - In Progress: 0
-- Pending: 8
+- Pending: 3
 
 ### Monetization (4 total)
 - Completed: 0
@@ -69,7 +69,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 - In Progress: 0
 - Pending: 4
 
-**Total:** 12/49 requirements complete
+**Total:** 17/49 requirements complete
 
 ---
 
@@ -100,6 +100,9 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 | Hook type detection | Keyword-based priority | question > number > controversy > story > statement | 2026-01-31 |
 | Claude model | GPT-4 vs Claude Sonnet | claude-sonnet-4-5 (cost/quality) | 2026-01-31 |
 | Voice profile caching | No cache vs Ephemeral | Ephemeral cache_control | 2026-01-31 |
+| Subject line style | Single vs Rotation | 70/20/10 rotation (curiosity/benefit/question) | 2026-01-31 |
+| Subject line format | Flexible vs Strict | "DTC Money Minute #X: hook" <50 chars, lowercase | 2026-01-31 |
+| Preview text | Generic vs Hook | Must be hook (40-90 chars), never "View in browser" | 2026-01-31 |
 
 ---
 
@@ -281,15 +284,26 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 - 29 tests covering all sections + integration
 - Commits: fc85c59 (section generators + tests)
 
+### 2026-01-31: Phase 4 Plan 04 Complete - PHASE 4 COMPLETE
+- Completed 04-04-PLAN.md (Subject lines, preview text, orchestrator)
+- Created subject_line_generator.py with 70/20/10 style rotation
+- Validation: <50 chars, lowercase after colon, no emojis, no ALL CAPS
+- Created newsletter_generator.py full orchestrator with CLI
+- Beehiiv-ready markdown output with metadata comments
+- DOE directive directives/newsletter_generate.md with version 2026.01.31
+- 64 tests (35 subject + 29 orchestrator), 562 total tests passing
+- Commits: 0e01deb (subject line), ca880a3 (orchestrator + DOE)
+- Phase 4 Newsletter Engine complete
+
 ---
 
 ## Next Actions
 
-1. Continue Phase 4 - Plan 04 (Newsletter orchestrator + Subject line generator)
+1. Begin Phase 5 - Affiliate System (Top 3 affiliates + Top 3 products)
 2. Configure PERPLEXITY_API_KEY in `.env` for live Perplexity testing
 3. Configure APIFY_TOKEN in `.env` for stretch source live testing
 4. Configure REDDIT credentials for live Reddit testing
 
 ---
 *State initialized: 2026-01-29*
-*Last updated: 2026-01-31T13:42:00Z*
+*Last updated: 2026-01-31T14:05:00Z*
