@@ -330,6 +330,14 @@ Plans:
 - 8 products in `output/products/`
 - Bug fixes and refinements documented
 
+**Plans:** 4 plans in 3 waves
+
+Plans:
+- [ ] 08-01-PLAN.md — Batch orchestrator + diversity filter + pre-flight checks
+- [ ] 08-02-PLAN.md — Generate 8 newsletters (sequential with validation)
+- [ ] 08-03-PLAN.md — Generate 8 products (sequential with validation)
+- [ ] 08-04-PLAN.md — Content calendar generation + DOE crystallization
+
 ---
 
 ## Phase 9: Automation
