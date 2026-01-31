@@ -2,7 +2,7 @@
 
 **Last Updated:** 2026-01-31
 **Current Phase:** 4 of 9 (Newsletter Engine)
-**Status:** Phase 4 In Progress - 3/4 plans complete (02 and 03 in parallel)
+**Status:** Phase 4 In Progress - 3/4 plans complete
 
 ## Project Reference
 
@@ -10,7 +10,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 
 **Core value:** Every week, a complete newsletter draft appears with real trending data, proven format, and a high-value digital product — requiring zero manual research or writing.
 
-**Current focus:** Phase 4 in progress - Plans 01-03 complete (Voice profile + Claude client + Section generators). Ready for Plan 04.
+**Current focus:** Phase 4 in progress - Plans 01-03 complete (Voice profile + Claude client + Content selector + Section generators). Ready for Plan 04.
 
 ---
 
@@ -259,6 +259,17 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 - 96 new tests (24 voice + 51 anti-pattern + 21 claude client)
 - Commits: 169d959 (voice + anti-pattern), df2cd22 (claude client)
 
+### 2026-01-31: Phase 4 Plan 02 Complete
+- Completed 04-02-PLAN.md (Content selector + Section 1 & 2 generators)
+- Created content_selector.py with outlier score prioritization
+- Diversity constraint: at least 2 different sources when possible
+- Content type detection: quotable, tactical, narrative
+- Updated section_generators.py with lenient word count validation
+- Section 1: 30-60 word instant reward hooks
+- Section 2: 300-500 word tactical content (THE MEAT)
+- 73 tests (44 content selector + 29 section generators)
+- Commits: bfb97c5 (content selector), d2f3dc0 (section generators update)
+
 ### 2026-01-31: Phase 4 Plan 03 Complete (parallel with Plan 02)
 - Completed 04-03-PLAN.md (Section generators 3, 4, 5)
 - Created section_generators.py with all 5 section generators
@@ -274,11 +285,11 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 
 ## Next Actions
 
-1. Continue Phase 4 - Plan 04 (Newsletter orchestrator)
+1. Continue Phase 4 - Plan 04 (Newsletter orchestrator + Subject line generator)
 2. Configure PERPLEXITY_API_KEY in `.env` for live Perplexity testing
 3. Configure APIFY_TOKEN in `.env` for stretch source live testing
 4. Configure REDDIT credentials for live Reddit testing
 
 ---
 *State initialized: 2026-01-29*
-*Last updated: 2026-01-31T13:41:00Z*
+*Last updated: 2026-01-31T13:42:00Z*
