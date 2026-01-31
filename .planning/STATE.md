@@ -2,7 +2,7 @@
 
 **Last Updated:** 2026-01-31
 **Current Phase:** 5 of 9 (Affiliate System)
-**Status:** Phase 4 Complete - Ready for Phase 5
+**Status:** Phase 5 In Progress - Plan 01 Complete
 
 ## Project Reference
 
@@ -10,7 +10,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 
 **Core value:** Every week, a complete newsletter draft appears with real trending data, proven format, and a high-value digital product — requiring zero manual research or writing.
 
-**Current focus:** Phase 4 complete - Full newsletter engine operational. Ready for Phase 5 (Affiliate System).
+**Current focus:** Phase 5 in progress - Affiliate discovery and pitch generation complete. Ready for product alternatives module.
 
 ---
 
@@ -22,7 +22,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 | 2 | Core Sources | Complete | 100% | All 4 plans complete (TubeLab + Perplexity + YouTube + Integration) |
 | 3 | Stretch Sources | Complete | 100% | Orchestrator + integration complete |
 | 4 | Newsletter Engine | Complete | 100% | All 4 plans complete (orchestrator + DOE) |
-| 5 | Affiliate System | Pending | 0% | Top 3 affiliates + top 3 products |
+| 5 | Affiliate System | In Progress | 50% | Plan 01 complete (discovery + pitches) |
 | 6 | Product Factory | Pending | 0% | Pain points → products |
 | 7 | Pipeline Integration | Pending | 0% | Orchestration + ops |
 | 8 | Manual Execution | Pending | 0% | 8 newsletters + 8 products |
@@ -45,9 +45,9 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 - Pending: 3
 
 ### Monetization (4 total)
-- Completed: 0
+- Completed: 2 (MON-01 affiliate discovery, MON-02 pitch generation)
 - In Progress: 0
-- Pending: 4
+- Pending: 2
 
 ### Product Factory (12 total)
 - Completed: 0
@@ -69,7 +69,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 - In Progress: 0
 - Pending: 4
 
-**Total:** 17/49 requirements complete
+**Total:** 19/49 requirements complete
 
 ---
 
@@ -295,15 +295,26 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 - Commits: 0e01deb (subject line), ca880a3 (orchestrator + DOE)
 - Phase 4 Newsletter Engine complete
 
+### 2026-01-31: Phase 5 Plan 01 Complete
+- Completed 05-01-PLAN.md (Affiliate discovery + Pitch generation)
+- Created affiliate_discovery.py with Perplexity-based program discovery
+- AffiliateProgram and AffiliateDiscoveryResult Pydantic models
+- Commission classifier with RESEARCH.md thresholds (excellent/good/mediocre/poor)
+- Created pitch_generator.py with Claude API (claude-sonnet-4-20250514)
+- Voice-matched pitches for Section 4 "Tool of the Week"
+- validate_pitch() checks fluff words, passive voice, sentence length
+- 61 new tests (36 affiliate + 25 pitch), 623 total tests passing
+- Commits: dfc6edd (affiliate discovery), 34ae781 (pitch generator)
+
 ---
 
 ## Next Actions
 
-1. Begin Phase 5 - Affiliate System (Top 3 affiliates + Top 3 products)
+1. Continue Phase 5 - Execute 05-02-PLAN.md (Product alternatives module)
 2. Configure PERPLEXITY_API_KEY in `.env` for live Perplexity testing
 3. Configure APIFY_TOKEN in `.env` for stretch source live testing
 4. Configure REDDIT credentials for live Reddit testing
 
 ---
 *State initialized: 2026-01-29*
-*Last updated: 2026-01-31T14:05:00Z*
+*Last updated: 2026-01-31T14:00:00Z*
