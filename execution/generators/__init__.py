@@ -10,11 +10,13 @@ from execution.generators.base_generator import (
     GeneratedProduct,
     ProductSpec,
 )
+from execution.generators.automation import AutomationGenerator
 from execution.generators.html_tool import HtmlToolGenerator
 
 __all__ = [
+    "AutomationGenerator",
     "BaseGenerator",
     "GeneratedProduct",
-    "ProductSpec",
     "HtmlToolGenerator",
+    "ProductSpec",
 ]
