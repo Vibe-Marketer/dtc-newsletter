@@ -2,7 +2,7 @@
 
 **Last Updated:** 2026-01-31
 **Current Phase:** 2 of 9 (Core Sources)
-**Status:** Phase 2 In Progress - 2/4 plans complete
+**Status:** Phase 2 In Progress - 3/4 plans complete
 
 ## Project Reference
 
@@ -10,7 +10,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 
 **Core value:** Every week, a complete newsletter draft appears with real trending data, proven format, and a high-value digital product — requiring zero manual research or writing.
 
-**Current focus:** Phase 2 in progress - TubeLab API decision complete, Plan 03 (YouTube fetcher) ready
+**Current focus:** Phase 2 in progress - Plan 03 complete (YouTube + transcript fetchers), Plan 04 (integration) ready
 
 ---
 
@@ -19,7 +19,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 | Phase | Name | Status | Progress | Notes |
 |-------|------|--------|----------|-------|
 | 1 | Foundation | Complete | 100% | DOE pipeline crystallized (live API deferred) |
-| 2 | Core Sources | In progress | 50% | Plan 01+02 complete (TubeLab decision + Perplexity) |
+| 2 | Core Sources | In progress | 75% | Plan 01+02+03 complete (TubeLab decision + Perplexity + YouTube/Transcript) |
 | 3 | Stretch Sources | Complete | 100% | Orchestrator + integration complete |
 | 4 | Newsletter Engine | Pending | 0% | 5-section generator + voice |
 | 5 | Affiliate System | Pending | 0% | Top 3 affiliates + top 3 products |
@@ -227,15 +227,23 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 - Decision: TubeLab primary, YouTube Data API fallback (hybrid approach)
 - Commits: c78126c (initial research), dfe996c (corrected research + decision)
 
+### 2026-01-31: Phase 2 Plan 03 Complete
+- Completed 02-03-PLAN.md (YouTube + Transcript fetchers)
+- Created youtube_fetcher.py with TubeLab API primary + YouTube Data API fallback
+- Created transcript_fetcher.py with rate limiting (1.5s delay) and error handling
+- Outlier scoring uses same formula as Reddit scoring
+- 47 new tests (21 YouTube + 26 transcript), 238 total tests passing
+- Commits: aedc587 (YouTube fetcher), 09ebb24 (transcript fetcher)
+
 ---
 
 ## Next Actions
 
-1. Continue Phase 2 - Plan 03 (YouTube fetcher with hybrid TubeLab/YouTube approach)
+1. Continue Phase 2 - Plan 04 (Core sources integration)
 2. Configure APIFY_TOKEN in `.env` for stretch source live testing
 3. Configure PERPLEXITY_API_KEY in `.env` for Perplexity live testing
-4. Or continue to Plan 04 (integration)
+4. Phase 2 nearly complete - 1 plan remaining
 
 ---
 *State initialized: 2026-01-29*
-*Last updated: 2026-01-31T13:15:00Z*
+*Last updated: 2026-01-31T13:17:00Z*
