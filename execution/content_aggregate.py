@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """
 Content aggregation pipeline for DTC Newsletter.
-DOE-VERSION: 2026.01.29
+DOE-VERSION: 2026.01.31
 
-Orchestrates the full Reddit content aggregation workflow:
-1. Fetches posts from target subreddits
-2. Calculates outlier scores
-3. Saves to cache
-4. Displays results with AI summary placeholders
+Orchestrates the full content aggregation workflow:
+1. Fetches posts from target subreddits (core source)
+2. Optionally fetches from stretch sources (Twitter, TikTok, Amazon)
+3. Calculates outlier scores
+4. Saves to cache
+5. Displays results with AI summary placeholders
 """
 
 import argparse
@@ -20,6 +21,17 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from execution.reddit_fetcher import fetch_all_subreddits, TARGET_SUBREDDITS
 from execution.storage import save_reddit_posts, get_cache_stats
+
+# Optional stretch sources import
+STRETCH_AVAILABLE = False
+_stretch_aggregate = None
+
+try:
+    from execution import stretch_aggregate as _stretch_aggregate
+
+    STRETCH_AVAILABLE = True
+except ImportError:
+    pass
 
 
 def parse_args() -> argparse.Namespace:
@@ -69,6 +81,12 @@ Examples:
         help="Show all posts instead of just top 10",
     )
 
+    parser.add_argument(
+        "--include-stretch",
+        action="store_true",
+        help="Include stretch sources (Twitter, TikTok, Amazon) - requires APIFY_TOKEN",
+    )
+
     return parser.parse_args()
 
 
@@ -113,6 +131,7 @@ def run_aggregation(
     subreddits: list[str] | None = None,
     save: bool = True,
     show_all: bool = False,
+    include_stretch: bool = False,
 ) -> dict:
     """
     Run the full content aggregation pipeline.
@@ -123,6 +142,7 @@ def run_aggregation(
         subreddits: List of subreddits to fetch from
         save: Whether to save results to cache
         show_all: Whether to show all posts or just top 10
+        include_stretch: Whether to include stretch sources (Twitter, TikTok, Amazon)
 
     Returns:
         Dictionary with aggregation results and stats
@@ -163,6 +183,27 @@ def run_aggregation(
         }
 
     print(f"Found {len(posts)} posts meeting threshold")
+
+    # Optionally include stretch sources
+    stretch_result = None
+    if include_stretch:
+        if not STRETCH_AVAILABLE or _stretch_aggregate is None:
+            print("\nStretch sources not available (missing modules)")
+        else:
+            print("\nFetching stretch sources...")
+            stretch_result = _stretch_aggregate.run_all_stretch_sources()
+            if stretch_result["success"]:
+                posts = _stretch_aggregate.merge_stretch_results(stretch_result, posts)
+                print(
+                    f"Added {stretch_result['total_items']} items from stretch sources"
+                )
+                print(f"  Succeeded: {', '.join(stretch_result['sources_succeeded'])}")
+                if stretch_result["sources_failed"]:
+                    print(f"  Failed: {', '.join(stretch_result['sources_failed'])}")
+            else:
+                print(
+                    f"Stretch sources failed: {stretch_result.get('error', 'unknown')}"
+                )
 
     # Filter for 3x+ outliers for highlight display
     high_outliers = [p for p in posts if p.get("outlier_score", 0) >= 3.0]
@@ -237,6 +278,7 @@ def main() -> int:
         subreddits=subreddits,
         save=not args.no_save,
         show_all=args.show_all,
+        include_stretch=args.include_stretch,
     )
 
     return 0 if result.get("success") else 1
