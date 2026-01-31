@@ -153,9 +153,21 @@ Plans:
 
 **Deliverables:**
 - `directives/newsletter_generate.md`
-- `execution/newsletter_generate.py`
-- `data/voice_profile.json` (examples + anti-patterns)
+- `execution/newsletter_generator.py`
+- `execution/voice_profile.py` (voice prompt + anti-patterns)
+- `execution/claude_client.py` (API client with prompt caching)
+- `execution/section_generators.py` (5 section generators)
+- `execution/content_selector.py` (content selection logic)
+- `execution/subject_line_generator.py` (subject + preview)
 - Sample newsletter in `output/newsletters/`
+
+**Plans:** 4 plans in 3 waves
+
+Plans:
+- [ ] 04-01-PLAN.md — Voice profile + Claude client + anti-pattern validation
+- [ ] 04-02-PLAN.md — Content selector + Section 1 & 2 generators
+- [ ] 04-03-PLAN.md — Section 3, 4, 5 generators
+- [ ] 04-04-PLAN.md — Subject line + preview + orchestrator + DOE
 
 ---
 
