@@ -53,6 +53,13 @@ from tenacity import (
 # Import cost tracking
 from execution.cost_tracker import CostTracker, calculate_cost, log_run_cost
 
+# Import output management
+from execution.output_manager import (
+    save_newsletter,
+    get_next_issue_number,
+    notify_pipeline_complete,
+)
+
 
 # =============================================================================
 # RESULT DATACLASS
@@ -263,8 +270,7 @@ def stage_newsletter_generation(
             return None
 
         # Determine issue number by scanning existing newsletters
-        newsletters_dir = Path("output/newsletters")
-        issue_number = get_next_issue_number(newsletters_dir)
+        issue_number = get_next_issue_number()
 
         # Generate newsletter with retry wrapper
         def _generate():
@@ -341,39 +347,6 @@ def stage_affiliate_discovery(
     except Exception as e:
         logger.warning(f"Affiliate discovery failed (continuing): {e}")
         return None
-
-
-# =============================================================================
-# HELPER FUNCTIONS
-# =============================================================================
-
-
-def get_next_issue_number(newsletters_dir: Path) -> int:
-    """
-    Get next issue number by scanning existing newsletters.
-
-    Args:
-        newsletters_dir: Directory containing newsletters
-
-    Returns:
-        Next issue number (highest existing + 1)
-    """
-    import re
-
-    max_issue = 0
-    if newsletters_dir.exists():
-        for md_file in newsletters_dir.rglob("*.md"):
-            match = re.match(r"(\d{3})-", md_file.name)
-            if match:
-                max_issue = max(max_issue, int(match.group(1)))
-
-    # Also check for issue-N pattern
-    for md_file in newsletters_dir.rglob("*.md"):
-        match = re.search(r"issue-(\d+)", md_file.name)
-        if match:
-            max_issue = max(max_issue, int(match.group(1)))
-
-    return max_issue + 1
 
 
 # =============================================================================
@@ -455,12 +428,13 @@ def run_pipeline(
 
     newsletter_path = None
     if newsletter_output:
-        # Save newsletter
-        from execution.newsletter_generator import save_newsletter
-
-        newsletters_dir = Path("output/newsletters")
-        newsletter_path = save_newsletter(newsletter_output, newsletters_dir)
-        announce(f"  Saved: {newsletter_path}", quiet)
+        # Save newsletter using output_manager
+        try:
+            newsletter_path = save_newsletter(newsletter_output, topic=effective_topic)
+            announce(f"  Saved: {newsletter_path}", quiet)
+        except Exception as e:
+            warnings.append(f"Failed to save newsletter: {e}")
+            logger.warning(f"Newsletter save failed: {e}")
     else:
         warnings.append("Newsletter generation failed")
 
@@ -499,7 +473,8 @@ def run_pipeline(
     # Determine success
     success = newsletter_path is not None
 
-    return PipelineResult(
+    # Build result
+    result = PipelineResult(
         success=success,
         newsletter_path=newsletter_path,
         content_count=content_count,
@@ -508,6 +483,11 @@ def run_pipeline(
         warnings=warnings,
         errors=errors,
     )
+
+    # Send notification
+    notify_pipeline_complete(result)
+
+    return result
 
 
 # =============================================================================
