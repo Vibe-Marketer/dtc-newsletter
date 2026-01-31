@@ -139,10 +139,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | NEWS-07 | Phase 4 | Complete |
 | NEWS-08 | Phase 4 | Complete |
 | NEWS-09 | Phase 4 | Complete |
-| MONE-01 | Phase 5 | Pending |
-| MONE-02 | Phase 5 | Pending |
-| MONE-03 | Phase 5 | Pending |
-| MONE-04 | Phase 5 | Pending |
+| MONE-01 | Phase 5 | Complete |
+| MONE-02 | Phase 5 | Complete |
+| MONE-03 | Phase 5 | Complete |
+| MONE-04 | Phase 5 | Complete |
 | PROD-01 | Phase 6 | Pending |
 | PROD-02 | Phase 6 | Pending |
 | PROD-03 | Phase 6 | Pending |
@@ -179,4 +179,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-29*
-*Last updated: 2026-01-31 - Phase 4 requirements complete*
+*Last updated: 2026-01-31 - Phase 5 requirements complete*
