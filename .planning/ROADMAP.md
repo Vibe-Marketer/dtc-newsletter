@@ -167,9 +167,11 @@ Plans:
 
 Plans:
 - [x] 04-01-PLAN.md — Voice profile + Claude client + anti-pattern validation (Complete 2026-01-31)
-- [ ] 04-02-PLAN.md — Content selector + Section 1 & 2 generators
-- [ ] 04-03-PLAN.md — Section 3, 4, 5 generators
-- [ ] 04-04-PLAN.md — Subject line + preview + orchestrator + DOE
+- [x] 04-02-PLAN.md — Content selector + Section 1 & 2 generators (Complete 2026-01-31)
+- [x] 04-03-PLAN.md — Section 3, 4, 5 generators (Complete 2026-01-31)
+- [x] 04-04-PLAN.md — Subject line + preview + orchestrator + DOE (Complete 2026-01-31)
+
+**Phase 4 Complete:** 2026-01-31 (all 9 newsletter requirements implemented)
 
 ---
 
@@ -426,4 +428,4 @@ dtc-newsletter/
 
 ---
 *Roadmap created: 2026-01-29*
-*Last updated: 2026-01-31T13:25:00Z - Phase 2 complete*
+*Last updated: 2026-01-31T13:55:00Z - Phase 4 complete*

@@ -28,15 +28,15 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Newsletter Generation
 
-- [ ] **NEWS-01**: Generate Section 1 - Instant Reward (high-engagement quote/tweet from aggregated content)
-- [ ] **NEWS-02**: Generate Section 2 - What's Working Now (tactical nugget under 200 words, problem → solution → how-to)
-- [ ] **NEWS-03**: Generate Section 3 - The Breakdown (story-sell bridge with source link to outlier content)
-- [ ] **NEWS-04**: Generate Section 4 - Tool of the Week (contextual soft sell with affiliate or internal product)
-- [ ] **NEWS-05**: Generate Section 5 - PS Statement (meme, secondary CTA, or additional resource)
-- [ ] **NEWS-06**: Apply consistent voice (Hormozi/Suby hybrid per voice profile)
-- [ ] **NEWS-07**: Generate lowercase curiosity-driven subject lines (no emojis, no caps)
-- [ ] **NEWS-08**: Generate preview text hooks (not "view in browser")
-- [ ] **NEWS-09**: Output as plain text markdown (no HTML templates, high deliverability)
+- [x] **NEWS-01**: Generate Section 1 - Instant Reward (high-engagement quote/tweet from aggregated content)
+- [x] **NEWS-02**: Generate Section 2 - What's Working Now (tactical nugget under 200 words, problem → solution → how-to)
+- [x] **NEWS-03**: Generate Section 3 - The Breakdown (story-sell bridge with source link to outlier content)
+- [x] **NEWS-04**: Generate Section 4 - Tool of the Week (contextual soft sell with affiliate or internal product)
+- [x] **NEWS-05**: Generate Section 5 - PS Statement (meme, secondary CTA, or additional resource)
+- [x] **NEWS-06**: Apply consistent voice (Hormozi/Suby hybrid per voice profile)
+- [x] **NEWS-07**: Generate lowercase curiosity-driven subject lines (no emojis, no caps)
+- [x] **NEWS-08**: Generate preview text hooks (not "view in browser")
+- [x] **NEWS-09**: Output as plain text markdown (no HTML templates, high deliverability)
 
 ### Monetization
 
@@ -130,15 +130,15 @@ Which phases cover which requirements. Updated during roadmap creation.
 | AGGR-S01 | Phase 3 | Pending |
 | AGGR-S02 | Phase 3 | Pending |
 | AGGR-S03 | Phase 3 | Pending |
-| NEWS-01 | Phase 4 | Pending |
-| NEWS-02 | Phase 4 | Pending |
-| NEWS-03 | Phase 4 | Pending |
-| NEWS-04 | Phase 4 | Pending |
-| NEWS-05 | Phase 4 | Pending |
-| NEWS-06 | Phase 4 | Pending |
-| NEWS-07 | Phase 4 | Pending |
-| NEWS-08 | Phase 4 | Pending |
-| NEWS-09 | Phase 4 | Pending |
+| NEWS-01 | Phase 4 | Complete |
+| NEWS-02 | Phase 4 | Complete |
+| NEWS-03 | Phase 4 | Complete |
+| NEWS-04 | Phase 4 | Complete |
+| NEWS-05 | Phase 4 | Complete |
+| NEWS-06 | Phase 4 | Complete |
+| NEWS-07 | Phase 4 | Complete |
+| NEWS-08 | Phase 4 | Complete |
+| NEWS-09 | Phase 4 | Complete |
 | MONE-01 | Phase 5 | Pending |
 | MONE-02 | Phase 5 | Pending |
 | MONE-03 | Phase 5 | Pending |
@@ -179,4 +179,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-29*
-*Last updated: 2026-01-29 - Phase 1 requirements complete*
+*Last updated: 2026-01-31 - Phase 4 requirements complete*
