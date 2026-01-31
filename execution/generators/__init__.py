@@ -12,11 +12,15 @@ from execution.generators.base_generator import (
 )
 from execution.generators.automation import AutomationGenerator
 from execution.generators.html_tool import HtmlToolGenerator
+from execution.generators.pdf import PdfGenerator
+from execution.generators.sheets import SheetsGenerator
 
 __all__ = [
     "AutomationGenerator",
     "BaseGenerator",
     "GeneratedProduct",
     "HtmlToolGenerator",
+    "PdfGenerator",
     "ProductSpec",
+    "SheetsGenerator",
 ]
