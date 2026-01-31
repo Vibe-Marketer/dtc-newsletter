@@ -9,15 +9,15 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Content Aggregation
 
-- [ ] **AGGR-01**: Pull high-performing e-commerce videos from YouTube using TubeLab API with outlier detection (score > 5x channel average)
+- [x] **AGGR-01**: Pull high-performing e-commerce videos from YouTube using TubeLab API with outlier detection (score > 5x channel average)
 - [ ] **AGGR-02**: Pull viral discussions from Reddit (r/shopify, r/dropship, r/ecommerce) using outlier scoring (upvotes > 3x subreddit average)
-- [ ] **AGGR-03**: Pull research summaries and trend data via Perplexity API
+- [x] **AGGR-03**: Pull research summaries and trend data via Perplexity API
 - [ ] **AGGR-04**: Calculate outlier scores for all content (engagement ÷ source average × recency boost × engagement modifiers)
 - [ ] **AGGR-05**: Apply engagement modifiers (+30% money, +20% time savings, +20% "secrets", +15% controversy)
 - [ ] **AGGR-06**: Store aggregated content with metadata and outlier scores
-- [ ] **AGGR-07**: Deduplicate content (don't repeat stories from last 4 weeks)
-- [ ] **AGGR-08**: Fetch transcripts for high-scoring YouTube videos
-- [ ] **AGGR-09**: Research TubeLab API, sign up, and integrate for YouTube outlier detection
+- [x] **AGGR-07**: Deduplicate content (don't repeat stories from last 4 weeks)
+- [x] **AGGR-08**: Fetch transcripts for high-scoring YouTube videos
+- [x] **AGGR-09**: Research TubeLab API, sign up, and integrate for YouTube outlier detection
 - [ ] **AGGR-10**: Search Reddit for e-com pain points and complaints (for product ideation)
 
 ### Content Aggregation — Stretch Goals
@@ -65,7 +65,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **OUTP-01**: Save newsletter draft as markdown in `output/newsletters/[date]-[topic].md`
 - [ ] **OUTP-02**: Save product package in `output/products/[date]-[product-name]/`
 - [ ] **OUTP-03**: Generate content calendar with 8 trending topics for initial manual execution
-- [ ] **OUTP-04**: Output content sheet with: source link, thumbnail, title, outlier score, summary (TubeLab style)
+- [x] **OUTP-04**: Output content sheet with: source link, thumbnail, title, outlier score, summary (TubeLab style)
 
 ### Operations
 
