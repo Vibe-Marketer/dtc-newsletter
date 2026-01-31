@@ -1,8 +1,8 @@
 # Project State: DTC Newsletter Automation System
 
-**Last Updated:** 2026-01-29
-**Current Phase:** 1 of 9 (Foundation)
-**Status:** Phase 1 Complete - 3/3 plans complete
+**Last Updated:** 2026-01-31
+**Current Phase:** 2 of 9 (Core Sources)
+**Status:** Phase 2 In Progress - 1/4 plans complete (Plan 02 just completed)
 
 ## Project Reference
 
@@ -10,7 +10,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 
 **Core value:** Every week, a complete newsletter draft appears with real trending data, proven format, and a high-value digital product — requiring zero manual research or writing.
 
-**Current focus:** Phase 1 - Foundation
+**Current focus:** Phase 2 - Core Sources (Perplexity + Deduplication complete)
 
 ---
 
@@ -19,7 +19,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 | Phase | Name | Status | Progress | Notes |
 |-------|------|--------|----------|-------|
 | 1 | Foundation | Complete | 100% | DOE pipeline crystallized (live API deferred) |
-| 2 | Core Sources | Pending | 0% | TubeLab + YouTube + Perplexity |
+| 2 | Core Sources | In progress | 25% | Plan 02 complete (Perplexity + Deduplication) |
 | 3 | Stretch Sources | Pending | 0% | TikTok/Twitter/Amazon (best effort) |
 | 4 | Newsletter Engine | Pending | 0% | 5-section generator + voice |
 | 5 | Affiliate System | Pending | 0% | Top 3 affiliates + top 3 products |
@@ -35,9 +35,9 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 ## Requirements Progress
 
 ### Content Aggregation (13 total)
-- Completed: 2 (AGGR-04 outlier score, AGGR-05 engagement modifiers)
+- Completed: 3 (AGGR-04 outlier score, AGGR-05 engagement modifiers, AGGR-09 deduplication)
 - In Progress: 0
-- Pending: 11
+- Pending: 10
 
 ### Newsletter Generation (9 total)
 - Completed: 0
@@ -69,7 +69,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 - In Progress: 0
 - Pending: 4
 
-**Total:** 2/49 requirements complete
+**Total:** 3/49 requirements complete
 
 ---
 
@@ -85,6 +85,8 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 | Recency boost | Exponential vs Linear decay | Linear (7 days) | 2026-01-29 |
 | Engagement modifiers | Multiplicative vs Additive | Additive then multiply | 2026-01-29 |
 | Reddit live testing | Now vs Deferred | Deferred (code ready) | 2026-01-29 |
+| Perplexity SDK | Native vs OpenAI-compat | OpenAI-compatible | 2026-01-31 |
+| Dedup hash algorithm | SHA vs MD5 | MD5 (fast, sufficient) | 2026-01-31 |
 
 ---
 
@@ -177,14 +179,21 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 - Phase 1 Foundation complete
 - Commits: e26d273 (DOE directive+script), 31afc01 (import fix)
 
+### 2026-01-31: Phase 2 Plan 02 Complete
+- Completed 02-02-PLAN.md (Perplexity + Deduplication)
+- Created perplexity_client.py using OpenAI-compatible API with sonar-pro model
+- Created deduplication.py with MD5 hash-based content tracking
+- 41 tests passing (17 perplexity + 24 deduplication)
+- Commits: 89df773 (perplexity client), d47edae (deduplication)
+
 ---
 
 ## Next Actions
 
-1. Configure Reddit API credentials in `.env` to enable live testing
-2. Start Phase 2 (TubeLab + YouTube + Perplexity)
-3. Run `python execution/content_aggregate.py` once credentials ready
+1. Configure PERPLEXITY_API_KEY in `.env` to enable live testing
+2. Continue Phase 2 - Plan 01 (TubeLab research) or Plan 03 (YouTube integration)
+3. Configure Reddit API credentials in `.env` for Phase 1 live testing
 
 ---
 *State initialized: 2026-01-29*
-*Last updated: 2026-01-29T23:24:15Z*
+*Last updated: 2026-01-31T11:23:42Z*
