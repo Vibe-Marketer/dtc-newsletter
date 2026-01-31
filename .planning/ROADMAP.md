@@ -166,7 +166,7 @@ Plans:
 **Plans:** 4 plans in 3 waves
 
 Plans:
-- [ ] 04-01-PLAN.md — Voice profile + Claude client + anti-pattern validation
+- [x] 04-01-PLAN.md — Voice profile + Claude client + anti-pattern validation (Complete 2026-01-31)
 - [ ] 04-02-PLAN.md — Content selector + Section 1 & 2 generators
 - [ ] 04-03-PLAN.md — Section 3, 4, 5 generators
 - [ ] 04-04-PLAN.md — Subject line + preview + orchestrator + DOE

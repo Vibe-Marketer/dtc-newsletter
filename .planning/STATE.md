@@ -1,8 +1,8 @@
 # Project State: DTC Newsletter Automation System
 
 **Last Updated:** 2026-01-31
-**Current Phase:** 2 of 9 (Core Sources)
-**Status:** Phase 2 Complete - 4/4 plans complete
+**Current Phase:** 4 of 9 (Newsletter Engine)
+**Status:** Phase 4 In Progress - 1/4 plans complete
 
 ## Project Reference
 
@@ -10,7 +10,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 
 **Core value:** Every week, a complete newsletter draft appears with real trending data, proven format, and a high-value digital product — requiring zero manual research or writing.
 
-**Current focus:** Phase 2 complete - All 4 plans executed. Ready for Phase 4 (Newsletter Engine).
+**Current focus:** Phase 4 in progress - Plan 01 complete (Voice profile + Claude client). Ready for Plan 02.
 
 ---
 
@@ -21,7 +21,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 | 1 | Foundation | Complete | 100% | DOE pipeline crystallized (live API deferred) |
 | 2 | Core Sources | Complete | 100% | All 4 plans complete (TubeLab + Perplexity + YouTube + Integration) |
 | 3 | Stretch Sources | Complete | 100% | Orchestrator + integration complete |
-| 4 | Newsletter Engine | Pending | 0% | 5-section generator + voice |
+| 4 | Newsletter Engine | In progress | 25% | Plan 01 complete (voice + claude client) |
 | 5 | Affiliate System | Pending | 0% | Top 3 affiliates + top 3 products |
 | 6 | Product Factory | Pending | 0% | Pain points → products |
 | 7 | Pipeline Integration | Pending | 0% | Orchestration + ops |
@@ -40,9 +40,9 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 - Pending: 3
 
 ### Newsletter Generation (9 total)
-- Completed: 0
+- Completed: 1 (NEWS-06 voice profile)
 - In Progress: 0
-- Pending: 9
+- Pending: 8
 
 ### Monetization (4 total)
 - Completed: 0
@@ -69,7 +69,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 - In Progress: 0
 - Pending: 4
 
-**Total:** 11/49 requirements complete
+**Total:** 12/49 requirements complete
 
 ---
 
@@ -98,6 +98,8 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 | Virality output format | Prose vs Structured | Structured dict (AI-parseable) | 2026-01-31 |
 | Content sheet format | CSV vs JSON vs Both | Both (CSV + JSON default) | 2026-01-31 |
 | Hook type detection | Keyword-based priority | question > number > controversy > story > statement | 2026-01-31 |
+| Claude model | GPT-4 vs Claude Sonnet | claude-sonnet-4-5 (cost/quality) | 2026-01-31 |
+| Voice profile caching | No cache vs Ephemeral | Ephemeral cache_control | 2026-01-31 |
 
 ---
 
@@ -117,7 +119,7 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 | TubeLab | Configured | Phase 2 |
 | YouTube Data API | Configured | Phase 2 (fallback) |
 | Perplexity | Not configured | Phase 2 |
-| Anthropic (Claude) | Not configured | Phase 4 |
+| Anthropic (Claude) | Configured | Phase 4 |
 | Google Sheets | Not configured | Phase 6 |
 | Apify | Not configured | Phase 3 (stretch) |
 
@@ -249,15 +251,23 @@ See: `.planning/PROJECT.md` (updated 2026-01-29)
 - Commits: e54d1eb (virality), 23b1dc2 (content sheet), aa836b6 (integration)
 - Phase 2 Core Sources complete
 
+### 2026-01-31: Phase 4 Plan 01 Complete
+- Completed 04-01-PLAN.md (Voice profile + Claude client)
+- Created voice_profile.py with VOICE_PROFILE_PROMPT (704 words) and SECTION_GUIDELINES
+- Created anti_pattern_validator.py with 28 forbidden phrases
+- Created claude_client.py with prompt caching (cache_control: ephemeral)
+- 96 new tests (24 voice + 51 anti-pattern + 21 claude client)
+- Commits: 169d959 (voice + anti-pattern), df2cd22 (claude client)
+
 ---
 
 ## Next Actions
 
-1. Begin Phase 4 (Newsletter Engine) - 5-section generator with voice profile
+1. Continue Phase 4 - Plan 02 (Content selector + Section 1 & 2 generators)
 2. Configure PERPLEXITY_API_KEY in `.env` for live Perplexity testing
 3. Configure APIFY_TOKEN in `.env` for stretch source live testing
 4. Configure REDDIT credentials for live Reddit testing
 
 ---
 *State initialized: 2026-01-29*
-*Last updated: 2026-01-31T13:25:00Z*
+*Last updated: 2026-01-31T13:33:00Z*
