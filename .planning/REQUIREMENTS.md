@@ -18,7 +18,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **AGGR-07**: Deduplicate content (don't repeat stories from last 4 weeks)
 - [x] **AGGR-08**: Fetch transcripts for high-scoring YouTube videos
 - [x] **AGGR-09**: Research TubeLab API, sign up, and integrate for YouTube outlier detection
-- [ ] **AGGR-10**: Search Reddit for e-com pain points and complaints (for product ideation)
+- [x] **AGGR-10**: Search Reddit for e-com pain points and complaints (for product ideation)
 
 ### Content Aggregation — Stretch Goals
 
@@ -47,18 +47,18 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Product Factory
 
-- [ ] **PROD-01**: Research e-com pain points via Reddit (people struggling with Shopify, e-com startup problems)
-- [ ] **PROD-02**: Identify narrow, specific problems that tools could solve very well
-- [ ] **PROD-03**: Generate one high-value digital product per week (minimum $1K perceived value)
-- [ ] **PROD-04**: Support product type: Small HTML tools (single-file calculators, generators, automations)
-- [ ] **PROD-05**: Support product type: Simple automations/workflows (Python scripts, workflow templates)
-- [ ] **PROD-06**: Support product type: Custom GPT configurations (instructions + knowledge base)
-- [ ] **PROD-07**: Support product type: Google Sheets templates (calculators, trackers, dashboards)
-- [ ] **PROD-08**: Support product type: PDF frameworks/guides (structured docs with actionable content)
-- [ ] **PROD-09**: Support product type: Prompt Packs (curated prompts for specific outcomes)
-- [ ] **PROD-10**: Generate sales copy for each product (headline, benefits, CTA)
-- [ ] **PROD-11**: Recommend pricing based on value ($27-97 range, 3-5x perceived value minimum)
-- [ ] **PROD-12**: Package complete product (all deliverables + sales copy + pricing ready to sell)
+- [x] **PROD-01**: Research e-com pain points via Reddit (people struggling with Shopify, e-com startup problems)
+- [x] **PROD-02**: Identify narrow, specific problems that tools could solve very well
+- [x] **PROD-03**: Generate one high-value digital product per week (minimum $1K perceived value)
+- [x] **PROD-04**: Support product type: Small HTML tools (single-file calculators, generators, automations)
+- [x] **PROD-05**: Support product type: Simple automations/workflows (Python scripts, workflow templates)
+- [x] **PROD-06**: Support product type: Custom GPT configurations (instructions + knowledge base)
+- [x] **PROD-07**: Support product type: Google Sheets templates (calculators, trackers, dashboards)
+- [x] **PROD-08**: Support product type: PDF frameworks/guides (structured docs with actionable content)
+- [x] **PROD-09**: Support product type: Prompt Packs (curated prompts for specific outcomes)
+- [x] **PROD-10**: Generate sales copy for each product (headline, benefits, CTA)
+- [x] **PROD-11**: Recommend pricing based on value ($27-97 range, 3-5x perceived value minimum)
+- [x] **PROD-12**: Package complete product (all deliverables + sales copy + pricing ready to sell)
 
 ### Output & Delivery
 
@@ -126,7 +126,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | AGGR-07 | Phase 2 | Pending |
 | AGGR-08 | Phase 2 | Pending |
 | AGGR-09 | Phase 2 | Pending |
-| AGGR-10 | Phase 6 | Pending |
+| AGGR-10 | Phase 6 | Complete |
 | AGGR-S01 | Phase 3 | Pending |
 | AGGR-S02 | Phase 3 | Pending |
 | AGGR-S03 | Phase 3 | Pending |
@@ -143,18 +143,18 @@ Which phases cover which requirements. Updated during roadmap creation.
 | MONE-02 | Phase 5 | Complete |
 | MONE-03 | Phase 5 | Complete |
 | MONE-04 | Phase 5 | Complete |
-| PROD-01 | Phase 6 | Pending |
-| PROD-02 | Phase 6 | Pending |
-| PROD-03 | Phase 6 | Pending |
-| PROD-04 | Phase 6 | Pending |
-| PROD-05 | Phase 6 | Pending |
-| PROD-06 | Phase 6 | Pending |
-| PROD-07 | Phase 6 | Pending |
-| PROD-08 | Phase 6 | Pending |
-| PROD-09 | Phase 6 | Pending |
-| PROD-10 | Phase 6 | Pending |
-| PROD-11 | Phase 6 | Pending |
-| PROD-12 | Phase 6 | Pending |
+| PROD-01 | Phase 6 | Complete |
+| PROD-02 | Phase 6 | Complete |
+| PROD-03 | Phase 6 | Complete |
+| PROD-04 | Phase 6 | Complete |
+| PROD-05 | Phase 6 | Complete |
+| PROD-06 | Phase 6 | Complete |
+| PROD-07 | Phase 6 | Complete |
+| PROD-08 | Phase 6 | Complete |
+| PROD-09 | Phase 6 | Complete |
+| PROD-10 | Phase 6 | Complete |
+| PROD-11 | Phase 6 | Complete |
+| PROD-12 | Phase 6 | Complete |
 | OUTP-01 | Phase 7 | Pending |
 | OUTP-02 | Phase 7 | Pending |
 | OUTP-03 | Phase 8 | Pending |
@@ -179,4 +179,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-29*
-*Last updated: 2026-01-31 - Phase 5 requirements complete*
+*Last updated: 2026-01-31 - Phase 6 requirements complete*
