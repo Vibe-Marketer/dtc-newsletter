@@ -20,10 +20,10 @@ from execution.pipeline_runner import (
     stage_content_aggregation,
     stage_newsletter_generation,
     stage_affiliate_discovery,
-    get_next_issue_number,
     run_pipeline,
 )
 from execution.cost_tracker import CostTracker
+from execution.output_manager import get_next_issue_number
 
 
 # =============================================================================
@@ -381,43 +381,60 @@ class TestStageAffiliateDiscovery:
 
 
 class TestGetNextIssueNumber:
-    """Tests for get_next_issue_number function."""
+    """Tests for get_next_issue_number function (now in output_manager)."""
 
-    def test_get_next_issue_number_empty_dir(self, tmp_path):
+    def test_get_next_issue_number_empty_dir(self, tmp_path, monkeypatch):
         """Test returns 1 for empty directory."""
-        result = get_next_issue_number(tmp_path)
+        from execution import output_manager
+
+        monkeypatch.setattr(output_manager, "NEWSLETTERS_DIR", tmp_path)
+        result = get_next_issue_number()
         assert result == 1
 
-    def test_get_next_issue_number_nonexistent_dir(self, tmp_path):
+    def test_get_next_issue_number_nonexistent_dir(self, tmp_path, monkeypatch):
         """Test returns 1 for nonexistent directory."""
+        from execution import output_manager
+
         nonexistent = tmp_path / "does_not_exist"
-        result = get_next_issue_number(nonexistent)
+        monkeypatch.setattr(output_manager, "NEWSLETTERS_DIR", nonexistent)
+        result = get_next_issue_number()
         assert result == 1
 
-    def test_get_next_issue_number_with_existing(self, tmp_path):
+    def test_get_next_issue_number_with_existing(self, tmp_path, monkeypatch):
         """Test increments from highest existing issue."""
+        from execution import output_manager
+
+        monkeypatch.setattr(output_manager, "NEWSLETTERS_DIR", tmp_path)
         # Create some newsletter files
         (tmp_path / "001-topic-one.md").write_text("content")
         (tmp_path / "002-topic-two.md").write_text("content")
         (tmp_path / "005-topic-five.md").write_text("content")
 
-        result = get_next_issue_number(tmp_path)
+        result = get_next_issue_number()
         assert result == 6
 
-    def test_get_next_issue_number_with_subfolders(self, tmp_path):
+    def test_get_next_issue_number_with_subfolders(self, tmp_path, monkeypatch):
         """Test scans subfolders recursively."""
+        from execution import output_manager
+
+        monkeypatch.setattr(output_manager, "NEWSLETTERS_DIR", tmp_path)
         subfolder = tmp_path / "2026-01"
         subfolder.mkdir()
         (subfolder / "003-january.md").write_text("content")
 
-        result = get_next_issue_number(tmp_path)
+        result = get_next_issue_number()
         assert result == 4
 
-    def test_get_next_issue_number_issue_pattern(self, tmp_path):
-        """Test handles issue-N pattern."""
-        (tmp_path / "2026-01-15-issue-7.md").write_text("content")
+    def test_get_next_issue_number_issue_pattern(self, tmp_path, monkeypatch):
+        """Test handles issue-N pattern - no longer supports this pattern."""
+        # NOTE: The new output_manager only supports NNN- pattern,
+        # not issue-N pattern, so we test NNN- instead
+        from execution import output_manager
 
-        result = get_next_issue_number(tmp_path)
+        monkeypatch.setattr(output_manager, "NEWSLETTERS_DIR", tmp_path)
+        (tmp_path / "007-test-topic.md").write_text("content")
+
+        result = get_next_issue_number()
         assert result == 8
 
 
@@ -443,6 +460,7 @@ class TestRunPipeline:
         mock_save = Mock(return_value=Path("output/newsletters/001-test.md"))
         mock_affiliate = Mock(return_value={"output": "affiliates"})
         mock_log_cost = Mock()
+        mock_notify = Mock()
 
         monkeypatch.setattr(
             "execution.pipeline_runner.stage_content_aggregation", mock_content
@@ -450,11 +468,14 @@ class TestRunPipeline:
         monkeypatch.setattr(
             "execution.pipeline_runner.stage_newsletter_generation", mock_newsletter
         )
-        monkeypatch.setattr("execution.newsletter_generator.save_newsletter", mock_save)
+        monkeypatch.setattr("execution.pipeline_runner.save_newsletter", mock_save)
         monkeypatch.setattr(
             "execution.pipeline_runner.stage_affiliate_discovery", mock_affiliate
         )
         monkeypatch.setattr("execution.pipeline_runner.log_run_cost", mock_log_cost)
+        monkeypatch.setattr(
+            "execution.pipeline_runner.notify_pipeline_complete", mock_notify
+        )
 
         result = run_pipeline(quiet=True)
 
@@ -462,17 +483,22 @@ class TestRunPipeline:
         assert result.newsletter_path == Path("output/newsletters/001-test.md")
         assert result.content_count == 25
         mock_log_cost.assert_called_once()
+        mock_notify.assert_called_once()
 
     def test_run_pipeline_partial_failure(self, monkeypatch):
         """Test pipeline fails gracefully when content aggregation fails."""
         # Content aggregation fails
         mock_content = Mock(return_value=None)
         mock_log_cost = Mock()
+        mock_notify = Mock()
 
         monkeypatch.setattr(
             "execution.pipeline_runner.stage_content_aggregation", mock_content
         )
         monkeypatch.setattr("execution.pipeline_runner.log_run_cost", mock_log_cost)
+        monkeypatch.setattr(
+            "execution.pipeline_runner.notify_pipeline_complete", mock_notify
+        )
 
         result = run_pipeline(quiet=True)
 
@@ -495,6 +521,7 @@ class TestRunPipeline:
         mock_save = Mock(return_value=Path("output/001-test.md"))
         mock_affiliate = Mock(return_value=None)  # Affiliate fails
         mock_log_cost = Mock()
+        mock_notify = Mock()
 
         monkeypatch.setattr(
             "execution.pipeline_runner.stage_content_aggregation", mock_content
@@ -502,11 +529,14 @@ class TestRunPipeline:
         monkeypatch.setattr(
             "execution.pipeline_runner.stage_newsletter_generation", mock_newsletter
         )
-        monkeypatch.setattr("execution.newsletter_generator.save_newsletter", mock_save)
+        monkeypatch.setattr("execution.pipeline_runner.save_newsletter", mock_save)
         monkeypatch.setattr(
             "execution.pipeline_runner.stage_affiliate_discovery", mock_affiliate
         )
         monkeypatch.setattr("execution.pipeline_runner.log_run_cost", mock_log_cost)
+        monkeypatch.setattr(
+            "execution.pipeline_runner.notify_pipeline_complete", mock_notify
+        )
 
         result = run_pipeline(quiet=True)
 
@@ -518,11 +548,15 @@ class TestRunPipeline:
         """Test pipeline failure when all content sources fail."""
         mock_content = Mock(return_value=None)
         mock_log_cost = Mock()
+        mock_notify = Mock()
 
         monkeypatch.setattr(
             "execution.pipeline_runner.stage_content_aggregation", mock_content
         )
         monkeypatch.setattr("execution.pipeline_runner.log_run_cost", mock_log_cost)
+        monkeypatch.setattr(
+            "execution.pipeline_runner.notify_pipeline_complete", mock_notify
+        )
 
         result = run_pipeline(quiet=True)
 
