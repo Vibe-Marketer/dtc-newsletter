@@ -62,17 +62,17 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Output & Delivery
 
-- [ ] **OUTP-01**: Save newsletter draft as markdown in `output/newsletters/[date]-[topic].md`
+- [x] **OUTP-01**: Save newsletter draft as markdown in `output/newsletters/[date]-[topic].md`
 - [ ] **OUTP-02**: Save product package in `output/products/[date]-[product-name]/`
 - [ ] **OUTP-03**: Generate content calendar with 8 trending topics for initial manual execution
 - [x] **OUTP-04**: Output content sheet with: source link, thumbnail, title, outlier score, summary (TubeLab style)
 
 ### Operations
 
-- [ ] **OPER-01**: CLI execution via `python execution/newsletter_generate.py`
-- [ ] **OPER-02**: Cost tracking per run via `doe_utils.log_cost()`
-- [ ] **OPER-03**: Error handling with graceful degradation (works with partial sources)
-- [ ] **OPER-04**: Clear failure messages with recovery instructions
+- [x] **OPER-01**: CLI execution via `python execution/pipeline_runner.py`
+- [x] **OPER-02**: Cost tracking per run via `CostTracker` and `log_run_cost()`
+- [x] **OPER-03**: Error handling with graceful degradation (works with partial sources)
+- [x] **OPER-04**: Clear failure messages with recovery instructions
 - [ ] **OPER-05**: GitHub Actions workflow for scheduled automation (Tuesday 10am, Thursday 8pm)
 
 ### Initial Execution
@@ -155,14 +155,14 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PROD-10 | Phase 6 | Complete |
 | PROD-11 | Phase 6 | Complete |
 | PROD-12 | Phase 6 | Complete |
-| OUTP-01 | Phase 7 | Pending |
-| OUTP-02 | Phase 7 | Pending |
+| OUTP-01 | Phase 7 | Complete |
+| OUTP-02 | Phase 6 | Complete |
 | OUTP-03 | Phase 8 | Pending |
 | OUTP-04 | Phase 2 | Pending |
-| OPER-01 | Phase 7 | Pending |
-| OPER-02 | Phase 7 | Pending |
-| OPER-03 | Phase 7 | Pending |
-| OPER-04 | Phase 7 | Pending |
+| OPER-01 | Phase 7 | Complete |
+| OPER-02 | Phase 7 | Complete |
+| OPER-03 | Phase 7 | Complete |
+| OPER-04 | Phase 7 | Complete |
 | OPER-05 | Phase 9 | Pending |
 | INIT-01 | Phase 8 | Pending |
 | INIT-02 | Phase 8 | Pending |
@@ -179,4 +179,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-29*
-*Last updated: 2026-01-31 - Phase 6 requirements complete*
+*Last updated: 2026-01-31 - Phase 7 requirements complete*
