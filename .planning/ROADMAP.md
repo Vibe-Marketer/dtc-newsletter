@@ -86,6 +86,14 @@ Plans:
 - `data/content_cache/perplexity/` populated
 - `output/content_sheet.csv`
 
+**Plans:** 4 plans in 3 waves
+
+Plans:
+- [ ] 02-01-PLAN.md — TubeLab research + user checkpoint for API key
+- [ ] 02-02-PLAN.md — Perplexity client + deduplication modules (parallel)
+- [ ] 02-03-PLAN.md — YouTube fetcher + transcript fetcher
+- [ ] 02-04-PLAN.md — Content sheet + integration
+
 ---
 
 ## Phase 3: Stretch Sources (Best Effort)
