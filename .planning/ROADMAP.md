@@ -359,6 +359,11 @@ Plans:
 - Secrets configured in GitHub repository settings
 - Documentation of automation setup
 
+**Plans:** 1 plan in 1 wave
+
+Plans:
+- [ ] 09-01-PLAN.md — GitHub Actions workflow + secrets configuration
+
 ---
 
 ## Build Order Rationale
