@@ -213,7 +213,9 @@ class YouTubeDataAPIClient:
         }
 
         if published_after:
-            params["publishedAfter"] = published_after.isoformat() + "Z"
+            # YouTube API requires RFC 3339 format WITHOUT fractional seconds
+            # Format: YYYY-MM-DDTHH:MM:SSZ
+            params["publishedAfter"] = published_after.strftime("%Y-%m-%dT%H:%M:%SZ")
 
         response = client.search().list(**params).execute()
         return response.get("items", [])
