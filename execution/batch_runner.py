@@ -809,6 +809,423 @@ class BatchRunner:
         logger.info(f"Saved {len(topics)} topics to {filepath}")
         return filepath
 
+    def discover_pain_points(self, limit: int = 8) -> list[dict]:
+        """
+        Discover pain points using ProductFactory.
+
+        Args:
+            limit: Maximum number of pain points to return (default: 8)
+
+        Returns:
+            List of pain points with:
+            - problem: The pain point description (title)
+            - category: E-com category (shipping, pricing, etc.)
+            - source: Reddit post URL
+            - engagement: Upvotes + comments
+        """
+        if self.dry_run:
+            logger.info("DRY RUN: Returning mock pain point data")
+            return self._get_mock_pain_points(limit)
+
+        try:
+            factory = ProductFactory()
+            pain_points = factory.discover_pain_points(limit=limit)
+
+            # Transform to consistent format
+            result = []
+            for pp in pain_points:
+                result.append(
+                    {
+                        "problem": pp.get("title", "Unknown problem"),
+                        "category": pp.get("category", "other"),
+                        "source": pp.get("url", ""),
+                        "engagement": pp.get("engagement_score", 0),
+                        "body": pp.get("body", ""),
+                        "suggested_types": pp.get("suggested_product_types", []),
+                    }
+                )
+
+            logger.info(f"Discovered {len(result)} pain points")
+            return result
+
+        except Exception as e:
+            logger.error(f"Pain point discovery failed: {e}")
+            return []
+
+    def _get_mock_pain_points(self, count: int) -> list[dict]:
+        """
+        Generate mock pain points for dry run testing.
+
+        Args:
+            count: Number of mock pain points to generate
+
+        Returns:
+            List of mock pain point dicts
+        """
+        mock_pain_points = [
+            {
+                "problem": "Can't calculate my true profit margins with all the hidden fees",
+                "category": "pricing",
+                "source": "https://reddit.com/r/shopify/mock_pp1",
+                "engagement": 245,
+                "body": "Between payment processing, shipping costs, returns...",
+                "suggested_types": ["html_tool", "sheets"],
+            },
+            {
+                "problem": "Shipping rate comparison is killing me - takes hours every week",
+                "category": "shipping",
+                "source": "https://reddit.com/r/ecommerce/mock_pp2",
+                "engagement": 189,
+                "body": "I spend 4+ hours comparing UPS, FedEx, USPS rates...",
+                "suggested_types": ["automation", "sheets"],
+            },
+            {
+                "problem": "No idea why my cart abandonment is at 78%",
+                "category": "conversion",
+                "source": "https://reddit.com/r/dropship/mock_pp3",
+                "engagement": 312,
+                "body": "I've tried everything but can't figure out where people drop...",
+                "suggested_types": ["html_tool", "gpt_config"],
+            },
+            {
+                "problem": "Inventory forecasting is pure guesswork - always over or understocked",
+                "category": "inventory",
+                "source": "https://reddit.com/r/FulfillmentByAmazon/mock_pp4",
+                "engagement": 156,
+                "body": "Either I'm sitting on dead inventory or selling out...",
+                "suggested_types": ["automation", "sheets"],
+            },
+            {
+                "problem": "Return requests eating into profits - need a better process",
+                "category": "returns",
+                "source": "https://reddit.com/r/smallbusiness/mock_pp5",
+                "engagement": 198,
+                "body": "Processing returns manually is costing me $15 per return...",
+                "suggested_types": ["automation", "pdf"],
+            },
+            {
+                "problem": "Ad creative testing takes too long - can't iterate fast enough",
+                "category": "marketing",
+                "source": "https://reddit.com/r/PPC/mock_pp6",
+                "engagement": 276,
+                "body": "By the time I know what works, the trend has passed...",
+                "suggested_types": ["prompt_pack", "gpt_config"],
+            },
+            {
+                "problem": "Supplier communication is a mess - always miscommunication",
+                "category": "shipping",
+                "source": "https://reddit.com/r/Entrepreneur/mock_pp7",
+                "engagement": 134,
+                "body": "Alibaba suppliers never understand my specs the first time...",
+                "suggested_types": ["gpt_config", "prompt_pack"],
+            },
+            {
+                "problem": "Pricing strategy changes take forever to implement across channels",
+                "category": "pricing",
+                "source": "https://reddit.com/r/ecommerce/mock_pp8",
+                "engagement": 167,
+                "body": "When I change a price, it takes hours to update everywhere...",
+                "suggested_types": ["automation", "sheets"],
+            },
+        ]
+
+        return mock_pain_points[:count]
+
+    def generate_products(self, pain_points: list[dict]) -> list[dict]:
+        """
+        Generate 8 products from pain points.
+
+        For each pain point:
+        1. Determine product type from distribution
+        2. Generate via ProductFactory
+        3. Validate output
+        4. If fails: retry with fallback type
+        5. Track cost and check budget
+
+        Args:
+            pain_points: List of pain point dicts with 'problem' field
+
+        Returns:
+            List of result dicts per product with:
+            - week: int (1-8)
+            - pain_point: str
+            - type: str (product type)
+            - path: str (if success)
+            - status: "success" | "failed" | "error" | "dry_run" | "budget_exceeded"
+            - cost: float
+            - fallback_used: bool (if fallback type was used)
+        """
+        results = []
+        factory = ProductFactory() if not self.dry_run else None
+
+        for i, pain_point in enumerate(pain_points):
+            # Determine product type from distribution
+            product_type = (
+                PRODUCT_TYPE_DISTRIBUTION[i]
+                if i < len(PRODUCT_TYPE_DISTRIBUTION)
+                else "prompt_pack"
+            )
+            problem = pain_point.get("problem", "Unknown problem")
+
+            print(
+                f"\n[{i + 1}/{len(pain_points)}] Generating {product_type}: {problem[:40]}..."
+            )
+
+            # Budget check
+            if not self.can_continue():
+                print(f"  STOP: Budget exceeded (${self.tracker.get_total():.2f})")
+                results.append(
+                    {
+                        "week": i + 1,
+                        "pain_point": problem,
+                        "type": product_type,
+                        "status": "budget_exceeded",
+                        "cost": 0,
+                    }
+                )
+                break
+
+            # Dry run mode
+            if self.dry_run:
+                results.append(
+                    {
+                        "week": i + 1,
+                        "pain_point": problem,
+                        "type": product_type,
+                        "path": f"output/products/mock-{i + 1}/",
+                        "status": "dry_run",
+                        "cost": 0,
+                        "fallback_used": False,
+                    }
+                )
+                print(f"  [DRY RUN] Would generate {product_type} for: {problem[:40]}")
+                continue
+
+            # Try primary type (factory is guaranteed not None here since dry_run continues above)
+            assert factory is not None
+            success, result = self._try_generate_product(
+                factory, pain_point, product_type
+            )
+            fallback_used = False
+
+            # If failed, try fallbacks
+            if not success:
+                fallbacks = PRODUCT_TYPE_FALLBACKS.get(product_type, [])
+                for fallback_type in fallbacks:
+                    print(f"  Retrying with {fallback_type}...")
+                    success, result = self._try_generate_product(
+                        factory, pain_point, fallback_type
+                    )
+                    if success:
+                        product_type = fallback_type
+                        fallback_used = True
+                        break
+
+            result["week"] = i + 1
+            result["type"] = product_type
+            result["fallback_used"] = fallback_used
+            results.append(result)
+
+            # Track cost
+            if result.get("cost", 0) > 0:
+                self.tracker.add_cost("product", result["cost"])
+
+            if result.get("status") == "success":
+                print(f"  [SUCCESS] Saved to: {result.get('path', 'unknown')}")
+            else:
+                print(f"  [FAILED] {result.get('error', 'Unknown error')}")
+
+        self.results["products"] = results
+        return results
+
+    def _try_generate_product(
+        self, factory: ProductFactory, pain_point: dict, product_type: str
+    ) -> tuple[bool, dict]:
+        """
+        Attempt to generate a product, return (success, result_dict).
+
+        Args:
+            factory: ProductFactory instance
+            pain_point: Pain point dict with 'problem' field
+            product_type: Type of product to generate
+
+        Returns:
+            Tuple of (success: bool, result: dict)
+        """
+        problem = pain_point.get("problem", "Unknown")
+
+        try:
+            # Create product spec
+            spec = ProductSpec(
+                problem=problem,
+                solution_name=self._generate_product_name(problem, product_type),
+                target_audience="E-commerce entrepreneurs",
+                key_benefits=[
+                    "Solves a real problem validated by Reddit engagement",
+                    "Ready to use immediately",
+                    "Professional quality deliverables",
+                ],
+                product_type=product_type,
+            )
+
+            # Use the packager via factory
+            result = factory._packager.package(spec)
+
+            # Check if product was generated successfully
+            if result and result.get("path"):
+                manifest_path = Path(result["path"]) / "manifest.json"
+                if manifest_path.exists():
+                    return True, {
+                        "pain_point": problem,
+                        "path": result["path"],
+                        "product_id": result.get("product_id", ""),
+                        "status": "success",
+                        "cost": 0.05,  # Estimated per-product cost
+                    }
+
+            return False, {
+                "pain_point": problem,
+                "status": "failed",
+                "error": "No output generated",
+                "cost": 0,
+            }
+
+        except Exception as e:
+            return False, {
+                "pain_point": problem,
+                "status": "error",
+                "error": str(e),
+                "cost": 0,
+            }
+
+    def _generate_product_name(self, problem: str, product_type: str) -> str:
+        """
+        Generate a clean product name from problem description.
+
+        Args:
+            problem: Pain point problem description
+            product_type: Type of product being created
+
+        Returns:
+            Clean, marketable product name
+        """
+        # Type-specific suffixes
+        type_suffixes = {
+            "html_tool": "Calculator",
+            "automation": "Automator",
+            "gpt_config": "AI Assistant",
+            "sheets": "Tracker",
+            "pdf": "Framework",
+            "prompt_pack": "Prompt Pack",
+        }
+
+        # Extract key topic words from problem
+        filler_words = {
+            "i",
+            "my",
+            "the",
+            "a",
+            "an",
+            "is",
+            "are",
+            "with",
+            "for",
+            "to",
+            "and",
+            "or",
+            "but",
+            "in",
+            "on",
+            "at",
+            "how",
+            "do",
+            "can",
+            "help",
+            "anyone",
+            "else",
+            "having",
+            "issues",
+            "problem",
+            "struggling",
+            "can't",
+            "no",
+            "not",
+            "don't",
+            "why",
+            "what",
+            "when",
+            "need",
+        }
+
+        words = problem.lower().split()
+        key_words = [w for w in words if w not in filler_words and len(w) > 2]
+
+        # Take first 2-3 meaningful words
+        key_words = key_words[:3]
+
+        # Capitalize and join
+        if key_words:
+            base_name = " ".join(w.capitalize() for w in key_words)
+        else:
+            base_name = "E-commerce"
+
+        # Add type-specific suffix
+        suffix = type_suffixes.get(product_type, "Solution")
+
+        return f"{base_name} {suffix}"
+
+    def save_pain_points(
+        self, pain_points: list[dict], filepath: Optional[Path] = None
+    ) -> Path:
+        """
+        Save pain points to JSON file.
+
+        Args:
+            pain_points: List of pain point dicts
+            filepath: Custom path (default: .tmp/pain_points.json)
+
+        Returns:
+            Path to saved pain points file
+        """
+        if filepath is None:
+            filepath = Path(".tmp/pain_points.json")
+
+        filepath.parent.mkdir(parents=True, exist_ok=True)
+
+        data = {
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "count": len(pain_points),
+            "pain_points": pain_points,
+        }
+
+        with open(filepath, "w") as f:
+            json.dump(data, f, indent=2)
+
+        logger.info(f"Saved {len(pain_points)} pain points to {filepath}")
+        return filepath
+
+    def load_pain_points(self, filepath: Optional[Path] = None) -> list[dict]:
+        """
+        Load pain points from JSON file.
+
+        Args:
+            filepath: Custom path (default: .tmp/pain_points.json)
+
+        Returns:
+            List of pain point dicts
+        """
+        if filepath is None:
+            filepath = Path(".tmp/pain_points.json")
+
+        if not filepath.exists():
+            logger.warning(f"Pain points file not found: {filepath}")
+            return []
+
+        with open(filepath) as f:
+            data = json.load(f)
+
+        return data.get("pain_points", data) if isinstance(data, dict) else data
+
 
 # =============================================================================
 # CLI INTERFACE
@@ -898,6 +1315,25 @@ Examples:
         type=str,
         default=None,
         help="Path to topics JSON file (default: .tmp/topics.json)",
+    )
+
+    parser.add_argument(
+        "--discover-pain-points",
+        action="store_true",
+        help="Discover pain points from Reddit for product generation",
+    )
+
+    parser.add_argument(
+        "--generate-products",
+        action="store_true",
+        help="Generate products from discovered or saved pain points",
+    )
+
+    parser.add_argument(
+        "--pain-points-file",
+        type=str,
+        default=None,
+        help="Path to pain points JSON file (default: .tmp/pain_points.json)",
     )
 
     return parser.parse_args()
@@ -1127,14 +1563,146 @@ def main() -> int:
 
         return 0 if success_count > 0 or dry_run_count > 0 else 1
 
+    # Discover pain points mode
+    if args.discover_pain_points:
+        print("\n" + "=" * 60)
+        print("=== Pain Point Discovery ===")
+        print("=" * 60)
+        print(f"Mode: {'DRY RUN' if args.dry_run else 'LIVE'}")
+        print(f"Target count: {args.count}")
+        print("-" * 60)
+
+        pain_points = runner.discover_pain_points(limit=args.count)
+
+        if pain_points:
+            print(f"\nDiscovered {len(pain_points)} pain points:\n")
+
+            # Count categories
+            category_counts = {}
+            for pp in pain_points:
+                cat = pp.get("category", "other")
+                category_counts[cat] = category_counts.get(cat, 0) + 1
+
+            for i, pp in enumerate(pain_points, 1):
+                problem = pp.get("problem", "Unknown")[:60]
+                category = pp.get("category", "other")
+                engagement = pp.get("engagement", 0)
+                suggested = pp.get("suggested_types", [])[:2]
+                product_type = (
+                    PRODUCT_TYPE_DISTRIBUTION[i - 1]
+                    if i <= len(PRODUCT_TYPE_DISTRIBUTION)
+                    else "prompt_pack"
+                )
+                print(f"{i}. [{category}] {problem}")
+                print(f"   Engagement: {engagement}")
+                print(f"   Suggested types: {', '.join(suggested)}")
+                print(f"   Will generate: {product_type}")
+                print()
+
+            print("-" * 60)
+            print("Category distribution:")
+            for cat, count in sorted(category_counts.items()):
+                print(f"  {cat}: {count}")
+            print(f"\nUnique categories: {len(category_counts)}")
+
+            # Save pain points
+            runner.save_pain_points(pain_points)
+            print(f"\nPain points saved to .tmp/pain_points.json")
+        else:
+            print("\nNo pain points discovered.")
+
+        print("=" * 60 + "\n")
+        return 0
+
+    # Generate products mode
+    if args.generate_products:
+        print("\n" + "=" * 60)
+        print("=== Product Generation ===")
+        print("=" * 60)
+        print(f"Mode: {'DRY RUN' if args.dry_run else 'LIVE'}")
+        print(f"Budget: ${runner.MAX_BUDGET:.2f}")
+        print(f"Product distribution: {PRODUCT_TYPE_DISTRIBUTION}")
+        print("-" * 60)
+
+        # Check API keys first
+        if not args.dry_run:
+            api_status = check_api_keys()
+            if not api_status["ready"]:
+                print("\n[ERROR] Missing required API keys:")
+                for key in api_status["missing_required"]:
+                    print(f"  - {key}")
+                return 1
+
+        # Load pain points
+        pain_points_path = (
+            Path(args.pain_points_file)
+            if args.pain_points_file
+            else Path(".tmp/pain_points.json")
+        )
+        if pain_points_path.exists():
+            print(f"Loading pain points from: {pain_points_path}")
+            pain_points = runner.load_pain_points(pain_points_path)
+        else:
+            print("No saved pain points found. Discovering pain points...")
+            pain_points = runner.discover_pain_points(limit=args.count)
+            if pain_points:
+                runner.save_pain_points(pain_points)
+
+        if not pain_points:
+            print("\n[ERROR] No pain points available for product generation.")
+            return 1
+
+        print(f"\nGenerating {len(pain_points)} products...\n")
+
+        # Generate products
+        results = runner.generate_products(pain_points)
+
+        # Save status
+        runner.save_status()
+
+        # Summary
+        print("\n" + "=" * 60)
+        print("=== Generation Complete ===")
+        print("=" * 60)
+
+        success_count = sum(1 for r in results if r.get("status") == "success")
+        failed_count = sum(1 for r in results if r.get("status") in ["failed", "error"])
+        dry_run_count = sum(1 for r in results if r.get("status") == "dry_run")
+        fallback_count = sum(1 for r in results if r.get("fallback_used", False))
+
+        print(f"Success: {success_count}")
+        print(f"Failed/Error: {failed_count}")
+        if fallback_count:
+            print(f"Fallback used: {fallback_count}")
+        if dry_run_count:
+            print(f"Dry run: {dry_run_count}")
+        print(f"Total cost: ${runner.tracker.get_total():.2f}")
+
+        # Show product type distribution in results
+        if results:
+            print("\nProduct types generated:")
+            type_counts = {}
+            for r in results:
+                ptype = r.get("type", "unknown")
+                type_counts[ptype] = type_counts.get(ptype, 0) + 1
+            for ptype, count in sorted(type_counts.items()):
+                print(f"  {ptype}: {count}")
+
+        print(f"\nStatus saved to: .tmp/batch_status.json")
+        print("=" * 60 + "\n")
+
+        return 0 if success_count > 0 or dry_run_count > 0 else 1
+
     # Default: show help
     print("Use --help to see available options.")
     print("Common commands:")
-    print("  --check-keys           Check API key status")
-    print("  --discover-only        Discover trending topics")
-    print("  --preflight            Run pre-flight checks")
-    print("  --generate-newsletters Generate newsletters from topics")
-    print("  --status               Show batch status")
+    print("  --check-keys            Check API key status")
+    print("  --discover-only         Discover trending topics")
+    print("  --discover-pain-points  Discover pain points for products")
+    print("  --preflight             Run pre-flight checks")
+    print("  --generate-newsletters  Generate newsletters from topics")
+    print("  --generate-products     Generate products from pain points")
+    print("  --status                Show batch status")
     return 0
 
 
