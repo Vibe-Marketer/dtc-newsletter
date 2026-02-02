@@ -956,7 +956,14 @@ class BatchRunner:
             - fallback_used: bool (if fallback type was used)
         """
         results = []
-        factory = ProductFactory() if not self.dry_run else None
+        # Create factory with Claude client for AI-assisted generation (html_tool, automation)
+        if not self.dry_run:
+            from execution.claude_client import ClaudeClient
+
+            claude_client = ClaudeClient()
+            factory = ProductFactory(claude_client=claude_client)
+        else:
+            factory = None
 
         for i, pain_point in enumerate(pain_points):
             # Determine product type from distribution

@@ -123,7 +123,8 @@ class HtmlToolGenerator(BaseGenerator):
         )
 
         # Call Claude to generate the tool content
-        response = self.claude_client.generate(prompt)
+        # Use higher token limit for complex HTML tools
+        response = self.claude_client.generate(prompt, max_tokens=8192)
 
         # Parse the JSON response
         try:
