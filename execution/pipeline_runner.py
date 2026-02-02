@@ -107,11 +107,11 @@ def announce(msg: str, quiet: bool = False) -> None:
 
 def call_with_retry(func: Callable, *args, **kwargs) -> Any:
     """
-    Call a function with retry logic for Claude API errors.
+    Call a function with retry logic for API errors.
 
     Retries 3 times with exponential backoff (1s, 2s, 4s) for:
-    - anthropic.APIError
-    - anthropic.APIConnectionError
+    - openai.APIError
+    - openai.APIConnectionError
 
     Args:
         func: Function to call
@@ -124,16 +124,14 @@ def call_with_retry(func: Callable, *args, **kwargs) -> Any:
     Raises:
         Exception after 3 failed attempts
     """
-    # Try to get anthropic exception types
+    # Try to get openai exception types
     try:
-        import anthropic
+        import openai
 
         @retry(
             stop=stop_after_attempt(3),
             wait=wait_exponential(multiplier=1, min=1, max=4),
-            retry=retry_if_exception_type(
-                (anthropic.APIError, anthropic.APIConnectionError)
-            ),
+            retry=retry_if_exception_type((openai.APIError, openai.APIConnectionError)),
             reraise=True,
         )
         def _call_with_retry():
@@ -142,7 +140,7 @@ def call_with_retry(func: Callable, *args, **kwargs) -> Any:
         return _call_with_retry()
 
     except ImportError:
-        # anthropic not available, call without retry
+        # openai not available, call without retry
         return func(*args, **kwargs)
 
 

@@ -1,8 +1,8 @@
 """
 Pitch generator for affiliate recommendations.
-DOE-VERSION: 2026.01.31
+DOE-VERSION: 2026.02.02
 
-Generates contextual pitch angles for affiliate products using Claude API.
+Generates contextual pitch angles for affiliate products using Claude API via OpenRouter.
 Pitches match the Hormozi/Suby voice profile and are ready for Section 4
 ("Tool of the Week").
 """
@@ -12,7 +12,6 @@ import os
 import re
 from typing import Optional
 
-import anthropic
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -21,8 +20,9 @@ load_dotenv()
 # Set up logging
 logger = logging.getLogger(__name__)
 
-# Import affiliate model
+# Import affiliate model and Claude client
 from execution.affiliate_discovery import AffiliateProgram
+from execution.claude_client import ClaudeClient
 
 # Voice guidance constant per RESEARCH.md and PROJECT.md
 VOICE_GUIDANCE = """
@@ -34,9 +34,6 @@ Voice requirements (Hormozi/Suby hybrid):
 - Concrete, specific examples (never hypothetical)
 - 80% value / 20% ask ratio
 """
-
-# Default model
-DEFAULT_MODEL = "claude-sonnet-4-20250514"
 
 # Fluff words to reject in pitches
 FLUFF_WORDS = [
@@ -67,7 +64,7 @@ class PitchGenerator:
     """
     Generates voice-matched pitches for affiliate products.
 
-    Uses Anthropic Claude API to create 2-3 sentence recommendations
+    Uses Claude API via OpenRouter to create 2-3 sentence recommendations
     that feel like insider tips rather than advertisements.
     """
 
@@ -76,21 +73,12 @@ class PitchGenerator:
         Initialize pitch generator.
 
         Args:
-            api_key: Anthropic API key. If not provided, uses ANTHROPIC_API_KEY env var.
+            api_key: OpenRouter API key. If not provided, uses OPENROUTER_API_KEY env var.
 
         Raises:
             ValueError: If no API key provided or found in environment.
         """
-        self.api_key = api_key or os.getenv("ANTHROPIC_API_KEY")
-
-        if not self.api_key:
-            raise ValueError(
-                "ANTHROPIC_API_KEY environment variable required. "
-                "Set it in .env or pass api_key parameter."
-            )
-
-        self._client = anthropic.Anthropic(api_key=self.api_key)
-        self._model = DEFAULT_MODEL
+        self._client = ClaudeClient(api_key=api_key)
 
     def generate_pitch(
         self,
@@ -137,21 +125,8 @@ Requirements:
 
 Write only the pitch, nothing else."""
 
-        response = self._client.messages.create(
-            model=self._model,
-            max_tokens=300,
-            messages=[
-                {
-                    "role": "user",
-                    "content": prompt,
-                }
-            ],
-        )
-
-        # Extract text content
-        content = response.content[0].text.strip()
-
-        return content
+        content = self._client.generate(prompt=prompt, max_tokens=300)
+        return content.strip()
 
     def generate_pitches_batch(
         self,

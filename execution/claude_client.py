@@ -1,13 +1,13 @@
 """
 Claude API client with prompt caching for DTC Money Minute newsletter.
-DOE-VERSION: 2026.01.31
+DOE-VERSION: 2026.02.02
 
-Provides Anthropic API wrapper with:
+Provides Claude API wrapper via OpenRouter with:
 - Prompt caching for voice profile (reduces token usage)
 - generate_with_voice() for general voice-consistent generation
 - generate_section() for section-specific generation with validation
 
-Uses native Anthropic SDK for best prompt caching support.
+Uses OpenRouter API (OpenAI-compatible) for access to Anthropic models.
 """
 
 import os
@@ -26,40 +26,46 @@ logger = logging.getLogger(__name__)
 from execution.voice_profile import VOICE_PROFILE_PROMPT, SECTION_GUIDELINES
 from execution.anti_pattern_validator import validate_voice
 
-# Default model - claude-sonnet-4-5 for best cost/quality balance
-DEFAULT_MODEL = "claude-sonnet-4-5"
+# Default model - claude-sonnet-4-5 via OpenRouter
+DEFAULT_MODEL = "anthropic/claude-sonnet-4"
+
+# OpenRouter API endpoint
+OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
 
 
 class ClaudeClient:
     """
-    Anthropic Claude API client with prompt caching for voice profile.
+    Claude API client via OpenRouter with prompt caching for voice profile.
 
-    The voice profile is cached using ephemeral cache_control to reduce
-    token usage across multiple section generations.
+    Uses OpenRouter's OpenAI-compatible API to access Anthropic models.
+    The voice profile is included in system prompt for consistent generation.
     """
 
     def __init__(self, api_key: Optional[str] = None):
         """
-        Initialize Claude client.
+        Initialize Claude client via OpenRouter.
 
         Args:
-            api_key: Anthropic API key. If not provided, uses ANTHROPIC_API_KEY env var.
+            api_key: OpenRouter API key. If not provided, uses OPENROUTER_API_KEY env var.
 
         Raises:
             ValueError: If no API key provided or found in environment.
         """
-        self.api_key = api_key or os.getenv("ANTHROPIC_API_KEY")
+        self.api_key = api_key or os.getenv("OPENROUTER_API_KEY")
 
         if not self.api_key:
             raise ValueError(
-                "ANTHROPIC_API_KEY environment variable required. "
+                "OPENROUTER_API_KEY environment variable required. "
                 "Set it in .env or pass api_key parameter."
             )
 
-        # Import anthropic here to allow mocking in tests
-        import anthropic
+        # Import openai here to allow mocking in tests
+        from openai import OpenAI
 
-        self._client = anthropic.Anthropic(api_key=self.api_key)
+        self._client = OpenAI(
+            base_url=OPENROUTER_BASE_URL,
+            api_key=self.api_key,
+        )
         self._model = DEFAULT_MODEL
 
         # Track cache stats
@@ -75,7 +81,7 @@ class ClaudeClient:
         max_tokens: int = 1024,
     ) -> str:
         """
-        Generate text using the voice profile with prompt caching.
+        Generate text using the voice profile.
 
         Args:
             prompt: User prompt to generate content for
@@ -84,45 +90,86 @@ class ClaudeClient:
         Returns:
             Generated text content
         """
-        # Build system prompt with cache control
-        system = [
-            {
-                "type": "text",
-                "text": VOICE_PROFILE_PROMPT,
-                "cache_control": {"type": "ephemeral"},
-            }
+        # Build messages with voice profile as system prompt
+        messages = [
+            {"role": "system", "content": VOICE_PROFILE_PROMPT},
+            {"role": "user", "content": prompt},
         ]
 
-        # Make API call
-        response = self._client.messages.create(
+        # Make API call via OpenRouter
+        response = self._client.chat.completions.create(
             model=self._model,
             max_tokens=max_tokens,
-            system=system,
-            messages=[{"role": "user", "content": prompt}],
+            messages=messages,
+            extra_headers={
+                "HTTP-Referer": "https://dtc-newsletter.local",
+                "X-Title": "DTC Newsletter Generator",
+            },
         )
 
-        # Update cache stats
+        # Update stats
         self._cache_stats["total_calls"] += 1
-        if hasattr(response, "usage"):
+        if hasattr(response, "usage") and response.usage:
             usage = response.usage
-            if hasattr(usage, "cache_read_input_tokens"):
-                self._cache_stats["cache_read_tokens"] += (
-                    usage.cache_read_input_tokens or 0
-                )
-            if hasattr(usage, "cache_creation_input_tokens"):
-                self._cache_stats["cache_write_tokens"] += (
-                    usage.cache_creation_input_tokens or 0
-                )
-
-        # Log cache stats
-        if self._cache_stats["cache_read_tokens"] > 0:
-            logger.info(
-                f"Cache hit: {self._cache_stats['cache_read_tokens']} tokens read from cache"
-            )
+            # OpenRouter may provide cache stats in some cases
+            if hasattr(usage, "prompt_tokens_details"):
+                details = usage.prompt_tokens_details
+                if details and hasattr(details, "cached_tokens"):
+                    self._cache_stats["cache_read_tokens"] += details.cached_tokens or 0
 
         # Extract text content
-        content = response.content[0].text
-        return content
+        content = response.choices[0].message.content
+        return content or ""
+
+    def generate(
+        self,
+        prompt: str,
+        max_tokens: int = 4096,
+        system_prompt: Optional[str] = None,
+    ) -> str:
+        """
+        Generate text using plain prompt (no voice profile).
+
+        Use this for product generation where the voice profile isn't needed
+        (e.g., generating HTML tools, automation scripts, GPT configs).
+
+        Args:
+            prompt: User prompt to generate content for
+            max_tokens: Maximum tokens in response (default: 4096)
+            system_prompt: Optional system prompt (default: general assistant)
+
+        Returns:
+            Generated text content
+        """
+        # Build system if provided, otherwise use simple default
+        if system_prompt:
+            system = system_prompt
+        else:
+            system = "You are a helpful assistant that generates high-quality content. Follow instructions precisely and return exactly what is requested."
+
+        # Build messages
+        messages = [
+            {"role": "system", "content": system},
+            {"role": "user", "content": prompt},
+        ]
+
+        # Make API call via OpenRouter
+        response = self._client.chat.completions.create(
+            model=self._model,
+            max_tokens=max_tokens,
+            messages=messages,
+            extra_headers={
+                "HTTP-Referer": "https://dtc-newsletter.local",
+                "X-Title": "DTC Newsletter Generator",
+            },
+        )
+
+        # Update stats
+        self._cache_stats["total_calls"] += 1
+
+        # Extract text content
+        content = response.choices[0].message.content
+        return content or ""
 
     def generate_section(
         self,
@@ -243,7 +290,7 @@ def get_client(api_key: Optional[str] = None) -> ClaudeClient:
     Get a configured ClaudeClient instance.
 
     Args:
-        api_key: Optional API key. Uses ANTHROPIC_API_KEY env var if not provided.
+        api_key: Optional API key. Uses OPENROUTER_API_KEY env var if not provided.
 
     Returns:
         Configured ClaudeClient instance

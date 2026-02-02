@@ -358,7 +358,7 @@ def check_api_keys() -> dict:
             - available_optional: list of available optional key names
     """
     required = {
-        "ANTHROPIC_API_KEY": os.getenv("ANTHROPIC_API_KEY"),
+        "OPENROUTER_API_KEY": os.getenv("OPENROUTER_API_KEY"),
     }
 
     optional = {
@@ -505,7 +505,7 @@ class BatchRunner:
         # Required keys
         if api_status["ready"]:
             print("\n[PASS] Required API keys present:")
-            print("  - ANTHROPIC_API_KEY: Set")
+            print("  - OPENROUTER_API_KEY: Set")
         else:
             print("\n[FAIL] Missing required API keys:")
             for key in api_status["missing_required"]:
@@ -1359,7 +1359,7 @@ def main() -> int:
 
         print("Required:")
         print(
-            f"  ANTHROPIC_API_KEY: {'Set' if 'ANTHROPIC_API_KEY' not in status['missing_required'] else 'MISSING'}"
+            f"  OPENROUTER_API_KEY: {'Set' if 'OPENROUTER_API_KEY' not in status['missing_required'] else 'MISSING'}"
         )
 
         print("\nOptional:")

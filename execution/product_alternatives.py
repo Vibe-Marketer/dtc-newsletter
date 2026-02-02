@@ -1,6 +1,6 @@
 """
 Product alternatives generator for monetization decisions.
-DOE-VERSION: 2026.01.31
+DOE-VERSION: 2026.02.02
 
 Generates product ideas as alternatives to affiliate recommendations.
 Products are ranked by value/complexity ratio to prioritize high-value,
@@ -15,7 +15,6 @@ from typing import Literal, Optional
 
 from openai import OpenAI
 from pydantic import BaseModel, Field
-import anthropic
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -24,10 +23,12 @@ load_dotenv()
 # Configure logging
 logger = logging.getLogger(__name__)
 
+# Import ClaudeClient for Claude API access via OpenRouter
+from execution.claude_client import ClaudeClient
+
 # API configuration
 PERPLEXITY_BASE_URL = "https://api.perplexity.ai"
 DEFAULT_PERPLEXITY_MODEL = "sonar-pro"
-DEFAULT_CLAUDE_MODEL = "claude-sonnet-4-20250514"
 
 # Product type options per PROJECT.md
 ProductType = Literal[
@@ -91,20 +92,17 @@ def get_perplexity_client() -> OpenAI:
     return OpenAI(api_key=api_key, base_url=PERPLEXITY_BASE_URL)
 
 
-def get_claude_client() -> anthropic.Anthropic:
+def get_claude_client() -> ClaudeClient:
     """
-    Initialize Claude client.
+    Initialize Claude client via OpenRouter.
 
     Returns:
-        Anthropic client
+        ClaudeClient instance
 
     Raises:
-        ValueError: If ANTHROPIC_API_KEY environment variable is not set
+        ValueError: If OPENROUTER_API_KEY environment variable is not set
     """
-    api_key = os.getenv("ANTHROPIC_API_KEY")
-    if not api_key:
-        raise ValueError("ANTHROPIC_API_KEY environment variable required")
-    return anthropic.Anthropic(api_key=api_key)
+    return ClaudeClient()
 
 
 def research_pain_points(
@@ -170,7 +168,6 @@ def generate_product_ideas(
     topic: str,
     pain_points: str,
     newsletter_context: str = "",
-    model: str = DEFAULT_CLAUDE_MODEL,
 ) -> list[ProductIdea]:
     """
     Generate product ideas based on pain points using Claude.
@@ -230,18 +227,7 @@ Example:
 Return ONLY the JSON array, no other text."""
 
     try:
-        message = client.messages.create(
-            model=model,
-            max_tokens=1500,
-            messages=[
-                {
-                    "role": "user",
-                    "content": prompt,
-                }
-            ],
-        )
-
-        content = message.content[0].text.strip()
+        content = client.generate(prompt=prompt, max_tokens=1500).strip()
 
         # Clean up content - remove markdown code blocks if present
         if content.startswith("```"):
@@ -320,7 +306,6 @@ def generate_product_alternatives(
     topic: str,
     newsletter_context: str = "",
     perplexity_model: str = DEFAULT_PERPLEXITY_MODEL,
-    claude_model: str = DEFAULT_CLAUDE_MODEL,
     retry_on_perplexity_failure: bool = True,
 ) -> ProductAlternativesResult:
     """
@@ -334,7 +319,6 @@ def generate_product_alternatives(
         topic: The newsletter topic to generate products for
         newsletter_context: Additional context about the newsletter content
         perplexity_model: Perplexity model for research
-        claude_model: Claude model for generation
         retry_on_perplexity_failure: Whether to retry Perplexity once on failure
 
     Returns:
@@ -373,7 +357,6 @@ def generate_product_alternatives(
         topic=topic,
         pain_points=pain_points,
         newsletter_context=newsletter_context,
-        model=claude_model,
     )
 
     # Rank products by value/complexity ratio

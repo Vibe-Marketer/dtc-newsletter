@@ -1,6 +1,6 @@
 """
 Monetization output formatter.
-DOE-VERSION: 2026.01.31
+DOE-VERSION: 2026.02.02
 
 Combines affiliate programs and product alternatives into a unified
 markdown output for decision-making. Creates side-by-side comparison
@@ -15,7 +15,6 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Literal, Optional
 
-import anthropic
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -31,12 +30,10 @@ from execution.affiliate_discovery import (
     parse_commission_rate,
 )
 from execution.product_alternatives import ProductIdea
+from execution.claude_client import ClaudeClient
 
 # Default output directory
 DEFAULT_OUTPUT_DIR = Path("output/monetization")
-
-# Claude model for rationale generation
-DEFAULT_CLAUDE_MODEL = "claude-sonnet-4-20250514"
 
 
 @dataclass
@@ -110,28 +107,25 @@ def product_to_option(product: ProductIdea) -> MonetizationOption:
 def generate_ranking_rationale(
     affiliates: list[MonetizationOption],
     products: list[MonetizationOption],
-    model: str = DEFAULT_CLAUDE_MODEL,
 ) -> dict[str, list[str]]:
     """
-    Generate ranking rationale using Claude.
+    Generate ranking rationale using Claude via OpenRouter.
 
     Explains why #1 beats #2, #2 beats #3, etc. for each track.
 
     Args:
         affiliates: List of affiliate options (already ranked)
         products: List of product options (already ranked)
-        model: Claude model to use
 
     Returns:
         Dict with 'affiliates' and 'products' keys, each containing
         list of rationale strings
     """
-    api_key = os.getenv("ANTHROPIC_API_KEY")
-    if not api_key:
+    try:
+        client = ClaudeClient()
+    except ValueError:
         # Return empty rationales if no API key
         return {"affiliates": [], "products": []}
-
-    client = anthropic.Anthropic(api_key=api_key)
 
     # Build context for affiliates
     affiliate_context = ""
@@ -168,13 +162,7 @@ Return as JSON:
 Keep rationales brief (1 sentence each). Return ONLY the JSON."""
 
     try:
-        message = client.messages.create(
-            model=model,
-            max_tokens=500,
-            messages=[{"role": "user", "content": prompt}],
-        )
-
-        content = message.content[0].text.strip()
+        content = client.generate(prompt=prompt, max_tokens=500).strip()
 
         # Clean up markdown if present
         if content.startswith("```"):

@@ -264,8 +264,8 @@ Examples:
         logger.error("PERPLEXITY_API_KEY environment variable required")
         return 1
 
-    if not os.getenv("ANTHROPIC_API_KEY"):
-        logger.error("ANTHROPIC_API_KEY environment variable required")
+    if not os.getenv("OPENROUTER_API_KEY"):
+        logger.error("OPENROUTER_API_KEY environment variable required")
         return 1
 
     # Run discovery

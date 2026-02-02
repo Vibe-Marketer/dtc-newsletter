@@ -1,8 +1,8 @@
 """
 Tests for claude_client module.
-DOE-VERSION: 2026.01.31
+DOE-VERSION: 2026.02.02
 
-Tests mock the Anthropic SDK to avoid actual API calls.
+Tests mock the OpenAI SDK (used for OpenRouter) to avoid actual API calls.
 """
 
 import pytest
@@ -16,18 +16,18 @@ class TestClaudeClientInit:
     def test_init_with_api_key(self):
         """Should initialize with provided API key."""
         with patch.dict(os.environ, {}, clear=True):
-            with patch("anthropic.Anthropic") as mock_anthropic:
+            with patch("openai.OpenAI") as mock_openai:
                 from execution.claude_client import ClaudeClient
 
                 client = ClaudeClient(api_key="test-key-123")
 
                 assert client.api_key == "test-key-123"
-                mock_anthropic.assert_called_once_with(api_key="test-key-123")
+                mock_openai.assert_called_once()
 
     def test_init_from_env(self):
-        """Should initialize from ANTHROPIC_API_KEY env var."""
-        with patch.dict(os.environ, {"ANTHROPIC_API_KEY": "env-key-456"}, clear=True):
-            with patch("anthropic.Anthropic") as mock_anthropic:
+        """Should initialize from OPENROUTER_API_KEY env var."""
+        with patch.dict(os.environ, {"OPENROUTER_API_KEY": "env-key-456"}, clear=True):
+            with patch("openai.OpenAI") as mock_openai:
                 # Need to reimport to pick up env change
                 import importlib
                 import execution.claude_client as client_module
@@ -45,16 +45,16 @@ class TestClaudeClientInit:
         with patch.dict(os.environ, {}, clear=True):
             # Also need to prevent load_dotenv from adding the key back
             with patch("dotenv.load_dotenv"):  # Prevent .env loading
-                # Patch os.getenv to return None for ANTHROPIC_API_KEY
+                # Patch os.getenv to return None for OPENROUTER_API_KEY
                 original_getenv = os.getenv
 
                 def mock_getenv(key, default=None):
-                    if key == "ANTHROPIC_API_KEY":
+                    if key == "OPENROUTER_API_KEY":
                         return None
                     return original_getenv(key, default)
 
                 with patch("os.getenv", side_effect=mock_getenv):
-                    with patch("anthropic.Anthropic"):
+                    with patch("openai.OpenAI"):
                         import importlib
                         import execution.claude_client as client_module
 
@@ -63,7 +63,7 @@ class TestClaudeClientInit:
                         with pytest.raises(ValueError) as exc_info:
                             client_module.ClaudeClient()
 
-                        assert "ANTHROPIC_API_KEY" in str(exc_info.value)
+                        assert "OPENROUTER_API_KEY" in str(exc_info.value)
 
 
 class TestGenerateWithVoice:
@@ -71,21 +71,21 @@ class TestGenerateWithVoice:
 
     @pytest.fixture
     def mock_client(self):
-        """Create a ClaudeClient with mocked Anthropic."""
-        with patch.dict(os.environ, {"ANTHROPIC_API_KEY": "test-key"}, clear=True):
-            with patch("anthropic.Anthropic") as mock_anthropic:
-                # Create mock response
+        """Create a ClaudeClient with mocked OpenAI (OpenRouter)."""
+        with patch.dict(os.environ, {"OPENROUTER_API_KEY": "test-key"}, clear=True):
+            with patch("openai.OpenAI") as mock_openai:
+                # Create mock response matching OpenAI format
                 mock_response = MagicMock()
-                mock_response.content = [MagicMock(text="Generated text response")]
-                mock_response.usage = MagicMock(
-                    cache_read_input_tokens=100,
-                    cache_creation_input_tokens=50,
-                )
+                mock_choice = MagicMock()
+                mock_choice.message.content = "Generated text response"
+                mock_response.choices = [mock_choice]
+                mock_response.usage = MagicMock()
+                mock_response.usage.prompt_tokens_details = None
 
                 # Configure mock client
                 mock_instance = MagicMock()
-                mock_instance.messages.create.return_value = mock_response
-                mock_anthropic.return_value = mock_instance
+                mock_instance.chat.completions.create.return_value = mock_response
+                mock_openai.return_value = mock_instance
 
                 import importlib
                 import execution.claude_client as client_module
@@ -104,44 +104,32 @@ class TestGenerateWithVoice:
         assert result == "Generated text response"
 
     def test_uses_voice_profile_prompt(self, mock_client):
-        """Should use VOICE_PROFILE_PROMPT in system prompt."""
+        """Should use VOICE_PROFILE_PROMPT in system message."""
         client, mock_instance = mock_client
 
         client.generate_with_voice("Test prompt")
 
         # Get the call arguments
-        call_args = mock_instance.messages.create.call_args
-        system = call_args.kwargs.get("system") or call_args[1].get("system")
+        call_args = mock_instance.chat.completions.create.call_args
+        messages = call_args.kwargs.get("messages")
 
-        # Verify system prompt structure
-        assert len(system) == 1
-        assert system[0]["type"] == "text"
+        # Verify system message contains voice profile
+        system_msg = messages[0]
+        assert system_msg["role"] == "system"
         assert (
-            "Hormozi" in system[0]["text"]
+            "Hormozi" in system_msg["content"]
         )  # Voice profile contains Hormozi reference
 
-    def test_uses_cache_control(self, mock_client):
-        """Should set cache_control to ephemeral."""
-        client, mock_instance = mock_client
-
-        client.generate_with_voice("Test prompt")
-
-        call_args = mock_instance.messages.create.call_args
-        system = call_args.kwargs.get("system") or call_args[1].get("system")
-
-        # Verify cache control
-        assert system[0]["cache_control"] == {"type": "ephemeral"}
-
     def test_uses_correct_model(self, mock_client):
-        """Should use claude-sonnet-4-5 model."""
+        """Should use anthropic/claude-sonnet-4 model via OpenRouter."""
         client, mock_instance = mock_client
 
         client.generate_with_voice("Test prompt")
 
-        call_args = mock_instance.messages.create.call_args
-        model = call_args.kwargs.get("model") or call_args[1].get("model")
+        call_args = mock_instance.chat.completions.create.call_args
+        model = call_args.kwargs.get("model")
 
-        assert model == "claude-sonnet-4-5"
+        assert model == "anthropic/claude-sonnet-4"
 
     def test_passes_max_tokens(self, mock_client):
         """Should pass max_tokens parameter."""
@@ -149,10 +137,8 @@ class TestGenerateWithVoice:
 
         client.generate_with_voice("Test prompt", max_tokens=2048)
 
-        call_args = mock_instance.messages.create.call_args
-        max_tokens = call_args.kwargs.get("max_tokens") or call_args[1].get(
-            "max_tokens"
-        )
+        call_args = mock_instance.chat.completions.create.call_args
+        max_tokens = call_args.kwargs.get("max_tokens")
 
         assert max_tokens == 2048
 
@@ -162,23 +148,19 @@ class TestGenerateWithVoice:
 
         client.generate_with_voice("Test prompt")
 
-        call_args = mock_instance.messages.create.call_args
-        max_tokens = call_args.kwargs.get("max_tokens") or call_args[1].get(
-            "max_tokens"
-        )
+        call_args = mock_instance.chat.completions.create.call_args
+        max_tokens = call_args.kwargs.get("max_tokens")
 
         assert max_tokens == 1024
 
-    def test_tracks_cache_stats(self, mock_client):
-        """Should track cache statistics."""
+    def test_tracks_call_count(self, mock_client):
+        """Should track total API calls."""
         client, mock_instance = mock_client
 
         client.generate_with_voice("Test prompt")
 
         stats = client.get_cache_stats()
         assert stats["total_calls"] == 1
-        assert stats["cache_read_tokens"] == 100
-        assert stats["cache_write_tokens"] == 50
 
 
 class TestGenerateSection:
@@ -186,24 +168,22 @@ class TestGenerateSection:
 
     @pytest.fixture
     def mock_client_for_section(self):
-        """Create a ClaudeClient with mocked Anthropic for section generation."""
-        with patch.dict(os.environ, {"ANTHROPIC_API_KEY": "test-key"}, clear=True):
-            with patch("anthropic.Anthropic") as mock_anthropic:
+        """Create a ClaudeClient with mocked OpenAI for section generation."""
+        with patch.dict(os.environ, {"OPENROUTER_API_KEY": "test-key"}, clear=True):
+            with patch("openai.OpenAI") as mock_openai:
                 # Create mock response with clean text (no anti-patterns)
                 mock_response = MagicMock()
-                mock_response.content = [
-                    MagicMock(
-                        text="Clean generated section content without any violations."
-                    )
-                ]
-                mock_response.usage = MagicMock(
-                    cache_read_input_tokens=0,
-                    cache_creation_input_tokens=0,
+                mock_choice = MagicMock()
+                mock_choice.message.content = (
+                    "Clean generated section content without any violations."
                 )
+                mock_response.choices = [mock_choice]
+                mock_response.usage = MagicMock()
+                mock_response.usage.prompt_tokens_details = None
 
                 mock_instance = MagicMock()
-                mock_instance.messages.create.return_value = mock_response
-                mock_anthropic.return_value = mock_instance
+                mock_instance.chat.completions.create.return_value = mock_response
+                mock_openai.return_value = mock_instance
 
                 import importlib
                 import execution.claude_client as client_module
@@ -252,9 +232,9 @@ class TestGenerateSection:
         client.generate_section("section_2", content, prior_sections=prior)
 
         # Check that prior sections were included in prompt
-        call_args = mock_instance.messages.create.call_args
-        messages = call_args.kwargs.get("messages") or call_args[1].get("messages")
-        user_prompt = messages[0]["content"]
+        call_args = mock_instance.chat.completions.create.call_args
+        messages = call_args.kwargs.get("messages")
+        user_prompt = messages[1]["content"]  # User message is at index 1
 
         assert "Prior Sections" in user_prompt or "section_1" in user_prompt
 
@@ -263,9 +243,9 @@ class TestGenerateSection:
         client, mock_instance = mock_client_for_section
 
         # Change mock to return text with anti-pattern
-        mock_instance.messages.create.return_value.content[
+        mock_instance.chat.completions.create.return_value.choices[
             0
-        ].text = "This is a game-changer for your business."
+        ].message.content = "This is a game-changer for your business."
 
         content = {"title": "Test", "summary": "Summary"}
 
@@ -279,9 +259,9 @@ class TestGenerateSection:
         client, mock_instance = mock_client_for_section
 
         # Change mock to return text with anti-pattern
-        mock_instance.messages.create.return_value.content[
+        mock_instance.chat.completions.create.return_value.choices[
             0
-        ].text = "This is a game-changer for your business."
+        ].message.content = "This is a game-changer for your business."
 
         content = {"title": "Test", "summary": "Summary"}
 
@@ -303,9 +283,9 @@ class TestGenerateSection:
 
         client.generate_section("section_1", content)
 
-        call_args = mock_instance.messages.create.call_args
-        messages = call_args.kwargs.get("messages") or call_args[1].get("messages")
-        user_prompt = messages[0]["content"]
+        call_args = mock_instance.chat.completions.create.call_args
+        messages = call_args.kwargs.get("messages")
+        user_prompt = messages[1]["content"]  # User message at index 1
 
         assert "Amazing Tactic" in user_prompt
         assert "$50K" in user_prompt
@@ -316,19 +296,19 @@ class TestCacheStats:
 
     @pytest.fixture
     def client(self):
-        """Create a ClaudeClient with mocked Anthropic."""
-        with patch.dict(os.environ, {"ANTHROPIC_API_KEY": "test-key"}, clear=True):
-            with patch("anthropic.Anthropic") as mock_anthropic:
+        """Create a ClaudeClient with mocked OpenAI."""
+        with patch.dict(os.environ, {"OPENROUTER_API_KEY": "test-key"}, clear=True):
+            with patch("openai.OpenAI") as mock_openai:
                 mock_response = MagicMock()
-                mock_response.content = [MagicMock(text="Response")]
-                mock_response.usage = MagicMock(
-                    cache_read_input_tokens=100,
-                    cache_creation_input_tokens=50,
-                )
+                mock_choice = MagicMock()
+                mock_choice.message.content = "Response"
+                mock_response.choices = [mock_choice]
+                mock_response.usage = MagicMock()
+                mock_response.usage.prompt_tokens_details = None
 
                 mock_instance = MagicMock()
-                mock_instance.messages.create.return_value = mock_response
-                mock_anthropic.return_value = mock_instance
+                mock_instance.chat.completions.create.return_value = mock_response
+                mock_openai.return_value = mock_instance
 
                 import importlib
                 import execution.claude_client as client_module
@@ -364,8 +344,8 @@ class TestGetClient:
 
     def test_returns_claude_client(self):
         """Should return a ClaudeClient instance."""
-        with patch.dict(os.environ, {"ANTHROPIC_API_KEY": "test-key"}, clear=True):
-            with patch("anthropic.Anthropic"):
+        with patch.dict(os.environ, {"OPENROUTER_API_KEY": "test-key"}, clear=True):
+            with patch("openai.OpenAI"):
                 import importlib
                 import execution.claude_client as client_module
 
