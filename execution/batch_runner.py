@@ -32,12 +32,77 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
+# Import pipeline and validation modules
+from execution.pipeline_runner import run_pipeline
+from execution.anti_pattern_validator import validate_voice
+from execution.product_factory import ProductFactory
+from execution.generators.base_generator import ProductSpec
+
 # Set up logging
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
 )
 logger = logging.getLogger(__name__)
+
+
+# =============================================================================
+# NEWSLETTER VALIDATION
+# =============================================================================
+
+
+def validate_newsletter(path: Path) -> dict:
+    """
+    Full quality validation per CONTEXT.md.
+
+    Validation stages:
+    1. Anti-pattern check (no forbidden phrases)
+    2. Structural check (5 sections present)
+    3. Quality gate (at least 2 concrete numbers)
+
+    Args:
+        path: Path to newsletter markdown file
+
+    Returns:
+        Dict with:
+            - is_valid: bool
+            - violations: list of violation descriptions
+            - stage: which stage passed/failed ("anti_pattern", "structure", "quality", "passed")
+    """
+    content = path.read_text()
+
+    # 1. Anti-pattern check
+    is_valid, violations = validate_voice(content)
+    if not is_valid:
+        return {"is_valid": False, "violations": violations, "stage": "anti_pattern"}
+
+    # 2. Structural check - look for section markers or significant content blocks
+    # Newsletters have 5 sections: Instant Reward, What's Working Now, The Breakdown, Tool of the Week, PS
+    # They're separated by double newlines and often have headers
+    sections = [s for s in content.split("\n\n") if s.strip()]
+    if len(sections) < 5:
+        return {
+            "is_valid": False,
+            "violations": [f"Only {len(sections)} sections found, need at least 5"],
+            "stage": "structure",
+        }
+
+    # 3. Quality gate - concrete numbers ($ amounts, percentages)
+    has_dollar = "$" in content
+    has_percent = "%" in content
+    has_digits = any(char.isdigit() for char in content)
+
+    number_indicators = sum([has_dollar, has_percent, has_digits])
+    if number_indicators < 2:
+        return {
+            "is_valid": False,
+            "violations": [
+                f"Only {number_indicators} number indicators found, need at least 2"
+            ],
+            "stage": "quality",
+        }
+
+    return {"is_valid": True, "violations": [], "stage": "passed"}
 
 
 # =============================================================================
@@ -164,6 +229,33 @@ CATEGORY_KEYWORDS = {
         "amazon seller",
         "fba",
     ],
+}
+
+
+# =============================================================================
+# PRODUCT TYPE DISTRIBUTION (per CONTEXT.md)
+# =============================================================================
+
+# Product type distribution - prioritize hard stuff (html_tool, automation) first
+PRODUCT_TYPE_DISTRIBUTION = [
+    "html_tool",  # Week 1
+    "automation",  # Week 2
+    "html_tool",  # Week 3
+    "automation",  # Week 4
+    "html_tool",  # Week 5 (5th hard product)
+    "gpt_config",  # Week 6
+    "sheets",  # Week 7
+    "prompt_pack",  # Week 8
+]
+
+# Fallback types if primary fails
+PRODUCT_TYPE_FALLBACKS = {
+    "html_tool": ["automation", "sheets"],
+    "automation": ["html_tool", "prompt_pack"],
+    "gpt_config": ["prompt_pack", "sheets"],
+    "sheets": ["pdf", "prompt_pack"],
+    "prompt_pack": ["gpt_config", "pdf"],
+    "pdf": ["prompt_pack", "sheets"],
 }
 
 
@@ -522,6 +614,201 @@ class BatchRunner:
         # Apply diversity filter
         return select_diverse_topics(mock_topics[: count * 2], count=count)
 
+    def generate_newsletters(self, topics: list[dict]) -> list[dict]:
+        """
+        Generate 8 newsletters from topics.
+
+        For each topic:
+        1. Run pipeline_runner with topic
+        2. Validate output (anti-pattern, structure, quality)
+        3. If fails: log and continue (don't block batch)
+        4. Track cost and check budget
+
+        Args:
+            topics: List of topic dicts with 'title' field
+
+        Returns:
+            List of result dicts per newsletter with:
+            - week: int (1-8)
+            - topic: str
+            - path: str (if success)
+            - status: "success" | "validation_failed" | "failed" | "error" | "dry_run"
+            - cost: float
+            - violations: list (if validation_failed)
+            - errors: list (if failed)
+            - error: str (if error)
+        """
+        results = []
+
+        for i, topic_data in enumerate(topics, 1):
+            topic = topic_data.get("title") or topic_data.get("topic", "Unknown")
+            print(f"\n[{i}/{len(topics)}] Generating newsletter: {topic[:50]}...")
+
+            # Budget check
+            if not self.can_continue():
+                print(f"  STOP: Budget exceeded (${self.tracker.get_total():.2f})")
+                break
+
+            # Dry run mode
+            if self.dry_run:
+                results.append(
+                    {
+                        "week": i,
+                        "topic": topic,
+                        "path": f"output/newsletters/mock-{i}.md",
+                        "status": "dry_run",
+                        "cost": 0.0,
+                    }
+                )
+                print(f"  [DRY RUN] Would generate newsletter for: {topic[:40]}")
+                continue
+
+            try:
+                # Run the pipeline
+                result = run_pipeline(topic=topic, quiet=True, skip_affiliates=True)
+
+                if result.success and result.newsletter_path:
+                    # Validate the generated newsletter
+                    validation = validate_newsletter(result.newsletter_path)
+
+                    if validation["is_valid"]:
+                        results.append(
+                            {
+                                "week": i,
+                                "topic": topic,
+                                "path": str(result.newsletter_path),
+                                "status": "success",
+                                "cost": result.total_cost,
+                            }
+                        )
+                        print(f"  [SUCCESS] Saved to: {result.newsletter_path}")
+                    else:
+                        results.append(
+                            {
+                                "week": i,
+                                "topic": topic,
+                                "path": str(result.newsletter_path),
+                                "status": "validation_failed",
+                                "violations": validation["violations"],
+                                "stage": validation["stage"],
+                                "cost": result.total_cost,
+                            }
+                        )
+                        print(f"  [VALIDATION FAILED] Stage: {validation['stage']}")
+                        for v in validation["violations"]:
+                            print(f"    - {v}")
+                else:
+                    results.append(
+                        {
+                            "week": i,
+                            "topic": topic,
+                            "status": "failed",
+                            "errors": result.errors,
+                            "cost": result.total_cost,
+                        }
+                    )
+                    print(f"  [FAILED] Pipeline errors:")
+                    for err in result.errors:
+                        print(f"    - {err}")
+
+                # Update cost tracker
+                self.tracker.add_cost("newsletter", result.total_cost)
+
+            except Exception as e:
+                results.append(
+                    {
+                        "week": i,
+                        "topic": topic,
+                        "status": "error",
+                        "error": str(e),
+                        "cost": 0.0,
+                    }
+                )
+                print(f"  [ERROR] Exception: {e}")
+
+        self.results["newsletters"] = results
+        return results
+
+    def save_status(self, filepath: Optional[Path] = None) -> Path:
+        """
+        Save batch status to JSON file.
+
+        Args:
+            filepath: Custom path (default: .tmp/batch_status.json)
+
+        Returns:
+            Path to saved status file
+        """
+        if filepath is None:
+            filepath = Path(".tmp/batch_status.json")
+
+        filepath.parent.mkdir(parents=True, exist_ok=True)
+
+        status = {
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "total_cost": self.tracker.get_total(),
+            "budget": self.MAX_BUDGET,
+            "dry_run": self.dry_run,
+            "newsletters": self.results.get("newsletters", []),
+            "products": self.results.get("products", []),
+        }
+
+        with open(filepath, "w") as f:
+            json.dump(status, f, indent=2)
+
+        logger.info(f"Status saved to {filepath}")
+        return filepath
+
+    def load_topics(self, filepath: Optional[Path] = None) -> list[dict]:
+        """
+        Load topics from JSON file.
+
+        Args:
+            filepath: Custom path (default: .tmp/topics.json)
+
+        Returns:
+            List of topic dicts
+        """
+        if filepath is None:
+            filepath = Path(".tmp/topics.json")
+
+        if not filepath.exists():
+            logger.warning(f"Topics file not found: {filepath}")
+            return []
+
+        with open(filepath) as f:
+            data = json.load(f)
+
+        return data.get("topics", data) if isinstance(data, dict) else data
+
+    def save_topics(self, topics: list[dict], filepath: Optional[Path] = None) -> Path:
+        """
+        Save topics to JSON file.
+
+        Args:
+            topics: List of topic dicts
+            filepath: Custom path (default: .tmp/topics.json)
+
+        Returns:
+            Path to saved topics file
+        """
+        if filepath is None:
+            filepath = Path(".tmp/topics.json")
+
+        filepath.parent.mkdir(parents=True, exist_ok=True)
+
+        data = {
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "count": len(topics),
+            "topics": topics,
+        }
+
+        with open(filepath, "w") as f:
+            json.dump(data, f, indent=2)
+
+        logger.info(f"Saved {len(topics)} topics to {filepath}")
+        return filepath
+
 
 # =============================================================================
 # CLI INTERFACE
@@ -592,6 +879,25 @@ Examples:
         "--verbose",
         action="store_true",
         help="Enable verbose output",
+    )
+
+    parser.add_argument(
+        "--generate-newsletters",
+        action="store_true",
+        help="Generate newsletters from discovered or saved topics",
+    )
+
+    parser.add_argument(
+        "--status",
+        action="store_true",
+        help="Show batch status from saved state",
+    )
+
+    parser.add_argument(
+        "--topics-file",
+        type=str,
+        default=None,
+        help="Path to topics JSON file (default: .tmp/topics.json)",
     )
 
     return parser.parse_args()
@@ -682,14 +988,153 @@ def main() -> int:
             print("\nNo topics discovered.")
 
         print("=" * 60 + "\n")
+
+        # Save topics if discovered
+        if topics:
+            runner.save_topics(topics)
+            print(f"Topics saved to .tmp/topics.json")
+
         return 0
+
+    # Status mode
+    if args.status:
+        status_path = Path(".tmp/batch_status.json")
+        if not status_path.exists():
+            print("\nNo batch status found. Run --generate-newsletters first.")
+            return 1
+
+        with open(status_path) as f:
+            status = json.load(f)
+
+        print("\n" + "=" * 60)
+        print("=== Batch Status ===")
+        print("=" * 60)
+        print(f"Timestamp: {status.get('timestamp', 'Unknown')}")
+        print(
+            f"Total cost: ${status.get('total_cost', 0):.2f} / ${status.get('budget', 40):.2f}"
+        )
+        print(f"Dry run: {status.get('dry_run', False)}")
+        print("-" * 60)
+
+        newsletters = status.get("newsletters", [])
+        if newsletters:
+            print(f"\nNewsletters: {len(newsletters)}")
+            success_count = sum(1 for n in newsletters if n.get("status") == "success")
+            failed_count = sum(
+                1 for n in newsletters if n.get("status") in ["failed", "error"]
+            )
+            validation_failed = sum(
+                1 for n in newsletters if n.get("status") == "validation_failed"
+            )
+
+            print(f"  Success: {success_count}")
+            print(f"  Validation failed: {validation_failed}")
+            print(f"  Failed/Error: {failed_count}")
+            print()
+
+            for n in newsletters:
+                status_str = n.get("status", "unknown")
+                topic = n.get("topic", "Unknown")[:40]
+                week = n.get("week", 0)
+
+                if status_str == "success":
+                    print(f"  {week}. [OK] {topic}")
+                    print(f"       Path: {n.get('path')}")
+                elif status_str == "validation_failed":
+                    print(f"  {week}. [VALIDATION] {topic}")
+                    print(f"       Stage: {n.get('stage')}")
+                    for v in n.get("violations", []):
+                        print(f"       - {v}")
+                elif status_str == "failed":
+                    print(f"  {week}. [FAILED] {topic}")
+                    for e in n.get("errors", []):
+                        print(f"       - {e}")
+                elif status_str == "error":
+                    print(f"  {week}. [ERROR] {topic}")
+                    print(f"       - {n.get('error')}")
+                else:
+                    print(f"  {week}. [{status_str.upper()}] {topic}")
+                print()
+        else:
+            print("\nNo newsletters generated yet.")
+
+        print("=" * 60 + "\n")
+        return 0
+
+    # Generate newsletters mode
+    if args.generate_newsletters:
+        print("\n" + "=" * 60)
+        print("=== Newsletter Generation ===")
+        print("=" * 60)
+        print(f"Mode: {'DRY RUN' if args.dry_run else 'LIVE'}")
+        print(f"Budget: ${runner.MAX_BUDGET:.2f}")
+        print("-" * 60)
+
+        # Check API keys first
+        if not args.dry_run:
+            api_status = check_api_keys()
+            if not api_status["ready"]:
+                print("\n[ERROR] Missing required API keys:")
+                for key in api_status["missing_required"]:
+                    print(f"  - {key}")
+                return 1
+
+        # Load topics
+        topics_path = (
+            Path(args.topics_file) if args.topics_file else Path(".tmp/topics.json")
+        )
+        if topics_path.exists():
+            print(f"Loading topics from: {topics_path}")
+            topics = runner.load_topics(topics_path)
+        else:
+            print("No saved topics found. Discovering topics...")
+            topics = runner.discover_topics(min_score=args.min_score, count=args.count)
+            if topics:
+                runner.save_topics(topics)
+
+        if not topics:
+            print("\n[ERROR] No topics available for newsletter generation.")
+            return 1
+
+        print(f"\nGenerating {len(topics)} newsletters...\n")
+
+        # Generate newsletters
+        results = runner.generate_newsletters(topics)
+
+        # Save status
+        runner.save_status()
+
+        # Summary
+        print("\n" + "=" * 60)
+        print("=== Generation Complete ===")
+        print("=" * 60)
+
+        success_count = sum(1 for r in results if r.get("status") == "success")
+        failed_count = sum(1 for r in results if r.get("status") in ["failed", "error"])
+        validation_failed = sum(
+            1 for r in results if r.get("status") == "validation_failed"
+        )
+        dry_run_count = sum(1 for r in results if r.get("status") == "dry_run")
+
+        print(f"Success: {success_count}")
+        print(f"Validation failed: {validation_failed}")
+        print(f"Failed/Error: {failed_count}")
+        if dry_run_count:
+            print(f"Dry run: {dry_run_count}")
+        print(f"Total cost: ${runner.tracker.get_total():.2f}")
+        print(f"\nStatus saved to: .tmp/batch_status.json")
+        print("=" * 60 + "\n")
+
+        return 0 if success_count > 0 or dry_run_count > 0 else 1
 
     # Default: show help
     print("Use --help to see available options.")
     print("Common commands:")
-    print("  --check-keys     Check API key status")
-    print("  --discover-only  Discover trending topics")
-    print("  --preflight      Run pre-flight checks")
+    print("  --check-keys           Check API key status")
+    print("  --discover-only        Discover trending topics")
+    print("  --preflight            Run pre-flight checks")
+    print("  --generate-newsletters Generate newsletters from topics")
+    print("  --status               Show batch status")
     return 0
 
 
