@@ -185,11 +185,22 @@ class PromptPackGenerator(BaseGenerator):
         )
 
         # Generate prompt pack using Claude
+        prompts_data = None
         if self.claude_client:
-            response = self.claude_client.generate(prompt)
-            prompts_data = self._parse_prompts_data(response)
-        else:
-            # Fallback for testing without Claude client
+            try:
+                response = self.claude_client.generate(prompt, max_tokens=8192)
+                prompts_data = self._parse_prompts_data(response)
+            except (ValueError, Exception) as e:
+                # Log the error and fall back to template-based generation
+                import logging
+
+                logging.warning(
+                    f"Claude prompt pack generation failed: {e}, using fallback"
+                )
+                prompts_data = None
+
+        # Use fallback if Claude failed or not available
+        if prompts_data is None:
             prompts_data = self._generate_fallback_pack(spec)
 
         # Create the files
@@ -467,32 +478,45 @@ class PromptPackGenerator(BaseGenerator):
 
         Returns:
             Parsed prompt pack dict
-        """
-        try:
-            # Handle potential markdown code blocks
-            clean_response = response.strip()
-            if clean_response.startswith("```"):
-                lines = clean_response.split("\n")
-                json_lines = []
-                in_block = False
-                for line in lines:
-                    if line.startswith("```") and not in_block:
-                        in_block = True
-                        continue
-                    elif line.startswith("```") and in_block:
-                        break
-                    elif in_block:
-                        json_lines.append(line)
-                clean_response = "\n".join(json_lines)
 
-            return json.loads(clean_response)
-        except json.JSONDecodeError:
-            # Return minimal valid structure
-            return {
-                "title": "Prompt Pack",
-                "description": "",
-                "categories": [],
-            }
+        Raises:
+            ValueError: If response cannot be parsed as valid JSON
+        """
+        # Handle potential markdown code blocks
+        clean_response = response.strip()
+        if clean_response.startswith("```"):
+            lines = clean_response.split("\n")
+            json_lines = []
+            in_block = False
+            for line in lines:
+                if line.startswith("```") and not in_block:
+                    in_block = True
+                    continue
+                elif line.startswith("```") and in_block:
+                    break
+                elif in_block:
+                    json_lines.append(line)
+            clean_response = "\n".join(json_lines)
+
+        # Try to find JSON in the response
+        # Sometimes Claude adds text before/after the JSON
+        if not clean_response.startswith("{"):
+            # Find first { and last }
+            start = clean_response.find("{")
+            end = clean_response.rfind("}")
+            if start != -1 and end != -1:
+                clean_response = clean_response[start : end + 1]
+
+        try:
+            data = json.loads(clean_response)
+        except json.JSONDecodeError as e:
+            raise ValueError(f"Failed to parse JSON response: {e}")
+
+        # Validate structure
+        if "categories" not in data or not data["categories"]:
+            raise ValueError("Response missing categories")
+
+        return data
 
     def _generate_fallback_pack(self, spec: ProductSpec) -> dict:
         """

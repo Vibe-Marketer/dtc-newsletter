@@ -1,0 +1,114 @@
+{
+  "title": "Pricing Strategy Prompts Prompt Pack",
+  "description": "A curated collection of prompts to help E-commerce entrepreneurs with Pricing strategy changes take forever to implement across channels.",
+  "categories": [
+    {
+      "name": "Getting Started",
+      "description": "Foundation prompts for beginners",
+      "prompts": [
+        {
+          "title": "Quick Assessment",
+          "prompt_text": "I'm dealing with Pricing strategy changes take forever to implement across channels. Analyze my current situation: [DESCRIBE YOUR SITUATION]. What are the top 3 priorities I should focus on first?",
+          "expected_output_description": "A prioritized list of 3 focus areas with reasoning",
+          "example_output": "Based on your situation, focus on: 1) Immediate issue, 2) Quick win, 3) Foundation building"
+        },
+        {
+          "title": "Action Plan Creator",
+          "prompt_text": "Create a 30-day action plan for [YOUR SPECIFIC GOAL] related to Pricing strategy changes take forever to implement across channels. Include weekly milestones and daily tasks.",
+          "expected_output_description": "A structured 30-day plan with clear milestones",
+          "example_output": "Week 1: Foundation... Week 2: Implementation... Week 3-4: Optimization..."
+        },
+        {
+          "title": "Best Practices Checklist",
+          "prompt_text": "What are the essential best practices for E-commerce entrepreneurs dealing with Pricing strategy changes take forever to implement across channels? Give me a checklist I can use weekly.",
+          "expected_output_description": "A reusable checklist of best practices",
+          "example_output": "Weekly Checklist: [ ] Review metrics, [ ] Check processes, [ ] Update documentation..."
+        },
+        {
+          "title": "Common Mistakes Audit",
+          "prompt_text": "What are the most common mistakes E-commerce entrepreneurs make when dealing with Pricing strategy changes take forever to implement across channels? How can I check if I'm making them?",
+          "expected_output_description": "List of common mistakes with self-audit questions",
+          "example_output": "Mistake 1: Not tracking metrics. Ask yourself: Do I know my key numbers?"
+        },
+        {
+          "title": "Resource Guide",
+          "prompt_text": "What tools, resources, and skills should E-commerce entrepreneurs have to effectively handle Pricing strategy changes take forever to implement across channels?",
+          "expected_output_description": "A categorized list of recommended resources",
+          "example_output": "Essential tools: X, Y, Z. Skills to develop: A, B, C."
+        }
+      ]
+    },
+    {
+      "name": "Problem Solving",
+      "description": "Prompts for tackling specific challenges",
+      "prompts": [
+        {
+          "title": "Root Cause Analysis",
+          "prompt_text": "I'm experiencing [DESCRIBE PROBLEM] related to Pricing strategy changes take forever to implement across channels. Help me identify the root cause using the 5 Whys technique.",
+          "expected_output_description": "A 5 Whys analysis leading to root cause",
+          "example_output": "Why 1: Sales are down because... Why 2: That's because..."
+        },
+        {
+          "title": "Solution Brainstorm",
+          "prompt_text": "Generate 10 creative solutions for [SPECIFIC CHALLENGE] that E-commerce entrepreneurs faces. Include both conventional and unconventional approaches.",
+          "expected_output_description": "10 solution ideas ranging from simple to creative",
+          "example_output": "1. Simple fix: X. 2. Process change: Y. 3. Creative approach: Z..."
+        },
+        {
+          "title": "Decision Matrix",
+          "prompt_text": "Help me decide between [OPTION A] and [OPTION B] for addressing Pricing strategy changes take forever to implement across channels. Create a pros/cons analysis with weighted scoring.",
+          "expected_output_description": "A decision matrix with weighted criteria",
+          "example_output": "Criteria 1 (weight 5): Option A scores 4, Option B scores 3..."
+        },
+        {
+          "title": "Risk Assessment",
+          "prompt_text": "What are the risks of [PROPOSED ACTION] when dealing with Pricing strategy changes take forever to implement across channels? Rate each risk by likelihood and impact.",
+          "expected_output_description": "Risk matrix with mitigation strategies",
+          "example_output": "Risk 1: High likelihood, Medium impact. Mitigation: ..."
+        },
+        {
+          "title": "Quick Fix Finder",
+          "prompt_text": "I need a quick solution for [URGENT PROBLEM] related to Pricing strategy changes take forever to implement across channels. What can I do in the next 24 hours to improve the situation?",
+          "expected_output_description": "Immediate action steps for quick results",
+          "example_output": "In the next 24 hours: 1) Stop doing X, 2) Start doing Y, 3) Communicate Z..."
+        }
+      ]
+    },
+    {
+      "name": "Strategy & Planning",
+      "description": "Long-term strategic thinking prompts",
+      "prompts": [
+        {
+          "title": "Strategic Framework",
+          "prompt_text": "Create a strategic framework for E-commerce entrepreneurs to address Pricing strategy changes take forever to implement across channels over the next [TIME PERIOD]. Include goals, metrics, and milestones.",
+          "expected_output_description": "A comprehensive strategic framework",
+          "example_output": "Vision: X. Goals: A, B, C. Metrics: 1, 2, 3. Quarterly milestones..."
+        },
+        {
+          "title": "Competitive Analysis",
+          "prompt_text": "How do successful E-commerce entrepreneurs handle Pricing strategy changes take forever to implement across channels? What can I learn from their approaches?",
+          "expected_output_description": "Analysis of successful approaches with takeaways",
+          "example_output": "Best performers do: X, Y, Z. Key insight: Focus on..."
+        },
+        {
+          "title": "Future Scenario Planning",
+          "prompt_text": "What are 3 possible future scenarios for Pricing strategy changes take forever to implement across channels in the next 2-3 years? How should I prepare for each?",
+          "expected_output_description": "Three scenarios with preparation strategies",
+          "example_output": "Scenario 1 (Optimistic): ... Preparation: ..."
+        },
+        {
+          "title": "Resource Allocation",
+          "prompt_text": "How should I allocate my [TIME/BUDGET/RESOURCES] to most effectively address Pricing strategy changes take forever to implement across channels? My constraints are [LIST CONSTRAINTS].",
+          "expected_output_description": "Optimized resource allocation plan",
+          "example_output": "Allocate 40% to high-impact area X, 30% to essential Y, 30% to growth Z..."
+        },
+        {
+          "title": "Success Metrics Definition",
+          "prompt_text": "What KPIs and metrics should I track to measure my progress in addressing Pricing strategy changes take forever to implement across channels? Include leading and lagging indicators.",
+          "expected_output_description": "A metrics framework with tracking cadence",
+          "example_output": "Leading indicators: X, Y. Lagging indicators: A, B. Track weekly: X, Monthly: A..."
+        }
+      ]
+    }
+  ]
+}

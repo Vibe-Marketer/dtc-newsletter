@@ -1,0 +1,36 @@
+{
+  "id": "93c8a327-0783-4096-84cc-be7ca893146e",
+  "name": "Pricing Strategy Prompts",
+  "type": "prompt_pack",
+  "version": "1.0.0",
+  "created_at": "2026-02-03T02:53:15.236530+00:00",
+  "problem": "Pricing strategy changes take forever to implement across channels",
+  "audience": "E-commerce entrepreneurs",
+  "benefits": [
+    "Ready-to-use prompts for price optimization",
+    "Works with ChatGPT, Claude, or any AI",
+    "Save hours on pricing decisions"
+  ],
+  "deliverables": [
+    {
+      "filename": "prompts.json",
+      "type": "json"
+    },
+    {
+      "filename": "prompts.md",
+      "type": "markdown"
+    },
+    {
+      "filename": "README.md",
+      "type": "markdown"
+    },
+    {
+      "filename": "QUICK_START.md",
+      "type": "markdown"
+    }
+  ],
+  "price_cents": null,
+  "perceived_value": null,
+  "total_prompts": 15,
+  "categories": 3
+}

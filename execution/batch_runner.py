@@ -1107,77 +1107,307 @@ class BatchRunner:
 
     def _generate_product_name(self, problem: str, product_type: str) -> str:
         """
-        Generate a clean product name from problem description.
+        Generate a clean, marketable product name from problem description.
 
         Args:
             problem: Pain point problem description
             product_type: Type of product being created
 
         Returns:
-            Clean, marketable product name
+            Clean, marketable product name (e.g., "Profit Margin Calculator")
         """
-        # Type-specific suffixes
-        type_suffixes = {
-            "html_tool": "Calculator",
-            "automation": "Automator",
-            "gpt_config": "AI Assistant",
-            "sheets": "Tracker",
-            "pdf": "Framework",
-            "prompt_pack": "Prompt Pack",
+        import re
+
+        # Type-specific naming patterns
+        # Format: (prefix style, suffix)
+        type_naming = {
+            "html_tool": ("topic", "Calculator"),
+            "automation": ("action", "Bot"),
+            "gpt_config": ("topic", "AI"),
+            "sheets": ("topic", "Dashboard"),
+            "pdf": ("topic", "Playbook"),
+            "prompt_pack": ("topic", "Prompts"),
         }
 
-        # Extract key topic words from problem
-        filler_words = {
+        # Words to always exclude (noise, not meaningful)
+        noise_words = {
             "i",
             "my",
+            "me",
+            "we",
+            "our",
+            "you",
+            "your",
             "the",
             "a",
             "an",
             "is",
             "are",
-            "with",
-            "for",
+            "was",
+            "were",
+            "be",
+            "been",
+            "being",
+            "have",
+            "has",
+            "had",
+            "having",
+            "do",
+            "does",
+            "did",
+            "doing",
+            "will",
+            "would",
+            "could",
+            "should",
+            "may",
+            "might",
+            "must",
+            "shall",
+            "can",
+            "need",
+            "dare",
+            "ought",
+            "used",
             "to",
             "and",
             "or",
             "but",
-            "in",
-            "on",
-            "at",
+            "if",
+            "then",
+            "else",
+            "when",
+            "where",
+            "why",
             "how",
-            "do",
-            "can",
+            "what",
+            "which",
+            "who",
+            "whom",
+            "this",
+            "that",
+            "these",
+            "those",
+            "am",
+            "it",
+            "its",
+            "no",
+            "not",
+            "don't",
+            "can't",
+            "won't",
+            "isn't",
+            "aren't",
+            "wasn't",
+            "weren't",
+            "hasn't",
+            "haven't",
+            "hadn't",
+            "doesn't",
+            "didn't",
+            "wouldn't",
+            "couldn't",
+            "shouldn't",
+            "mightn't",
+            "mustn't",
+            "for",
+            "with",
+            "at",
+            "by",
+            "from",
+            "of",
+            "on",
+            "in",
+            "out",
+            "up",
+            "down",
+            "into",
+            "onto",
+            "upon",
+            "about",
+            "above",
+            "below",
+            "between",
+            "under",
+            "over",
+            "through",
+            "during",
+            "before",
+            "after",
             "help",
             "anyone",
             "else",
             "having",
             "issues",
             "problem",
+            "problems",
             "struggling",
-            "can't",
-            "no",
-            "not",
-            "don't",
-            "why",
-            "what",
-            "when",
-            "need",
+            "idea",
+            "ideas",
+            "way",
+            "ways",
+            "thing",
+            "things",
+            "stuff",
+            "lot",
+            "lots",
+            "much",
+            "many",
+            "some",
+            "any",
+            "every",
+            "all",
+            "both",
+            "each",
+            "few",
+            "more",
+            "most",
+            "other",
+            "such",
+            "only",
+            "own",
+            "same",
+            "so",
+            "than",
+            "too",
+            "very",
+            "just",
+            "really",
+            "actually",
+            "basically",
+            "literally",
+            "always",
+            "never",
+            "sometimes",
+            "often",
+            "usually",
+            "generally",
+            "currently",
+            "takes",
+            "took",
+            "taking",
+            "make",
+            "makes",
+            "made",
+            "making",
+            "get",
+            "gets",
+            "got",
+            "getting",
+            "keep",
+            "keeps",
+            "kept",
+            "keeping",
+            "pure",
+            "mess",
+            "eating",
+            "killing",
+            "forever",
+            "request",
+            "requests",
+            "true",
+            "real",
+            "actual",
+            "hidden",
         }
 
-        words = problem.lower().split()
-        key_words = [w for w in words if w not in filler_words and len(w) > 2]
+        # E-commerce domain keywords we want to capture
+        ecom_keywords = {
+            "profit": "Profit",
+            "margin": "Margin",
+            "margins": "Margin",
+            "shipping": "Shipping",
+            "rate": "Rate",
+            "rates": "Rate",
+            "cart": "Cart",
+            "abandonment": "Abandonment",
+            "abandoned": "Abandonment",
+            "inventory": "Inventory",
+            "stock": "Stock",
+            "return": "Returns",
+            "returns": "Returns",
+            "refund": "Refund",
+            "refunds": "Refund",
+            "pricing": "Pricing",
+            "price": "Price",
+            "prices": "Price",
+            "ad": "Ad",
+            "ads": "Ad",
+            "creative": "Creative",
+            "creatives": "Creative",
+            "supplier": "Supplier",
+            "suppliers": "Supplier",
+            "communication": "Communication",
+            "forecast": "Forecast",
+            "forecasting": "Forecast",
+            "cost": "Cost",
+            "costs": "Cost",
+            "fee": "Fee",
+            "fees": "Fee",
+            "conversion": "Conversion",
+            "customer": "Customer",
+            "customers": "Customer",
+            "order": "Order",
+            "orders": "Order",
+            "product": "Product",
+            "products": "Product",
+            "sales": "Sales",
+            "revenue": "Revenue",
+            "compare": "Compare",
+            "comparison": "Compare",
+            "track": "Track",
+            "tracking": "Tracking",
+            "analyze": "Analyze",
+            "analysis": "Analysis",
+            # Note: "calculate" excluded to avoid redundancy with Calculator suffix
+        }
 
-        # Take first 2-3 meaningful words
-        key_words = key_words[:3]
+        # Clean and tokenize problem
+        clean_problem = re.sub(r"[^\w\s]", " ", problem.lower())
+        words = clean_problem.split()
 
-        # Capitalize and join
-        if key_words:
-            base_name = " ".join(w.capitalize() for w in key_words)
-        else:
-            base_name = "E-commerce"
+        # Extract keywords in two passes: ecom terms first, then other meaningful words
+        ecom_found = []
+        other_found = []
 
-        # Add type-specific suffix
-        suffix = type_suffixes.get(product_type, "Solution")
+        for word in words:
+            if word in noise_words:
+                continue
+            if word in ecom_keywords:
+                keyword = ecom_keywords[word]
+                if keyword not in ecom_found:
+                    ecom_found.append(keyword)
+            elif len(word) > 3:
+                # Capitalize other meaningful words
+                cap_word = word.capitalize()
+                if cap_word not in other_found and cap_word not in ecom_found:
+                    other_found.append(cap_word)
+
+        # Prioritize ecom keywords, then fill with others
+        found_keywords = ecom_found + other_found
+
+        # Take 1-2 keywords for the base name
+        base_keywords = found_keywords[:2] if found_keywords else ["E-commerce"]
+
+        # Get naming style and suffix
+        naming_style, suffix = type_naming.get(product_type, ("topic", "Tool"))
+
+        # Build final name
+        base_name = " ".join(base_keywords)
+
+        # Avoid redundancy: don't say "Calculator Calculator"
+        if base_name.lower() == suffix.lower():
+            base_name = found_keywords[1] if len(found_keywords) > 1 else "Quick"
+
+        # Avoid redundancy: don't include suffix word in base
+        if suffix.lower() in base_name.lower():
+            base_name = (
+                base_name.replace(suffix, "").replace(suffix.lower(), "").strip()
+            )
+            if not base_name and len(found_keywords) > 1:
+                base_name = found_keywords[1]
+            elif not base_name:
+                base_name = "Quick"
 
         return f"{base_name} {suffix}"
 
