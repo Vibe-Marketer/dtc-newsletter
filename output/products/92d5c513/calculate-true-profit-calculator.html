@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>True Profit Calculator</title>
+    <style>
+        /* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 1rem;
+}
+
+/* Container */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Header */
+.header {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: white;
+    padding: 2rem;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.header p {
+    opacity: 0.9;
+    font-size: 1.1rem;
+}
+
+/* Main content */
+.main-content {
+    padding: 2rem;
+}
+
+/* Form sections */
+.form-section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 12px;
+    border-left: 4px solid #667eea;
+}
+
+.form-section h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+}
+
+.section-icon {
+    margin-right: 0.5rem;
+    font-size: 1.3rem;
+}
+
+/* Input groups */
+.input-group {
+    margin-bottom: 1rem;
+}
+
+.input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+@media (max-width: 768px) {
+    .input-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #555;
+}
+
+input[type="number"], select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+input[type="number"]:focus, select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Calculate button */
+.calculate-btn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin: 1rem 0;
+}
+
+.calculate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.calculate-btn:active {
+    transform: translateY(0);
+}
+
+/* Results */
+.results {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    border-radius: 12px;
+    color: white;
+    display: none;
+}
+
+.results.show {
+    display: block;
+    animation: slideIn 0.5s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.results h3 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.result-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+.result-label {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.9;
+}
+
+.result-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+/* Breakdown */
+.breakdown {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+}
+
+.breakdown h4 {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.breakdown-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.breakdown-item:last-child {
+    border-bottom: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+/* Tooltips */
+.tooltip {
+    position: relative;
+    cursor: help;
+}
+
+.tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+}
+
+.tooltip:hover::after {
+    opacity: 1;
+}
+
+/* Error styling */
+.error {
+    border-color: #e74c3c !important;
+}
+
+.error-message {
+    color: #e74c3c;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    display: none;
+}
+
+.error-message.show {
+    display: block;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .container {
+        margin: 0;
+        border-radius: 0;
+    }
+    
+    .header {
+        padding: 1.5rem;
+    }
+    
+    .header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .main-content {
+        padding: 1rem;
+    }
+    
+    .form-section {
+        padding: 1rem;
+    }
+    
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+}
+    </style>
+</head>
+<body>
+    <main class="container">
+        <header class="header">
+            <h1>True Profit Calculator</h1>
+            <p>Calculate your real profit margins including all hidden fees and costs</p>
+        </header>
+        
+        <div class="main-content">
+            <form id="profitForm">
+                <section class="form-section">
+                    <h3><span class="section-icon">💰</span>Revenue Details</h3>
+                    <div class="input-group">
+                        <div class="input-row">
+                            <div>
+                                <label for="sellingPrice">Selling Price per Unit ($)</label>
+                                <input type="number" id="sellingPrice" step="0.01" min="0" required>
+                                <div class="error-message" id="sellingPriceError">Please enter a valid selling price</div>
+                            </div>
+                            <div>
+                                <label for="unitsSold">Units Sold</label>
+                                <input type="number" id="unitsSold" min="1" value="1" required>
+                                <div class="error-message" id="unitsSoldError">Please enter number of units sold</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="form-section">
+                    <h3><span class="section-icon">📦</span>Product Costs</h3>
+                    <div class="input-group">
+                        <div class="input-row">
+                            <div>
+                                <label for="productCost">Product/Manufacturing Cost ($)</label>
+                                <input type="number" id="productCost" step="0.01" min="0" required>
+                                <div class="error-message" id="productCostError">Please enter product cost</div>
+                            </div>
+                            <div>
+                                <label for="shippingCost" class="tooltip" data-tooltip="Cost to ship to customer">Shipping Cost ($)</label>
+                                <input type="number" id="shippingCost" step="0.01" min="0" value="0">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="form-section">
+                    <h3><span class="section-icon">💳</span>Platform & Payment Fees</h3>
+                    <div class="input-group">
+                        <div class="input-row">
+                            <div>
+                                <label for="platformFeeType">Platform Fee Type</label>
+                                <select id="platformFeeType">
+                                    <option value="percentage">Percentage (%)</option>
+                                    <option value="fixed">Fixed Amount ($)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="platformFee" class="tooltip" data-tooltip="Amazon, eBay, Shopify fees etc.">Platform Fee</label>
+                                <input type="number" id="platformFee" step="0.01" min="0" value="0">
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div>
+                                <label for="paymentFeeType">Payment Fee Type</label>
+                                <select id="paymentFeeType">
+                                    <option value="percentage">Percentage (%)</option>
+                                    <option value="fixed">Fixed Amount ($)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="paymentFee" class="tooltip" data-tooltip="PayPal, Stripe, credit card processing fees">Payment Processing Fee</label>
+                                <input type="number" id="paymentFee" step="0.01" min="0" value="0">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="form-section">
+                    <h3><span class="section-icon">📈</span>Marketing & Advertising</h3>
+                    <div class="input-group">
+                        <div class="input-row">
+                            <div>
+                                <label for="adSpend" class="tooltip" data-tooltip="Facebook, Google, Amazon ads etc.">Ad Spend ($)</label>
+                                <input type="number" id="adSpend" step="0.01" min="0" value="0">
+                            </div>
+                            <div>
+                                <label for="influencerCost" class="tooltip" data-tooltip="Influencer partnerships, sponsorships">Influencer/Marketing Cost ($)</label>
+                                <input type="number" id="influencerCost" step="0.01" min="0" value="0">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="form-section">
+                    <h3><span class="section-icon">⚙️</span>Operational Costs</h3>
+                    <div class="input-group">
+                        <div class="input-row">
+                            <div>
+                                <label for="packagingCost" class="tooltip" data-tooltip="Boxes, bubble wrap, labels etc.">Packaging Cost ($)</label>
+                                <input type="number" id="packagingCost" step="0.01" min="0" value="0">
+                            </div>
+                            <div>
+                                <label for="storageFee" class="tooltip" data-tooltip="FBA storage, warehouse costs">Storage/Fulfillment Fee ($)</label>
+                                <input type="number" id="storageFee" step="0.01" min="0" value="0">
+                            </div>
+                        </div>
+                        <div class="input-row">
+                            <div>
+                                <label for="returnCost" class="tooltip" data-tooltip="Average cost per unit for returns">Return/Refund Cost ($)</label>
+                                <input type="number" id="returnCost" step="0.01" min="0" value="0">
+                            </div>
+                            <div>
+                                <label for="otherCosts" class="tooltip" data-tooltip="Software subscriptions, virtual assistants etc.">Other Costs ($)</label>
+                                <input type="number" id="otherCosts" step="0.01" min="0" value="0">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <button type="submit" class="calculate-btn">Calculate True Profit</button>
+            </form>
+
+            <div id="results" class="results">
+                <h3>Your True Profit Analysis</h3>
+                <div class="results-grid">
+                    <div class="result-item">
+                        <span class="result-label">Total Revenue</span>
+                        <div class="result-value" id="totalRevenue">$0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Total Costs</span>
+                        <div class="result-value" id="totalCosts">$0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Net Profit</span>
+                        <div class="result-value" id="netProfit">$0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Profit Margin</span>
+                        <div class="result-value" id="profitMargin">0%</div>
+                    </div>
+                </div>
+                
+                <div class="breakdown">
+                    <h4>Cost Breakdown</h4>
+                    <div id="costBreakdown"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        // True Profit Calculator JavaScript
+class ProfitCalculator {
+    constructor() {
+        this.form = document.getElementById('profitForm');
+        this.results = document.getElementById('results');
+        this.initEventListeners();
+    }
+
+    initEventListeners() {
+        this.form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.calculateProfit();
+        });
+
+        // Real-time validation
+        const inputs = this.form.querySelectorAll('input[required]');
+        inputs.forEach(input => {
+            input.addEventListener('blur', () => this.validateInput(input));
+            input.addEventListener('input', () => this.clearError(input));
+        });
+    }
+
+    validateInput(input) {
+        const value = parseFloat(input.value);
+        const errorElement = document.getElementById(input.id + 'Error');
+        let isValid = true;
+
+        if (!input.value || isNaN(value) || value < 0) {
+            isValid = false;
+        }
+
+        if (input.id === 'unitsSold' && (!Number.isInteger(value) || value < 1)) {
+            isValid = false;
+        }
+
+        if (isValid) {
+            input.classList.remove('error');
+            errorElement.classList.remove('show');
+        } else {
+            input.classList.add('error');
+            errorElement.classList.add('show');
+        }
+
+        return isValid;
+    }
+
+    clearError(input) {
+        input.classList.remove('error');
+        const errorElement = document.getElementById(input.id + 'Error');
+        errorElement.classList.remove('show');
+    }
+
+    validateForm() {
+        const requiredInputs = this.form.querySelectorAll('input[required]');
+        let isValid = true;
+
+        requiredInputs.forEach(input => {
+            if (!this.validateInput(input)) {
+                isValid = false;
+            }
+        });
+
+        return isValid;
+    }
+
+    getFormValues() {
+        return {
+            sellingPrice: parseFloat(document.getElementById('sellingPrice').value) || 0,
+            unitsSold: parseInt(document.getElementById('unitsSold').value) || 1,
+            productCost: parseFloat(document.getElementById('productCost').value) || 0,
+            shippingCost: parseFloat(document.getElementById('shippingCost').value) || 0,
+            platformFeeType: document.getElementById('platformFeeType').value,
+            platformFee: parseFloat(document.getElementById('platformFee').value) || 0,
+            paymentFeeType: document.getElementById('paymentFeeType').value,
+            paymentFee: parseFloat(document.getElementById('paymentFee').value) || 0,
+            adSpend: parseFloat(document.getElementById('adSpend').value) || 0,
+            influencerCost: parseFloat(document.getElementById('influencerCost').value) || 0,
+            packagingCost: parseFloat(document.getElementById('packagingCost').value) || 0,
+            storageFee: parseFloat(document.getElementById('storageFee').value) || 0,
+            returnCost: parseFloat(document.getElementById('returnCost').value) || 0,
+            otherCosts: parseFloat(document.getElementById('otherCosts').value) || 0
+        };
+    }
+
+    calculateFees(revenue, feeType, feeValue) {
+        if (feeType === 'percentage') {
+            return (revenue * feeValue) / 100;
+        } else {
+            return feeValue;
+        }
+    }
+
+    calculateProfit() {
+        if (!this.validateForm()) {
+            return;
+        }
+
+        const values = this.getFormValues();
+        const totalRevenue = values.sellingPrice * values.unitsSold;
+        
+        // Calculate all costs
+        const costs = {
+            product: values.productCost * values.unitsSold,
+            shipping: values.shippingCost * values.unitsSold,
+            platformFee: this.calculateFees(totalRevenue, values.platformFeeType, values.platformFee),
+            paymentFee: this.calculateFees(totalRevenue, values.paymentFeeType, values.paymentFee),
+            adSpend: values.adSpend,
+            influencer: values.influencerCost,
+            packaging: values.packagingCost * values.unitsSold,
+            storage: values.storageFee * values.unitsSold,
+            returns: values.returnCost * values.unitsSold,
+            other: values.otherCosts
+        };
+
+        const totalCosts = Object.values(costs).reduce((sum, cost) => sum + cost, 0);
+        const netProfit = totalRevenue - totalCosts;
+        const profitMargin = totalRevenue > 0 ? (netProfit / totalRevenue) * 100 : 0;
+
+        this.displayResults({
+            totalRevenue,
+            totalCosts,
+            netProfit,
+            profitMargin,
+            costs
+        });
+    }
+
+    displayResults(results) {
+        // Update main results
+        document.getElementById('totalRevenue').textContent = this.formatCurrency(results.totalRevenue);
+        document.getElementById('totalCosts').textContent = this.formatCurrency(results.totalCosts);
+        document.getElementById('netProfit').textContent = this.formatCurrency(results.netProfit);
+        document.getElementById('profitMargin').textContent = results.profitMargin.toFixed(2) + '%';
+
+        // Update profit margin color based on performance
+        const profitMarginElement = document.getElementById('profitMargin');
+        const parentItem = profitMarginElement.closest('.result-item');
+        
+        if (results.profitMargin < 0) {
+            parentItem.style.background = 'rgba(231, 76, 60, 0.2)';
+        } else if (results.profitMargin < 20) {
+            parentItem.style.background = 'rgba(243, 156, 18, 0.2)';
+        } else {
+            parentItem.style.background = 'rgba(46, 204, 113, 0.2)';
+        }
+
+        // Create cost breakdown
+        this.createCostBreakdown(results.costs, results.totalCosts);
+
+        // Show results
+        this.results.classList.add('show');
+        this.results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    createCostBreakdown(costs, totalCosts) {
+        const breakdown = document.getElementById('costBreakdown');
+        breakdown.innerHTML = '';
+
+        const costLabels = {
+            product: 'Product/Manufacturing',
+            shipping: 'Shipping',
+            platformFee: 'Platform Fees',
+            paymentFee: 'Payment Processing',
+            adSpend: 'Advertising',
+            influencer: 'Influencer/Marketing',
+            packaging: 'Packaging',
+            storage: 'Storage/Fulfillment',
+            returns: 'Returns/Refunds',
+            other: 'Other Costs'
+        };
+
+        Object.entries(costs).forEach(([key, value]) => {
+            if (value > 0) {
+                const percentage = totalCosts > 0 ? ((value / totalCosts) * 100).toFixed(1) : 0;
+                const item = document.createElement('div');
+                item.className = 'breakdown-item';
+                item.innerHTML = `
+                    <span>${costLabels[key]} (${percentage}%)</span>
+                    <span>${this.formatCurrency(value)}</span>
+                `;
+                breakdown.appendChild(item);
+            }
+        });
+
+        // Add total
+        const totalItem = document.createElement('div');
+        totalItem.className = 'breakdown-item';
+        totalItem.innerHTML = `
+            <span>Total Costs</span>
+            <span>${this.formatCurrency(totalCosts)}</span>
+        `;
+        breakdown.appendChild(totalItem);
+    }
+
+    formatCurrency(amount) {
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: 2
+        }).format(amount);
+    }
+}
+
+// Initialize calculator when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new ProfitCalculator();
+});
+
+// Add some sample data for demo purposes
+function loadSampleData() {
+    document.getElementById('sellingPrice').value = '49.99';
+    document.getElementById('unitsSold').value = '100';
+    document.getElementById('productCost').value = '15.00';
+    document.getElementById('shippingCost').value = '3.50';
+    document.getElementById('platformFee').value = '15';
+    document.getElementById('paymentFee').value = '2.9';
+    document.getElementById('adSpend').value = '500';
+    document.getElementById('packagingCost').value = '1.25';
+    document.getElementById('storageFee').value = '0.75';
+}
+
+// Add keyboard shortcut for sample data (Ctrl+D)
+document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.key === 'd') {
+        e.preventDefault();
+        loadSampleData();
+    }
+});
+    </script>
+</body>
+</html>

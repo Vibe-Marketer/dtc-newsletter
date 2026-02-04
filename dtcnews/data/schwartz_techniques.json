@@ -1,0 +1,248 @@
+{
+  "metadata": {
+    "source": "Breakthrough Advertising by Eugene Schwartz",
+    "total_techniques": 38,
+    "version": "2026.02.04"
+  },
+  "verbalization_techniques": [
+    {
+      "id": 1,
+      "name": "measure_size",
+      "description": "Add specific numbers to quantify the claim",
+      "example": "20,000 FILTER TRAPS IN VICEROY!",
+      "beginner_example": "47 prompts included in the pack"
+    },
+    {
+      "id": 2,
+      "name": "measure_speed",
+      "description": "Add timeframes to show how fast results come",
+      "example": "IN TWO SECONDS, BAYER ASPIRIN BEGINS TO DISSOLVE",
+      "beginner_example": "Get your first product description in 30 seconds"
+    },
+    {
+      "id": 3,
+      "name": "compare",
+      "description": "Show contrast with alternatives",
+      "example": "SIX TIMES WHITER WASHES!",
+      "beginner_example": "Instead of 3 hours researching, get answers in 3 minutes"
+    },
+    {
+      "id": 4,
+      "name": "metaphorize",
+      "description": "Make abstract concepts concrete with vivid imagery",
+      "example": "MELTS AWAY UGLY FAT!",
+      "beginner_example": "This prompt does the heavy lifting for you"
+    },
+    {
+      "id": 5,
+      "name": "sensitize",
+      "description": "Make the reader feel, smell, touch, see or hear it",
+      "example": "TASTES LIKE YOU JUST PICKED IT!",
+      "beginner_example": "Imagine opening your phone to see your first sale notification"
+    },
+    {
+      "id": 6,
+      "name": "demonstrate_with_example",
+      "description": "Show a prime example that proves the claim",
+      "example": "AT 60 MILES AN HOUR, THE LOUDEST NOISE IN THIS ROLLS ROYCE IS THE ELECTRIC CLOCK!",
+      "beginner_example": "Sarah used this exact prompt and got her first 3 sales in a week"
+    },
+    {
+      "id": 7,
+      "name": "dramatize",
+      "description": "Show the result in action with emotional impact",
+      "example": "THEY LAUGHED WHEN I SAT DOWN AT THE PIANO—BUT WHEN I STARTED TO PLAY...",
+      "beginner_example": "My friends thought I was crazy to start an online store. Then came my first $500 day..."
+    },
+    {
+      "id": 8,
+      "name": "paradox",
+      "description": "State something that seems contradictory but is true",
+      "example": "HOW A BALD-HEADED BARBER SAVED MY HAIR!",
+      "beginner_example": "How a non-techie built a store in 48 hours"
+    },
+    {
+      "id": 9,
+      "name": "remove_limitations",
+      "description": "Show what the reader won't have to do/suffer",
+      "example": "SHRINKS HEMORRHOIDS WITHOUT SURGERY!",
+      "beginner_example": "Write product descriptions without any copywriting skills"
+    },
+    {
+      "id": 10,
+      "name": "associate_with_authority",
+      "description": "Connect with values or people the reader admires",
+      "example": "MICKEY MANTLE SAYS: CAMELS NEVER BOTHER MY THROAT!",
+      "beginner_example": "The same method 8-figure brands use daily"
+    },
+    {
+      "id": 11,
+      "name": "show_work_detail",
+      "description": "Show how much work the product does in detail",
+      "example": "NOW! RELIEF FROM ALL 5 ACID-CAUSED STOMACH TROUBLES—IN SECONDS!",
+      "beginner_example": "Handles product research, copywriting, AND ad ideas in one prompt"
+    },
+    {
+      "id": 12,
+      "name": "question_format",
+      "description": "Turn the claim into an engaging question",
+      "example": "WHO ELSE WANTS A WHITER WASH—WITH NO HARD WORK?",
+      "beginner_example": "Who else wants their first sale this week?"
+    },
+    {
+      "id": 13,
+      "name": "offer_information",
+      "description": "Promise valuable knowledge or how-to",
+      "example": "HOW TO WIN FRIENDS AND INFLUENCE PEOPLE!",
+      "beginner_example": "How to find winning products in 15 minutes"
+    },
+    {
+      "id": 14,
+      "name": "tie_authority",
+      "description": "Connect expertise to the claim",
+      "example": "BOSS MECHANIC SHOWS HOW TO AVOID ENGINE REPAIR BILLS!",
+      "beginner_example": "What 7-figure store owners do differently"
+    },
+    {
+      "id": 15,
+      "name": "before_and_after",
+      "description": "Show the contrast between states",
+      "example": "BEFORE COLDENE A CHILD GOT OVER A COLD AFTER 5 DAYS OF SUFFERING...",
+      "beginner_example": "Before: 3 hours writing one product description. After: 3 minutes."
+    },
+    {
+      "id": 16,
+      "name": "stress_newness",
+      "description": "Emphasize that this is new/fresh",
+      "example": "ANNOUNCING! GUIDED MISSILE SPARK PLUGS!",
+      "beginner_example": "Just discovered: The AI prompt that's changing product research"
+    },
+    {
+      "id": 17,
+      "name": "stress_exclusivity",
+      "description": "Make it feel rare or special",
+      "example": "OURS ALONE! PERSIAN LAMB ORIGINALS—$389.40!",
+      "beginner_example": "The tool nobody's talking about (yet)"
+    },
+    {
+      "id": 18,
+      "name": "challenge_reader",
+      "description": "Turn it into a challenge or test",
+      "example": "WHICH TWIN HAS THE TONI?",
+      "beginner_example": "Can you tell which description was written by AI?"
+    },
+    {
+      "id": 19,
+      "name": "case_history_quote",
+      "description": "Use a testimonial or case study",
+      "example": "LOOK, MOM—NO CAVITIES!",
+      "beginner_example": "'I got my first sale 3 days after using this prompt' - New subscriber"
+    },
+    {
+      "id": 20,
+      "name": "condense_interchange",
+      "description": "Replace complex process with simple solution",
+      "example": "NOW! A RING AND PISTON JOB IN A TUBE!",
+      "beginner_example": "A complete copywriter in a single prompt"
+    },
+    {
+      "id": 21,
+      "name": "symbolize",
+      "description": "Replace direct statement with parallel reality",
+      "example": "STARTING NEXT TUESDAY, THE ATLANTIC OCEAN BECOMES ONLY ONE-FIFTH AS LONG!",
+      "beginner_example": "Product research just got 5x faster"
+    },
+    {
+      "id": 22,
+      "name": "connect_mechanism",
+      "description": "Show HOW it works in the headline",
+      "example": "FLOATS FAT RIGHT OUT OF YOUR BODY!",
+      "beginner_example": "AI analyzes 1000 products to find your winner"
+    }
+  ],
+  "awareness_stages": {
+    "most_aware": {
+      "description": "Knows product, knows what it does, knows they want it",
+      "headline_strategy": "Just name it and state the deal",
+      "example": "DIAL SOAP - 90 CENTS A CAKE"
+    },
+    "product_aware": {
+      "description": "Knows product but not convinced it's right for them",
+      "headline_strategy": "Prove your product is the best with differentiation",
+      "example": "Focus on testimonials, proof, results"
+    },
+    "solution_aware": {
+      "description": "Knows solutions exist, doesn't know your product",
+      "headline_strategy": "Start with the solution, lead to your product",
+      "example": "WHO ELSE WANTS A WHITER WASH - WITH NO HARD WORK?"
+    },
+    "problem_aware": {
+      "description": "Has the problem, doesn't know solutions exist",
+      "headline_strategy": "Start with the problem",
+      "example": "CORNS? or DO YOU MAKE THESE MISTAKES IN ENGLISH?"
+    },
+    "completely_unaware": {
+      "description": "Doesn't know they have the problem",
+      "headline_strategy": "Cannot mention problem, solution, OR product - use identification",
+      "example": "WHY MEN CRACK... or THEY LAUGHED WHEN I SAT DOWN..."
+    }
+  },
+  "market_sophistication_stages": {
+    "stage_1": {
+      "name": "Virgin Market",
+      "description": "You are first. No previous information exists.",
+      "strategy": "Be simple. Be direct. Just state the claim.",
+      "example": "NOW! LOSE UGLY FAT!"
+    },
+    "stage_2": {
+      "name": "Second Mover",
+      "description": "Direct claim is already being used and still working.",
+      "strategy": "Copy the successful claim but ENLARGE it—drive it to absolute limits.",
+      "example": "LOSE UP TO 47 POUNDS IN 4 WEEKS—OR RECEIVE $40 BACK!"
+    },
+    "stage_3": {
+      "name": "Mechanism Stage",
+      "description": "Prospects have heard ALL the claims. Mere repetition won't work.",
+      "strategy": "Shift from WHAT to HOW—introduce a NEW MECHANISM.",
+      "example": "FLOATS FAT RIGHT OUT OF YOUR BODY!"
+    },
+    "stage_4": {
+      "name": "Mechanism Elaboration",
+      "description": "A competitor has introduced a new mechanism producing sales.",
+      "strategy": "Elaborate or enlarge upon the successful mechanism.",
+      "example": "FIRST NO-DIET REDUCING WONDER DRUG!"
+    },
+    "stage_5": {
+      "name": "Market Exhaustion",
+      "description": "Market no longer believes in advertising. Glutted by ads.",
+      "strategy": "Shift from promise and mechanism to IDENTIFICATION with the prospect.",
+      "example": "WHY MEN CRACK..."
+    }
+  },
+  "dtcnews_market_analysis": {
+    "awareness_stage": "Problem Aware to Solution Aware",
+    "reasoning": "Readers know they want to make money online, have started looking at Shopify, but are overwhelmed. They don't know our specific products yet.",
+    "sophistication_stage": "Stage 1-2",
+    "reasoning_soph": "AI + Beginner Ecom is relatively new territory. Direct claims still work, mechanism not required yet.",
+    "implications": [
+      "Can use direct benefit claims",
+      "Don't need elaborate mechanism explanations yet",
+      "Start with their problem, lead to our solution",
+      "Never assume they know our products"
+    ]
+  },
+  "three_dimensions": {
+    "desires": {
+      "description": "Physical, material, sensual wants - sharpen, intensify, give them a goal",
+      "dtcnews_desires": ["income", "freedom", "validation", "escape 9-5", "be own boss", "work from anywhere"]
+    },
+    "identifications": {
+      "description": "The roles your prospect wants to play, personality traits they want to project",
+      "dtcnews_identifications": ["successful entrepreneur", "smart investor", "ahead of the curve", "tech-savvy", "financially independent"]
+    },
+    "beliefs": {
+      "description": "Existing prejudices, knowledge fragments - work WITHIN them, don't fight",
+      "dtcnews_beliefs": ["AI is the future", "dropshipping works", "passive income is possible", "hard work pays off", "there must be a faster way"]
+    }
+  }
+}

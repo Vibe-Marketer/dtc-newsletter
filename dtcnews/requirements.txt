@@ -1,0 +1,15 @@
+# DTCNews Newsletter System Dependencies
+
+# API clients
+openai>=1.0.0          # For Claude via OpenRouter
+praw>=7.7.0            # Reddit API
+requests>=2.31.0       # HTTP requests
+
+# Environment
+python-dotenv>=1.0.0   # Load .env files
+
+# Optional: YouTube
+google-api-python-client>=2.0.0  # YouTube Data API
+
+# Optional: Apify (TikTok/Twitter)
+apify-client>=1.0.0

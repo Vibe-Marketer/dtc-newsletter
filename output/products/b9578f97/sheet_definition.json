@@ -1,0 +1,56 @@
+{
+  "title": "Supplier Communication Mess Tracker",
+  "worksheets": [
+    {
+      "name": "Dashboard",
+      "headers": [
+        "Item",
+        "Value",
+        "Target",
+        "Status"
+      ],
+      "formulas": {
+        "D2": "=IF(B2>=C2, \"On Track\", \"Behind\")",
+        "D3": "=IF(B3>=C3, \"On Track\", \"Behind\")"
+      },
+      "sample_data": [
+        [
+          "Metric 1",
+          75,
+          100
+        ],
+        [
+          "Metric 2",
+          150,
+          100
+        ]
+      ],
+      "notes": "Dashboard for tracking Supplier communication is a mess - always miscommunication"
+    },
+    {
+      "name": "Data Entry",
+      "headers": [
+        "Date",
+        "Category",
+        "Amount",
+        "Notes"
+      ],
+      "formulas": {},
+      "sample_data": [
+        [
+          "2024-01-01",
+          "Type A",
+          100,
+          "Sample entry"
+        ],
+        [
+          "2024-01-02",
+          "Type B",
+          200,
+          "Another entry"
+        ]
+      ],
+      "notes": "Enter your raw data here"
+    }
+  ]
+}

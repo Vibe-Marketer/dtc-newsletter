@@ -1,0 +1,43 @@
+{
+  "id": "4bc5e3ae",
+  "name": "Inventory Forecasting Pure Automator",
+  "type": "automation",
+  "version": "1.0.0",
+  "created_at": "2026-02-02T19:30:07.479076+00:00",
+  "problem": "Inventory forecasting is pure guesswork - always over or understocked",
+  "audience": "E-commerce entrepreneurs",
+  "benefits": [
+    "Solves a real problem validated by Reddit engagement",
+    "Ready to use immediately",
+    "Professional quality deliverables"
+  ],
+  "deliverables": [
+    {
+      "filename": "inventory_forecasting_pure_automator.py",
+      "size_bytes": 14522,
+      "type": "python"
+    },
+    {
+      "filename": "requirements.txt",
+      "size_bytes": 36,
+      "type": "text"
+    },
+    {
+      "filename": "README.md",
+      "size_bytes": 1605,
+      "type": "markdown"
+    }
+  ],
+  "pricing": {
+    "price_cents": 4700,
+    "price_display": "$47",
+    "perceived_value": "$1455+ worth of automation work",
+    "justification": "This represents $1455+ worth of automation work. Similar tools charge $194+/month. This is a one-time investment."
+  },
+  "sales_copy": {
+    "headline": "Stop Guessing Your Inventory. Start Knowing.",
+    "subheadline": "Automated forecasting that prevents stockouts and overstock disasters.",
+    "cta": "Get Your Inventory Forecasting Automator Now"
+  },
+  "extras": {}
+}

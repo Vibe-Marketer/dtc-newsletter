@@ -1,0 +1,67 @@
+{
+  "runs": [
+    {
+      "timestamp": "2026-02-02T14:22:49.176258",
+      "run_id": "20260202-141954",
+      "workflow": "newsletter_pipeline",
+      "costs": {
+        "content_aggregation": 0.0,
+        "newsletter_generation": 0.045
+      },
+      "total": 0.045
+    },
+    {
+      "timestamp": "2026-02-02T14:25:49.709416",
+      "run_id": "20260202-142249",
+      "workflow": "newsletter_pipeline",
+      "costs": {
+        "content_aggregation": 0.0,
+        "newsletter_generation": 0.045
+      },
+      "total": 0.045
+    },
+    {
+      "timestamp": "2026-02-02T14:28:33.876205",
+      "run_id": "20260202-142549",
+      "workflow": "newsletter_pipeline",
+      "costs": {
+        "content_aggregation": 0.0,
+        "newsletter_generation": 0.045
+      },
+      "total": 0.045
+    },
+    {
+      "timestamp": "2026-02-02T14:33:12.445167",
+      "run_id": "20260202-143030",
+      "workflow": "newsletter_pipeline",
+      "costs": {
+        "content_aggregation": 0.0,
+        "newsletter_generation": 0.045
+      },
+      "total": 0.045
+    },
+    {
+      "timestamp": "2026-02-02T14:36:04.337583",
+      "run_id": "20260202-143319",
+      "workflow": "newsletter_pipeline",
+      "costs": {
+        "content_aggregation": 0.0,
+        "newsletter_generation": 0.045
+      },
+      "total": 0.045
+    },
+    {
+      "timestamp": "2026-02-02T14:44:12.209261",
+      "run_id": "20260202-144138",
+      "workflow": "newsletter_pipeline",
+      "costs": {
+        "content_aggregation": 0.0,
+        "newsletter_generation": 0.045
+      },
+      "total": 0.045
+    }
+  ],
+  "cumulative": {
+    "anthropic": 0.26999999999999996
+  }
+}

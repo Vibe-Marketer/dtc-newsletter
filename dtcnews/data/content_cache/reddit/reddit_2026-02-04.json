@@ -1,0 +1,463 @@
+{
+  "metadata": {
+    "source": "reddit",
+    "fetched_at": "2026-02-04T18:18:33.007740+00:00",
+    "post_count": 41,
+    "subreddits": [
+      ""
+    ]
+  },
+  "posts": [
+    {
+      "title": "The $50K/month TikTok Shop dropshipping strategy that actually works",
+      "summary": "Seller shares micro-niche targeting approach combining TikTok Shop with email list building. Focus on 3-5 SKU strategy instead of broad catalog. Key tactic: using user-generated content from customers as primary marketing asset.",
+      "results": "$50K/month revenue, 18% ROAS, 3.2% conversion rate",
+      "source": "reddit",
+      "source_detail": "r/ecommerce",
+      "engagement": "2,847 upvotes",
+      "url": null,
+      "outlier_score": 5.0,
+      "search_query": "viral ecommerce tips reddit this week"
+    },
+    {
+      "title": "$10M in 90 Days On Shopify… Again (2026 Strategy)",
+      "summary": "Achieved massive Q4 scaling by identifying and implementing a unique mechanism not previously used by the client. Focused on high single-day peaks without extreme outliers like prior 700K days. Drove 261% overall sales increase through targeted strategy tweaks.",
+      "results": "$10.1 million revenue in 90 days; $342,000 biggest day (7x previous Black Friday); 261% sales increase",
+      "source": "youtube",
+      "source_detail": "VgwfveSm0xE",
+      "engagement": "null",
+      "url": "https://www.youtube.com/watch?v=VgwfveSm0xE",
+      "outlier_score": 5.0,
+      "search_query": "shopify store case study revenue"
+    },
+    {
+      "title": "2026 DTC Brand Comparison: The Resilience Playbook",
+      "summary": "Warby Parker expanded omnichannel strategy by opening 300+ own-retail stores and launching shop-in-shops within Target. Pure-play DTC is no longer sufficient for scale; omnichannel partnerships create accretive revenue streams that pure digital channels cannot match.",
+      "results": "Warby Parker: 300+ retail locations plus Target partnerships creating diversified revenue",
+      "source": "blog",
+      "source_detail": "Yotpo - yotpo.com",
+      "engagement": null,
+      "url": null,
+      "outlier_score": 5.0,
+      "search_query": "DTC brand marketing strategy working"
+    },
+    {
+      "title": "How to Improve ROAS on Meta Ads 2026",
+      "summary": "Creative diversity and testing accounts for 50%+ of performance on Meta Ads. Focus on three core areas: creative diversity testing, audience strategy with Advantage+ optimization, and proper tracking infrastructure with Conversion API. UGC-style videos for product demos and problem-solution ads deliver highest ROAS for D2C brands.",
+      "results": "Advertisers achieving 4x+ ROAS on Meta in 2026; brands using LTV-sourced lookalikes see 42% stronger ROAS vs. interest targeting; full-funnel tracking sees up to 35% higher ROAS",
+      "source": "blog",
+      "source_detail": "Distk Blog",
+      "engagement": null,
+      "url": null,
+      "outlier_score": 5.0,
+      "search_query": "meta ads ecommerce ROAS strategy"
+    },
+    {
+      "title": "Email sequences that generated $180K in AOV growth",
+      "summary": "Post-purchase and cart abandonment email strategies with specific copy frameworks. Focus on personalization based on customer segment and product category. Timing optimization for different customer cohorts.",
+      "results": "$180K incremental AOV, 34% cart recovery rate, 28% email revenue contribution",
+      "source": "reddit",
+      "source_detail": "r/ecommerce",
+      "engagement": "2,134 upvotes",
+      "url": null,
+      "outlier_score": 4.5,
+      "search_query": "viral ecommerce tips reddit this week"
+    },
+    {
+      "title": "We made $250K last month",
+      "summary": "Jacky Chou and Albert Liu launched a home decor dropshipping site on Shopify while holding full-time jobs. They used a web scraper bot to discover a new sub-niche, targeted a fresh audience, and added an upsell app to double average order value from $20 to $45. This part-time approach proves success without full dedication.",
+      "results": "$250K monthly revenue; $18,400 in May revenue; AOV from $20 to $45",
+      "source": "blog",
+      "source_detail": "ali2woo.com",
+      "engagement": "null",
+      "url": "https://ali2woo.com/blog/dropshipping-success-stories/",
+      "outlier_score": 4.5,
+      "search_query": "dropshipping success story 2024 2025"
+    },
+    {
+      "title": "Leveraging Viral Marketing for Dropshipping Success",
+      "summary": "The entrepreneur identifies products from viral Facebook ads with high engagement and promotes them via TikTok and influencer partnerships to minimize ad costs. They sell inexpensive products as branded items without bulk ordering or white-labeling. Key tactic: capitalize on proven social media trends for cost-efficient scaling.",
+      "results": "$15K monthly revenue; $10K monthly profit per store",
+      "source": "blog",
+      "source_detail": "ali2woo.com",
+      "engagement": "null",
+      "url": "https://ali2woo.com/blog/dropshipping-success-stories/",
+      "outlier_score": 4.5,
+      "search_query": "dropshipping success story 2024 2025"
+    },
+    {
+      "title": "Harry Coleman Success Story",
+      "summary": "Harry Coleman started with general stores but niched down to sportswear, sourcing from AliExpress and scaling with Facebook ads. He hired a team to handle operations and built a personal brand via YouTube. Breakthrough came in two months by focusing on niche and ads.",
+      "results": "$1 million revenue in two months",
+      "source": "blog",
+      "source_detail": "highticket.io",
+      "engagement": "null",
+      "url": "https://www.highticket.io/article/dropshopping-success-stories",
+      "outlier_score": 4.5,
+      "search_query": "dropshipping success story 2024 2025"
+    },
+    {
+      "title": "Shopify Dropshipping Success in 2026: How a 19-Year-Old Makes $20K Monthly (Real Case Study Blueprint)",
+      "summary": "19-year-old Alex scaled Shopify dropshipping to high-ticket home fitness and pet products using TikTok organic + ads and Meta retargeting. Pivoted from failed stores by testing viral products and focusing on high-margin niches. Built 2 branded stores after initial losses.",
+      "results": "$40,000–$70,000+ monthly revenue; $15,000–$25,000+ net profit; $20K+ monthly profit on main store",
+      "source": "blog",
+      "source_detail": "hyipco.com",
+      "engagement": "null",
+      "url": "https://hyipco.com/blog/2026/01/10/shopify-dropshipping-success-in-2026-how-a-19-year-old-entrepreneur-makes-20k-monthly-real-case-study-blueprint/",
+      "outlier_score": 4.5,
+      "search_query": "shopify store case study revenue"
+    },
+    {
+      "title": "10 Latest Digital Marketing Case Studies [Deep Analysis] [2026]",
+      "summary": "Gap repositioned denim through creative storytelling rooted in platform culture, generating notable denim unit sales increases and higher average order values. Nike's DTC sales grew through personalized mobile push notifications and app experiences with tailored individual shopper preferences. Dove's micro-influencer partnerships (5K-100K followers) with diverse creators increased social engagement 38% and positive sentiment 24%.",
+      "results": "Gap: notable denim sales uplift and higher AOV; Dove: 38% social engagement increase, 24% positive sentiment rise; Nike: higher conversion rates and repeat purchase behavior",
+      "source": "blog",
+      "source_detail": "Digital Defynd - digitaldefynd.com",
+      "engagement": null,
+      "url": null,
+      "outlier_score": 4.5,
+      "search_query": "DTC brand marketing strategy working"
+    },
+    {
+      "title": "How to Scale E-Commerce Brands Profitably with Meta Ads in 2026",
+      "summary": "Foundation requires pixel tracking, domain verification, and conversion-optimized funnels before scaling. Creative quality matters more than budget—focus on UGC, strong hooks, and offer clarity. Use broad targeting with Advantage+ and build lookalike audiences based on customer LTV rather than interests.",
+      "results": "Target 2.5-3.0x ROAS on-platform with 50% margin; brands using LTV-sourced lookalikes see 42% stronger ROAS; successful brands refresh creatives weekly with 3-5 new variations every 10-14 days",
+      "source": "blog",
+      "source_detail": "RckStr Media",
+      "engagement": null,
+      "url": null,
+      "outlier_score": 4.5,
+      "search_query": "meta ads ecommerce ROAS strategy"
+    },
+    {
+      "title": "Meta Ads Strategy 2026: Why 'Creative' is the New Targeting",
+      "summary": "Targeting is effectively dead on Meta—creative now controls who sees your ads. Successful retailers spend 5-12% of revenue on marketing. Realistic ROAS ranges from 3x to 40x depending on niche and execution. Start with broad audiences and let Meta's AI optimize through creative variation.",
+      "results": "Realistic ROAS range: 3x-40x; successful marketing spend: 5-12% of revenue",
+      "source": "youtube",
+      "source_detail": "YouTube Video",
+      "engagement": null,
+      "url": null,
+      "outlier_score": 4.5,
+      "search_query": "meta ads ecommerce ROAS strategy"
+    },
+    {
+      "title": "The Complete Guide to UGC Marketing for E-commerce (2026)",
+      "summary": "Leverage UGC on TikTok for ads to achieve higher trust and engagement; brands reduce cost per acquisition by up to 75% using creator content. Study viral campaigns like Samsung's #danceAwesome challenge by partnering with influencers and making participation easy. Key tactic: Use creator-based TikTok ads for 91% higher two-second view rates.",
+      "results": "Reduced CPA by 75%; 26% higher ROAS; 91% higher view rates; Peter Thomas Roth sold 6 months inventory in 1 week; #TikTokMadeMeBuyIt: 77.8B views; Samsung: 5M user videos, 21B views, 15% purchase intent increase",
+      "source": "blog",
+      "source_detail": "reelbase.io",
+      "engagement": "null",
+      "url": "https://reelbase.io/blog/complete-guide-ugc-marketing-ecommerce",
+      "outlier_score": 4.5,
+      "search_query": "ugc ads ecommerce tiktok"
+    },
+    {
+      "title": "Reddit ads for ecommerce: targeting strategy that beat my Meta spend",
+      "summary": "Case study comparing Reddit advertising to Meta. Reddit niche communities provide higher intent audiences. Specific subreddit targeting strategy and bid optimization tactics shared with real budget allocation.",
+      "results": "$2.14 CPC, 6.8% CTR, 4.2% conversion rate, $8.50 ROAS",
+      "source": "reddit",
+      "source_detail": "r/digital_marketing",
+      "engagement": "1,547 upvotes",
+      "url": null,
+      "outlier_score": 4.0,
+      "search_query": "viral ecommerce tips reddit this week"
+    },
+    {
+      "title": "I Found the BEST Strategy to Scale Facebook Ads in 2026",
+      "summary": "After Meta's Andromeda and GEM updates, new scaling methods achieve 4x ROAS while maintaining campaign stability and profitability. The strategy adapts to Meta's new algorithmic changes and provides exact optimization frameworks.",
+      "results": "4x ROAS achieved with stable, profitable campaigns",
+      "source": "youtube",
+      "source_detail": "Antonio Ventre (Posted Jan 13, 2026)",
+      "engagement": null,
+      "url": null,
+      "outlier_score": 4.0,
+      "search_query": "meta ads ecommerce ROAS strategy"
+    },
+    {
+      "title": "Kamil Sattar Success Story",
+      "summary": "Kamil Sattar picked a passion-driven fashion niche and mastered organic TikTok marketing for viral exposure without heavy ad spend. Persistence through early losses led to Shopify success. He now mentors others with his brands.",
+      "results": "$1.7M in 2020 sales; over $5M annually",
+      "source": "blog",
+      "source_detail": "printkk.com",
+      "engagement": "null",
+      "url": "https://www.printkk.com/blog/articles/dropshipping-success-stories",
+      "outlier_score": 3.5,
+      "search_query": "dropshipping success story 2024 2025"
+    },
+    {
+      "title": "Aimee Smale – Turning TikTok into a fashion empire",
+      "summary": "Aimee Smale built Odd Muse fashion brand using TikTok videos created with just her phone for buzz and affordable pricing. Focused on smart marketing without inventory. Scaled rapidly from 2021 start.",
+      "results": "£22.5M in sales; £3M in profits",
+      "source": "blog",
+      "source_detail": "alidropship.com",
+      "engagement": "null",
+      "url": "https://alidropship.com/richest-dropshippers/",
+      "outlier_score": 3.5,
+      "search_query": "dropshipping success story 2024 2025"
+    },
+    {
+      "title": "Case study: EVEREVE launched with Shopify across 103 stores",
+      "summary": "EVEREVE implemented Shopify across 103 stores and 275 POS stations in eight months, boosting online conversion. 65% of revenue now comes through Shop Pay, which increases average order value. Key tactic: Leverage Shop Pay for higher AOV and seamless omnichannel operations.",
+      "results": "20% year-over-year increase in online conversion; 65% revenue through Shop Pay; 85% higher AOV via Shop Pay",
+      "source": "blog",
+      "source_detail": "shopify.com/ph/blog",
+      "engagement": "null",
+      "url": "https://www.shopify.com/ph/blog/how-to-increase-sales-in-clothing-business",
+      "outlier_score": 3.5,
+      "search_query": "shopify store case study revenue"
+    },
+    {
+      "title": "Case study: &Collar used hybrid B2B on Shopify",
+      "summary": "Apparel brand &Collar unified retail and wholesale with B2B on Shopify for self-serve ordering and custom pricing. This kept inventory centralized while providing seamless experiences for boutiques and shoppers. Resulted in massive sales growth through hybrid DTC-wholesale approach.",
+      "results": "3,144% year-over-year sales growth; 418% jump in wholesale revenue",
+      "source": "blog",
+      "source_detail": "shopify.com/ph/blog",
+      "engagement": "null",
+      "url": "https://www.shopify.com/ph/blog/how-to-increase-sales-in-clothing-business",
+      "outlier_score": 3.5,
+      "search_query": "shopify store case study revenue"
+    },
+    {
+      "title": "How to Scale Your Shopify Brand to 7 Figures in 2026 With Detroit Revenue",
+      "summary": "Detroit Revenue scaled Shopify stores by fixing basics like installing pixels for better ad performance. Started with free work on failing stores, hit success via breakthrough campaigns. Emphasizes perceived brand value and technical optimizations for growth.",
+      "results": "Multiple five figures additional revenue; scaled to 7 figures",
+      "source": "youtube",
+      "source_detail": "rltc2uVbv8o",
+      "engagement": "null",
+      "url": "https://www.youtube.com/watch?v=rltc2uVbv8o",
+      "outlier_score": 3.5,
+      "search_query": "shopify store case study revenue"
+    },
+    {
+      "title": "DTC Ecommerce Trends: What Brands Are Adopting in 2026",
+      "summary": "Adidas partnered with Spotify using Dynamic QR codes on products linking to location-based custom playlists. LOLA expanded feminine hygiene DTC through omnichannel partnerships with retailers like Walmart. Burrow demonstrates product diversification strategy expanding from modular couches to complementary home items.",
+      "results": "Product diversification eliminates downturn risk and creates competitive barriers",
+      "source": "blog",
+      "source_detail": "Web and Crafts - webandcrafts.com",
+      "engagement": null,
+      "url": null,
+      "outlier_score": 3.5,
+      "search_query": "DTC brand marketing strategy working"
+    },
+    {
+      "title": "Direct to Consumer: How the DTC Business Model Works in 2026",
+      "summary": "Global DTC sales projected to reach $639.15 billion by 2035 (CAGR 7.8%). Social commerce with embedded buy buttons expected to account for $114.7 billion in U.S. by end of 2026, led by TikTok. Micro-influencer marketing shows higher conversion rates than celebrities. Hyper-personalization using AI predicts customer repurchase timing based on usage patterns.",
+      "results": "Global DTC CAGR: 7.8% through 2035; U.S. social commerce: $114.7B by end 2026; Micro-influencers: higher conversion rates; 5% retention improvement raises total profits 25%+",
+      "source": "blog",
+      "source_detail": "SPX Commerce - spxcommerce.com",
+      "engagement": null,
+      "url": null,
+      "outlier_score": 3.5,
+      "search_query": "DTC brand marketing strategy working"
+    },
+    {
+      "title": "How To Make Your First Sale (2026)",
+      "summary": "Drive free traffic by sharing your store in personal networks, relevant online communities like Reddit and Facebook groups, and optimizing for Google searches. Offer discount codes, product bundles, flash sales, or giveaways to incentivize first-time buyers and build authentic connections. Optimize product pages with clear descriptions, quality images, and engage via social media and word-of-mouth.",
+      "results": "First 3-4 sales from friends and colleagues; sales from new customers within a month.",
+      "source": "blog",
+      "source_detail": "shopify.com",
+      "engagement": "null",
+      "url": "https://www.shopify.com/blog/make-your-first-sale",
+      "outlier_score": 3.5,
+      "search_query": "first sale shopify how to"
+    },
+    {
+      "title": "TikTok Shop Case Study: How Your Ecommerce Store Can Grow In ...",
+      "summary": "Generate UGC pipeline by sending automated creator invitations via Cruva to secure 50–100 new videos weekly, host on TikTok Shop to identify organic winners, then amplify with GMV Max ads. Edit creator UGC to be ad-ready with optimized hooks and captions. Pair top-performing Creator UGC with GMV Max for AI-scaled winners while protecting Target ROI.",
+      "results": "Playboy generated 110 videos in one month; 876 creator sample requests; closed-loop attribution for Total ROAS",
+      "source": "blog",
+      "source_detail": "topgrowthmarketing.com",
+      "engagement": "null",
+      "url": "https://topgrowthmarketing.com/tiktok-shop-case-study/",
+      "outlier_score": 3.5,
+      "search_query": "ugc ads ecommerce tiktok"
+    },
+    {
+      "title": "Margarita Schneider – From student to full-time boss",
+      "summary": "Margarita Schneider automated dropshipping with tools like Zandrop and focused on fun, viral TikTok videos as a side hustle. Partnered to scale from small start. Emphasized content that stops scrolls.",
+      "results": "£20K/month initially; nearly £800K/month scaled",
+      "source": "blog",
+      "source_detail": "alidropship.com",
+      "engagement": "null",
+      "url": "https://alidropship.com/richest-dropshippers/",
+      "outlier_score": 3.0,
+      "search_query": "dropshipping success story 2024 2025"
+    },
+    {
+      "title": "10 Email Marketing Campaign Examples DTC Founders Actually ...",
+      "summary": "For abandoned cart recovery, use dynamic content with exact cart images/prices, create urgency with phrases like 'Your cart is expiring', and include prominent CTA buttons. Post-purchase flows include 3 emails: order summary, shipping confirmation with tracking, and review request after delivery. Flash sale campaigns with urgency boost click-to-open rates by up to 30%.",
+      "results": "up to 30% increase in click-to-open rates",
+      "source": "blog",
+      "source_detail": "AskNeedle",
+      "engagement": "null",
+      "url": "https://www.askneedle.com/blog/email-marketing-campaign-examples",
+      "outlier_score": 3.0,
+      "search_query": "ecommerce email marketing results"
+    },
+    {
+      "title": "Meta Ads in 2026: New Algorithm, Creative Strategy & Guide",
+      "summary": "Meta's Andromeda algorithm is 100x faster at matching people to ads and handles 10,000x more ad variants in parallel. Winning brands feed the system true creative variation—radically different angles, tones, and archetypes—not just volume. Vertical-first design (9×16) is essential as 90% of Meta inventory will be vertical in 2026.",
+      "results": "Andromeda algorithm: 100x faster matching; 10,000x more variants handled in parallel; 90% of Meta inventory vertical format",
+      "source": "blog",
+      "source_detail": "Anchour",
+      "engagement": null,
+      "url": null,
+      "outlier_score": 3.0,
+      "search_query": "meta ads ecommerce ROAS strategy"
+    },
+    {
+      "title": "How to Get Your First 1000 Visitors to Your Shopify Store - Branvas",
+      "summary": "Follow a 14-day action plan posting 3-5 videos per day on TikTok, repurposing top performers to Instagram Reels and Pinterest to drive profile clicks and traffic without ads. Use curiosity hooks, high-quality product photos/videos, user-generated content, and trend-based content tied to your brand. Build trust with customer reviews and social proof on product pages.",
+      "results": "First 1000 visitors",
+      "source": "blog",
+      "source_detail": "branvas.com",
+      "engagement": "null",
+      "url": "https://branvas.com/blogs/news/get-first-1000-shopify-visitors",
+      "outlier_score": 3.0,
+      "search_query": "first sale shopify how to"
+    },
+    {
+      "title": "TikTok Marketing Strategy For 2026: The Complete Guide To ...",
+      "summary": "Amplify UGC by creating branded hashtag challenges, offering incentives for tagged posts, featuring customer content, and engaging creators. Prioritize UGC-style ads with storytelling, minimal branding, and speech hooks. Tactic: 55.7% of successful strategies focus on UGC for unmatched authenticity.",
+      "results": "55.7% of successful TikTok strategies prioritize UGC",
+      "source": "blog",
+      "source_detail": "marketingagent.blog",
+      "engagement": "null",
+      "url": "https://marketingagent.blog/2025/11/03/tiktok-marketing-strategy-for-2026-the-complete-guide-to-dominating-the-worlds-fastest-growing-platform/",
+      "outlier_score": 3.0,
+      "search_query": "ugc ads ecommerce tiktok"
+    },
+    {
+      "title": "15 Best Ecommerce Case Studies to Learn From (2026)",
+      "summary": "Envelopes.com implemented abandoned cart emails with persuasive messaging, personalized recommendations, and incentives like discounts or free shipping. They used data-driven personalized product recommendations, cross-selling/upselling to boost AOV, and continuous A/B testing of email templates, subject lines, timing, and incentives. These actionable tactics recovered lost sales and fostered customer loyalty.",
+      "results": "40% increase in conversions",
+      "source": "blog",
+      "source_detail": "Tidio",
+      "engagement": "null",
+      "url": "https://www.tidio.com/blog/ecommerce-case-studies/",
+      "outlier_score": 2.5,
+      "search_query": "ecommerce email marketing results"
+    },
+    {
+      "title": "How To Make Your First Sale Quickly in 2026 (FOR BEGINNERS)",
+      "summary": "Develop clear product strategy with benefit-driven positioning on Shopify store to build trust via layout and descriptions. Create organic content showing product in use on TikTok, Instagram, Pinterest for visibility. Run small-scale low-budget paid ads on Facebook, Instagram, TikTok to attract first customers.",
+      "results": "null",
+      "source": "youtube",
+      "source_detail": "unknown channel",
+      "engagement": "null",
+      "url": "https://www.youtube.com/watch?v=5iAhD38d0Ko",
+      "outlier_score": 2.5,
+      "search_query": "first sale shopify how to"
+    },
+    {
+      "title": "Why your Shopify store is failing: Free audit results from 50 stores",
+      "summary": "Community audit revealing common conversion killers: poor mobile optimization, unclear value prop above fold, checkout friction. Data-driven fixes including reducing form fields and A/B testing hero images.",
+      "results": "Average 12-25% conversion rate improvement after fixes, 400+ participants",
+      "source": "reddit",
+      "source_detail": "r/shopify",
+      "engagement": "3,156 upvotes",
+      "url": null,
+      "outlier_score": 2.0,
+      "search_query": "viral ecommerce tips reddit this week"
+    },
+    {
+      "title": "I tested 47 product pages - here's what converts",
+      "summary": "Detailed breakdown of high-performing product page elements: hero image quality, social proof placement, FAQ section optimization, and payment method visibility. Split-test results across multiple stores.",
+      "results": "Top performers averaged 8.3% add-to-cart rate vs 2.1% baseline",
+      "source": "reddit",
+      "source_detail": "r/ecommerce",
+      "engagement": "1,923 upvotes",
+      "url": null,
+      "outlier_score": 2.0,
+      "search_query": "viral ecommerce tips reddit this week"
+    },
+    {
+      "title": "Top 10 WINNING Dropshipping Products For January 2025",
+      "summary": "Video reveals top winning products for dropshipping with beginner tutorials on implementation. Ties into 2024-2025 trends for quick wins. Actionable for store setup and product selection.",
+      "results": "null",
+      "source": "youtube",
+      "source_detail": "unknown channel",
+      "engagement": "null",
+      "url": "https://www.youtube.com/watch?v=F1U9D0Lc_-c",
+      "outlier_score": 2.0,
+      "search_query": "dropshipping success story 2024 2025"
+    },
+    {
+      "title": "12 DTC Marketing Strategies That Actually Work in 2026",
+      "summary": "Influencer and creator marketing partnerships drive authentic social proof and niche audience reach. User-generated content and community building transform customers into marketing channels through branded hashtags, incentivized submissions, and dedicated community spaces like Facebook Groups or Discord servers.",
+      "results": "Cost-effective strategy that builds hard-to-copy brand loyalty and sense of belonging",
+      "source": "blog",
+      "source_detail": "Needle - askneedle.com",
+      "engagement": null,
+      "url": null,
+      "outlier_score": 2.0,
+      "search_query": "DTC brand marketing strategy working"
+    },
+    {
+      "title": "Market Research Examples: How Winning DTC Brands Drive Performance",
+      "summary": "Beauty brand used TikTok comment sentiment analysis to refine CTAs, raising click-through rate by 18%. Fitness apparel company A/B tested four landing pages with post-purchase surveys to isolate top-converting narrative by audience. Home goods DTC brand mapped pre-click UTM paths to reveal friction points impacting ROAS.",
+      "results": "Beauty brand: 18% CTR increase from sentiment-driven CTA optimization",
+      "source": "blog",
+      "source_detail": "AdMetrics - admetrics.io",
+      "engagement": null,
+      "url": null,
+      "outlier_score": 2.0,
+      "search_query": "DTC brand marketing strategy working"
+    },
+    {
+      "title": "30 Best Email Marketing Examples In eCommerce (2026)",
+      "summary": "Alo Yoga uses account confirmation emails teasing unlockable discounts and following up to drive first purchases. For live-stream emails, send a 3-email flow: announce details, follow up with social proof, and post-live summary with takeaways. Nine West's mystery emails combine personalization and gamification with secret offers to drive intrigue and sales; Vaporfi categorizes upsell/cross-sell products by price.",
+      "results": "null",
+      "source": "blog",
+      "source_detail": "ConvertCart",
+      "engagement": "null",
+      "url": "https://www.convertcart.com/blog/best-email-marketing-examples-ecommerce",
+      "outlier_score": 2.0,
+      "search_query": "ecommerce email marketing results"
+    },
+    {
+      "title": "Best Email Marketing Campaigns: 15 Proven Examples for 2026",
+      "summary": "Abandoned cart recovery uses a 3-email sequence: first reminder within 1 hour, second after 24 hours with social proof, third after 72 hours with incentives like free shipping or discounts. Test incentives based on audience; use AI personalization and behavioral triggers for optimal timing.",
+      "results": "null",
+      "source": "blog",
+      "source_detail": "monday.com",
+      "engagement": "null",
+      "url": "https://monday.com/blog/monday-campaigns/best-email-marketing-campaigns/",
+      "outlier_score": 2.0,
+      "search_query": "ecommerce email marketing results"
+    },
+    {
+      "title": "The Only E-commerce Email Marketing How To Guide You Need in ...",
+      "summary": "Comprehensive guide covering e-commerce email marketing strategies to unlock massive ROI, focusing on actionable tactics for email flows and optimization.",
+      "results": "null",
+      "source": "youtube",
+      "source_detail": "YouTube",
+      "engagement": "null",
+      "url": "https://www.youtube.com/watch?v=7Bz82Y1Lc6Q",
+      "outlier_score": 2.0,
+      "search_query": "ecommerce email marketing results"
+    },
+    {
+      "title": "Build a Winning Shopify Dropshipping Store in 16 Minutes (2026)",
+      "summary": "Build a complete Shopify dropshipping store quickly with proven strategies for beginners to start getting sales.",
+      "results": "null",
+      "source": "youtube",
+      "source_detail": "Traffic Ninjas",
+      "engagement": "6.7K views on related video",
+      "url": "https://www.youtube.com/watch?v=1CRuRarcVco",
+      "outlier_score": 2.0,
+      "search_query": "first sale shopify how to"
+    },
+    {
+      "title": "Playbook 2026 - TikTok For Business (CASE STUDY 01: Who is Elijah)",
+      "summary": "Partner with e-commerce agency for full-funnel TikTok campaign using Spark Ads to boost viral UGC and trend-driven videos, combined with Catalog Ads for add-to-carts. Target peak seasons like Black Friday for Gen Z and Millennial expansion. Tactic focuses on amplifying authentic UGC for higher conversions.",
+      "results": "null",
+      "source": "pdf",
+      "source_detail": "ads.tiktok.com/business/library",
+      "engagement": "null",
+      "url": "https://ads.tiktok.com/business/library/AUNZ_TakeItToTikTok_ECommerce_Playbook.pdf",
+      "outlier_score": 2.0,
+      "search_query": "ugc ads ecommerce tiktok"
+    }
+  ]
+}

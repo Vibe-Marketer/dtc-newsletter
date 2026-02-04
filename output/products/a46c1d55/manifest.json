@@ -1,0 +1,55 @@
+{
+  "id": "a46c1d55",
+  "name": "Creative Testing Takes AI Assistant",
+  "type": "gpt_config",
+  "version": "1.0.0",
+  "created_at": "2026-02-02T19:31:26.048568+00:00",
+  "problem": "Ad creative testing takes too long - can't iterate fast enough",
+  "audience": "E-commerce entrepreneurs",
+  "benefits": [
+    "Solves a real problem validated by Reddit engagement",
+    "Ready to use immediately",
+    "Professional quality deliverables"
+  ],
+  "deliverables": [
+    {
+      "filename": "gpt_config.json",
+      "size_bytes": 4387,
+      "type": "json"
+    },
+    {
+      "filename": "INSTRUCTIONS.md",
+      "size_bytes": 4041,
+      "type": "markdown"
+    },
+    {
+      "filename": "SETUP_GUIDE.md",
+      "size_bytes": 3353,
+      "type": "markdown"
+    },
+    {
+      "filename": "conversation_starters.txt",
+      "size_bytes": 216,
+      "type": "text"
+    }
+  ],
+  "pricing": {
+    "price_cents": 2700,
+    "price_display": "$27",
+    "perceived_value": "$376+ worth of AI consulting",
+    "justification": "This represents $376+ worth of AI consulting. Similar tools charge $94+/month. This is a one-time investment."
+  },
+  "sales_copy": {
+    "headline": "Test 10x More Creatives Without The Wait",
+    "subheadline": "AI assistant generates your next winning ad angle in 60 seconds",
+    "cta": "Get Your Creative Testing Assistant Now"
+  },
+  "extras": {
+    "gpt_name": "Creative Testing AI",
+    "capabilities": {
+      "web_browsing": false,
+      "dall_e": false,
+      "code_interpreter": false
+    }
+  }
+}

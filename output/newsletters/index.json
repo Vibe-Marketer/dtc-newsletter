@@ -1,0 +1,74 @@
+{
+  "newsletters": [
+    {
+      "issue": 1,
+      "topic": "test topic",
+      "date": "2026-01-31",
+      "path": "2026-01/001-test-topic.md",
+      "subject_line": "dtc money minute #5: test subject"
+    },
+    {
+      "issue": 2,
+      "topic": "test",
+      "date": "2026-01-31",
+      "path": "2026-01/002-test.md",
+      "subject_line": "dtc money minute #5: test subject"
+    },
+    {
+      "issue": 3,
+      "topic": "2 FREE Tools To Spy On Any Competitor | Traffic, Sales, Ads",
+      "date": "2026-02-02",
+      "path": "2026-02/003-2-free-tools-to-spy-on-any-competitor-traffic-sales-ads.md",
+      "subject_line": "DTC Money Minute #3: the ai tool that shocked me"
+    },
+    {
+      "issue": 4,
+      "topic": "I Automated My Dropshipping Business in 8 Minutes (2026 Strategy)",
+      "date": "2026-02-02",
+      "path": "2026-02/004-i-automated-my-dropshipping-business-in-8-minutes-2026-strategy.md",
+      "subject_line": "DTC Money Minute #4: 8 minutes to full automation"
+    },
+    {
+      "issue": 5,
+      "topic": "How to Auto-Ungate 100 Brands in 15 Minutes (NEW AMAZON UNGATING METHOD)",
+      "date": "2026-02-02",
+      "path": "2026-02/005-how-to-auto-ungate-100-brands-in-15-minutes-new-amazon-ungating-method.md",
+      "subject_line": "DTC Money Minute #5: 8-minute automation setup"
+    },
+    {
+      "issue": 6,
+      "topic": "Get an Inside Look at the Direct-to-Consumer Brand Quince",
+      "date": "2026-02-02",
+      "path": "2026-02/006-get-an-inside-look-at-the-direct-to-consumer-brand-quince.md",
+      "subject_line": "DTC Money Minute #6: 8 minutes to zero effort"
+    },
+    {
+      "issue": 7,
+      "topic": "$250M CEO Explains How to Build A Brand in 2026",
+      "date": "2026-02-02",
+      "path": "2026-02/007-250m-ceo-explains-how-to-build-a-brand-in-2026.md",
+      "subject_line": "DTC Money Minute #7: 8 minutes to full automation"
+    },
+    {
+      "issue": 8,
+      "topic": "Amazon Fba Complete Guide",
+      "date": "2026-02-02",
+      "path": "2026-02/008-amazon-fba-complete-guide.md",
+      "subject_line": "DTC Money Minute #8"
+    },
+    {
+      "issue": 9,
+      "topic": "Ai Dropshipping Results",
+      "date": "2026-02-02",
+      "path": "2026-02/009-ai-dropshipping-results.md",
+      "subject_line": "DTC Money Minute #9"
+    },
+    {
+      "issue": 10,
+      "topic": "Ecom Secrets",
+      "date": "2026-02-02",
+      "path": "2026-02/010-ecom-secrets.md",
+      "subject_line": "DTC Money Minute #10"
+    }
+  ]
+}

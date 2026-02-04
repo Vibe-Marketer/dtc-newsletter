@@ -1,0 +1,110 @@
+{
+  "metadata": {
+    "source": "100M Hooks Playbook by Alex Hormozi",
+    "total_hooks": 121,
+    "version": "2026.02.04"
+  },
+  "hooks_by_type": {
+    "question": [
+      {"text": "Real quick question...", "source": "ads", "rank": 1},
+      {"text": "Would you pay $1,000 to have the business of your dreams in 30 days?", "source": "ads", "rank": 5},
+      {"text": "Which would you rather be?", "source": "ads", "rank": 7},
+      {"text": "Business owners: Do you ever wonder if you're working on the wrong stuff?", "source": "ads", "rank": 13},
+      {"text": "Who else wants a whiter wash—with no hard work?", "source": "schwartz", "rank": null}
+    ],
+    "statement": [
+      {"text": "The rumors are true...", "source": "ads", "rank": 4},
+      {"text": "How to get ahead of 99% of people", "source": "ads", "rank": 16},
+      {"text": "The smartest thing you can do today", "source": "ads", "rank": 17},
+      {"text": "I wrote this for you", "source": "ads", "rank": 18},
+      {"text": "The best offer I've ever made", "source": "ads", "rank": 19},
+      {"text": "How I made my first $100M", "source": "ads", "rank": 20},
+      {"text": "Poor people stay poor because they're afraid of other poor people judging them for trying to get rich", "source": "ig", "rank": 61},
+      {"text": "The most miserable place in business is $1-3 million", "source": "ig", "rank": 65},
+      {"text": "Entrepreneurship f*cking sucks most of the time", "source": "ig", "rank": 83},
+      {"text": "Everyone wants the view from the top, but no one wants the climb", "source": "twitter", "rank": 112},
+      {"text": "Anything worth doing takes a lot longer than you think", "source": "twitter", "rank": 120}
+    ],
+    "label": [
+      {"text": "Local business owners, I have a gift for you", "source": "ads", "rank": 10}
+    ],
+    "command": [
+      {"text": "Read this if you want to win", "source": "ads", "rank": 14},
+      {"text": "Read this if you're tired of being broke", "source": "ads", "rank": 15}
+    ],
+    "conditional": [
+      {"text": "If you're working all the time and your business isn't growing, you're working on the wrong sh*t", "source": "ig", "rank": 71},
+      {"text": "If you have no money, you just start by selling your time", "source": "ig", "rank": 58},
+      {"text": "Only open this if you have a business and want to scale", "source": "email", "rank": 105}
+    ],
+    "story": [
+      {"text": "I'm at her parents' house in an extra bedroom. I'm the guy she met from the internet...", "source": "ig", "rank": 52},
+      {"text": "When I was in a fraternity, I found out that every single pledge class revolts", "source": "ig", "rank": 72},
+      {"text": "When I was 18 years old, I started working for a fur coat dealer...", "source": "ig", "rank": 74},
+      {"text": "My first nine businesses didn't really amount to anything. Nine.", "source": "ig", "rank": 69}
+    ],
+    "paradox": [
+      {"text": "How a bald-headed barber saved my hair", "source": "schwartz", "rank": null},
+      {"text": "You just have to be willing to look like an idiot while you figure it out", "source": "twitter", "rank": 115}
+    ],
+    "list": [
+      {"text": "3 hacks to make life suck less", "source": "ig", "rank": 63},
+      {"text": "In this video I'm going to talk to you about the 28 ways to stay poor", "source": "youtube", "rank": 30}
+    ],
+    "curiosity": [
+      {"text": "Btw... (I have a favor to ask)", "source": "email", "rank": 97},
+      {"text": "SHHHHH It's a SURPRISE!!", "source": "email", "rank": 94},
+      {"text": "We made a boo boo", "source": "email", "rank": 109}
+    ]
+  },
+  "top_20_all_time": [
+    {"rank": 1, "text": "Real quick question… Can I have your email address?", "type": "question", "source": "ads"},
+    {"rank": 2, "text": "You might be wondering why I just caught a banana…", "type": "curiosity", "source": "ads"},
+    {"rank": 3, "text": "That's weird… I don't see your name on the invite list?", "type": "curiosity", "source": "ads"},
+    {"rank": 4, "text": "The rumors are true…", "type": "statement", "source": "ads"},
+    {"rank": 5, "text": "Would you pay $1,000 dollars to have the business of your dreams in 30 days?", "type": "question", "source": "ads"},
+    {"rank": 6, "text": "$4,664 per month in recurring revenue… That's what Kyle… The last person on the leaderboard… Was able to build…", "type": "proof", "source": "ads"},
+    {"rank": 7, "text": "Which would you rather be? The guy pushing the boulder up the hill? Or the one with the boulder at the top who can just flick it and let it roll?", "type": "question", "source": "ads"},
+    {"rank": 8, "text": "Throw out your morning routine and switch to a money routine", "type": "command", "source": "ads"},
+    {"rank": 9, "text": "Real quick. The reason for this ad is because…", "type": "direct", "source": "ads"},
+    {"rank": 10, "text": "Local business owners, I have a gift for you", "type": "label", "source": "ads"},
+    {"rank": 11, "text": "I have a confession… Which is I am sick and tired of seeing people who have never run a business before teaching other people how to grow businesses", "type": "confession", "source": "ads"},
+    {"rank": 12, "text": "This is a penny… And I won't even charge you a penny to help you build a business in the next 30 days…", "type": "visual", "source": "ads"},
+    {"rank": 13, "text": "Business owners: Do you ever wonder if you're working on the wrong stuff?", "type": "question", "source": "ads"},
+    {"rank": 14, "text": "Read this if you want to win", "type": "command", "source": "ads"},
+    {"rank": 15, "text": "Read this if you're tired of being broke", "type": "command", "source": "ads"},
+    {"rank": 16, "text": "How to get ahead of 99% of people", "type": "statement", "source": "ads"},
+    {"rank": 17, "text": "The smartest thing you can do today", "type": "statement", "source": "ads"},
+    {"rank": 18, "text": "I wrote this for you", "type": "personal", "source": "ads"},
+    {"rank": 19, "text": "The best offer I've ever made", "type": "statement", "source": "ads"},
+    {"rank": 20, "text": "How I made my first $100M", "type": "statement", "source": "ads"}
+  ],
+  "beginner_adapted": [
+    {"original": "Local business owners, I have a gift for you", "adapted": "First-time store owners, I made this for you", "type": "label"},
+    {"original": "Read this if you're tired of being broke", "adapted": "Read this if you haven't gotten your first sale yet", "type": "command"},
+    {"original": "Would you pay $1,000 to have the business of your dreams?", "adapted": "Would you pay $10 to get your first 3 sales?", "type": "question"},
+    {"original": "How to get ahead of 99% of people", "adapted": "How to get your first sale before 99% of new store owners", "type": "statement"},
+    {"original": "The smartest thing you can do today", "adapted": "The smartest thing a new store owner can do today", "type": "statement"},
+    {"original": "If you're working all the time and your business isn't growing", "adapted": "If you've built a store but nobody's buying...", "type": "conditional"},
+    {"original": "I have a confession...", "adapted": "I struggled for months before my first sale. Here's what changed...", "type": "story"},
+    {"original": "3 hacks to make life suck less", "adapted": "3 things I wish I knew before my first sale", "type": "list"}
+  ],
+  "subject_line_formulas": {
+    "curiosity": [
+      "the [specific thing] that [unexpected result]",
+      "why [common advice] is wrong",
+      "the [adjective] way to [result] (nobody talks about this)",
+      "I was wrong about [topic]"
+    ],
+    "direct_benefit": [
+      "[Number]x [metric] from [simple change]",
+      "The [specific number] [thing] that [result]",
+      "[Timeframe] to your first [milestone]"
+    ],
+    "question": [
+      "what's actually stopping your [desired result]?",
+      "still [common struggle]?",
+      "would you [small investment] to [big result]?"
+    ]
+  }
+}

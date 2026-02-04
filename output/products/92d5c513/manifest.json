@@ -1,0 +1,38 @@
+{
+  "id": "92d5c513",
+  "name": "Calculate True Profit Calculator",
+  "type": "html_tool",
+  "version": "1.0.0",
+  "created_at": "2026-02-02T19:26:06.928299+00:00",
+  "problem": "Can't calculate my true profit margins with all the hidden fees",
+  "audience": "E-commerce entrepreneurs",
+  "benefits": [
+    "Solves a real problem validated by Reddit engagement",
+    "Ready to use immediately",
+    "Professional quality deliverables"
+  ],
+  "deliverables": [
+    {
+      "filename": "calculate-true-profit-calculator.html",
+      "size_bytes": 22084,
+      "type": "html"
+    },
+    {
+      "filename": "README.md",
+      "size_bytes": 1039,
+      "type": "markdown"
+    }
+  ],
+  "pricing": {
+    "price_cents": 2700,
+    "price_display": "$27",
+    "perceived_value": "$470+ worth of development time",
+    "justification": "This represents $470+ worth of development time. Similar tools charge $94+/month. This is a one-time investment."
+  },
+  "sales_copy": {
+    "headline": "Finally Know Your Real DTC Profit Margins",
+    "subheadline": "Stop guessing. Start knowing exactly what you actually make per sale.",
+    "cta": "Get True Profit Calculator Now"
+  },
+  "extras": {}
+}
